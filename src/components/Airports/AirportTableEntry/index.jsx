@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import ButtonDelete from "../AirportButtonDelete";
+import AirportButtonDelete from "../AirportButtonDelete";
 import "./styles.css";
 
 const AirportTableEntry = ({ airport }) => {
@@ -69,7 +69,7 @@ const AirportTableEntry = ({ airport }) => {
                         </button>
                     </Link>
 
-                    <ButtonDelete />
+                    <AirportButtonDelete />
                 </span>
             </td>
         </tr>

@@ -1,4 +1,4 @@
-function ButtonDelete({ id }) {
+function AirportButtonDelete({ id }) {
 
     const deleteAirport = () => {
         if(window.confirm("Você realmente quer remover esse aeroporto?"))
@@ -20,4 +20,4 @@ function ButtonDelete({ id }) {
     )
 }
 
-export default ButtonDelete
+export default AirportButtonDelete
