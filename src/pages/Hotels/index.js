@@ -1,14 +1,13 @@
-import Header from "../../components/Header";
-import HotelsHeader from "../../components/HotelsHeader";
 import Check from "../../images/check_bold.svg";
 import Close from "../../images/close_small.svg";
 import "./styles.css";
+import HotelsHeader from "../../components/HotelsHeader";
 
 function Hotels() {
   return (
     <>
-      <Header />
       <HotelsHeader />
+
       <div className="container">
         <div className="row">
           <div className="col-md-12 mt-5">
