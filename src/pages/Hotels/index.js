@@ -1,7 +1,11 @@
 import Header from "../../components/Header";
 import HotelsHeader from "../../components/HotelsHeader";
-import Check from "../../images/check_bold.svg";
-import Close from "../../images/close_small.svg";
+import { FiCheck } from "react-icons/fi";
+import { FiX } from "react-icons/fi";
+import { BiWorld } from "react-icons/bi";
+import { FiEdit } from "react-icons/fi";
+import { AiOutlineDelete } from "react-icons/ai";
+
 import "./styles.css";
 
 function Hotels() {
@@ -55,12 +59,18 @@ function Hotels() {
                     <input type="number" className="form-control input-sm" />
                   </td>
                   <td>
-                    <img src={Check} alt="Check tick bold" />
+                    <FiCheck />
                   </td>
                   <td>
-                    <button className="btn btn-primary">world</button>
-                    <button className="btn btn-warning mx-2">Edit</button>
-                    <button className="btn btn-danger">Remove</button>
+                    <button className="btn btn-primary">
+                      <BiWorld />
+                    </button>
+                    <button className="btn btn-warning mx-2">
+                      <FiEdit />
+                    </button>
+                    <button className="btn btn-danger">
+                      <AiOutlineDelete />
+                    </button>
                   </td>
                 </tr>
                 <tr>
@@ -89,12 +99,18 @@ function Hotels() {
                     <input type="number" className="form-control input-sm" />
                   </td>
                   <td>
-                    <img src={Close} alt="Check tick bold" />
+                    <FiCheck />
                   </td>
                   <td>
-                    <button className="btn btn-primary">world</button>
-                    <button className="btn btn-warning mx-2">Edit</button>
-                    <button className="btn btn-danger">Remove</button>
+                    <button className="btn btn-primary">
+                      <BiWorld />
+                    </button>
+                    <button className="btn btn-warning mx-2">
+                      <FiEdit />
+                    </button>
+                    <button className="btn btn-danger">
+                      <AiOutlineDelete />
+                    </button>
                   </td>
                 </tr>
                 <tr>
@@ -123,12 +139,18 @@ function Hotels() {
                     <input type="number" className="form-control input-sm" />
                   </td>
                   <td>
-                    <img src={Check} alt="Check tick bold" />
+                    <FiCheck />
                   </td>
                   <td>
-                    <button className="btn btn-primary">world</button>
-                    <button className="btn btn-warning mx-2">Edit</button>
-                    <button className="btn btn-danger">Remove</button>
+                    <button className="btn btn-primary">
+                      <BiWorld />
+                    </button>
+                    <button className="btn btn-warning mx-2">
+                      <FiEdit />
+                    </button>
+                    <button className="btn btn-danger">
+                      <AiOutlineDelete />
+                    </button>
                   </td>
                 </tr>
               </tbody>

@@ -8,8 +8,8 @@ function HotelsHeader() {
           class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
+          data-bs-target="#navbarNav1"
+          aria-controls="navbarNav1"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
@@ -17,7 +17,7 @@ function HotelsHeader() {
         </button>
         <div
           class="collapse navbar-collapse d-flex justify-content-center"
-          id="navbarNav"
+          id="navbarNav1"
         >
           <ul class="navbar-nav">
             <li class="nav-item">
