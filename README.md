@@ -30,7 +30,7 @@
 
 # Projeto Final Solutis
 
-## PADRÂO DE DESENVOLVIMENTO
+## PADRÃO DE DESENVOLVIMENTO
 
 ### GIT
 
