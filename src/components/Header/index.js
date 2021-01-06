@@ -25,6 +25,11 @@ function Header() {
                 Home
               </Link>
             </li>
+            <li class="nav-item">
+              <Link class="nav-link active" aria-current="page" to="/hotels">
+                Hotels
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
