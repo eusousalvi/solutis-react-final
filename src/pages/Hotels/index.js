@@ -4,9 +4,12 @@ import { FiCheck } from "react-icons/fi";
 import { FiX } from "react-icons/fi";
 import { BiWorld } from "react-icons/bi";
 import { FiEdit } from "react-icons/fi";
+import { FiPlus } from "react-icons/fi";
+
 import { AiOutlineDelete } from "react-icons/ai";
 
 import "./styles.css";
+import { Link } from "react-router-dom";
 
 function Hotels() {
   return (
@@ -16,6 +19,14 @@ function Hotels() {
       <div className="container">
         <div className="row">
           <div className="col-md-12 mt-5">
+            <div className="border border-secondary rounded d-flex justify-content-between mb-4 bg-white p-3 ">
+              <Link className="btn btn-success" to="/hotels/add">
+                <FiPlus /> Add
+              </Link>
+              <a className="btn btn-danger" href="#">
+                <FiX /> Delete All
+              </a>
+            </div>
             <table class="table">
               <thead class="thead-dark">
                 <tr>
@@ -40,7 +51,7 @@ function Hotels() {
                       src="https://a0.muscache.com/im/pictures/04e8c888-45f4-4047-b1ba-21dceea9eeaa.jpg?im_w=1200"
                       alt="Sunset view from a window"
                       className="rounded"
-                      height="50"
+                      height="40"
                     />
                   </td>
                   <td>Mark</td>
@@ -80,7 +91,7 @@ function Hotels() {
                       src="https://a0.muscache.com/im/pictures/04e8c888-45f4-4047-b1ba-21dceea9eeaa.jpg?im_w=1200"
                       alt="Sunset view from a window"
                       className="rounded"
-                      height="50"
+                      height="40"
                     />
                   </td>
                   <td>Mark</td>
@@ -99,7 +110,7 @@ function Hotels() {
                     <input type="number" className="form-control input-sm" />
                   </td>
                   <td>
-                    <FiCheck />
+                    <FiX />
                   </td>
                   <td>
                     <button className="btn btn-primary">
@@ -120,7 +131,7 @@ function Hotels() {
                       src="https://a0.muscache.com/im/pictures/04e8c888-45f4-4047-b1ba-21dceea9eeaa.jpg?im_w=1200"
                       alt="Sunset view from a window"
                       className="rounded"
-                      height="50"
+                      height="40"
                     />
                   </td>
                   <td>Mark</td>
