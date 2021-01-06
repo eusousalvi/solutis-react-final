@@ -44,7 +44,7 @@ function Hotels() {
                   <td>Airbnb</td>
                   <td>Salvador-BA</td>
                   <td>
-                    <a className="btn btn-outline-dark" href="#">
+                    <a className="btn btn-outline-dark" href="/hotels">
                       Upload(3)
                     </a>
                   </td>
@@ -78,7 +78,7 @@ function Hotels() {
                   <td>Airbnb</td>
                   <td>Salvador-BA</td>
                   <td>
-                    <a className="btn btn-outline-dark" href="#">
+                    <a className="btn btn-outline-dark" href="/hotels">
                       Upload(3)
                     </a>
                   </td>
@@ -112,7 +112,7 @@ function Hotels() {
                   <td>Airbnb</td>
                   <td>Salvador-BA</td>
                   <td>
-                    <a className="btn btn-outline-dark" href="#">
+                    <a className="btn btn-outline-dark" href="/hotels">
                       Upload(3)
                     </a>
                   </td>
