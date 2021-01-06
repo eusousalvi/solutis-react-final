@@ -1,4 +1,5 @@
-import AirportsHeader from "../AirportsHeader";
+import AirportsHeader from "../../components/FlightsAirportsList/AirportsHeader";
+import Header from "../../components/Header";
 import { Link } from "react-router-dom";
 
 
@@ -6,8 +7,9 @@ function AirportView(props) {
     const airport = props.location.airport;
 
     return (
+        <>
+        <Header />
         <div className="container">
-
             <AirportsHeader>
                 <div className="col-md-4">
                     <Link to="/airports">
@@ -43,6 +45,7 @@ function AirportView(props) {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

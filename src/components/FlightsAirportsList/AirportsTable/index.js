@@ -1,4 +1,4 @@
-import AirportTableEntry from '../AirportTableEntry';
+import AirportsTableEntry from '../AirportsTableEntry';
 import AirportsTableHeader from '../AirportsTableHeader';
 
 function AirportsTable() {
@@ -16,7 +16,6 @@ function AirportsTable() {
             timezone: "1",
             latitude: 44.9236,
             longitude: 20.279,
-            city: "false"
         },
         {
             id: 3,
@@ -30,7 +29,6 @@ function AirportsTable() {
             timezone: "1",
             latitude: 44.9236,
             longitude: 20.279,
-            city: "false"
         },
         {
             id: 4,
@@ -44,7 +42,6 @@ function AirportsTable() {
             timezone: "1",
             latitude: 44.9236,
             longitude: 20.279,
-            city: "false"
         }
     ]
 
@@ -62,7 +59,6 @@ function AirportsTable() {
         "Timezone",
         "Latitude",
         "Longitude",
-        "City",
         ""
     ]
 
@@ -71,7 +67,7 @@ function AirportsTable() {
             <table className="table table-striped table-bordered" id="airportsTable">
                 <AirportsTableHeader fields={tableFields} prefix="airports" />
                 <tbody>
-                    {airports.map(airport => <AirportTableEntry key={airport.id} airport={airport} />)}
+                    {airports.map(airport => <AirportsTableEntry key={airport.id} airport={airport} />)}
                 </tbody>
             </table>
         </div>

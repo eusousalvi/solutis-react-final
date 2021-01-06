@@ -2,7 +2,7 @@ function AirportsHeader({ children }) {
     return (
         <>
             <div className="row header-title">
-                Airports Management
+                AIRPORTS MANAGEMENT
             </div>
             <hr />
             <div className="row button-container">

@@ -1,18 +1,21 @@
 import Header from '../../components/Header';
-import AirportsHeader from "../../components/Airports/AirportsHeader";
-import AirportsTable from "../../components/Airports/AirportsTable";
-import AirportsFooter from "../../components/Airports/AirportsFooter";
+import AirportsHeader from "../../components/FlightsAirportsList/AirportsHeader";
+import AirportsTable from "../../components/FlightsAirportsList/AirportsTable";
+import AirportsFooter from "../../components/FlightsAirportsList/AirportsFooter";
 import "./styles.css";
 
 import { Link } from "react-router-dom";
 
-function Airports() {
+function AirportsList() {
+
+    // useEffect [] + GET na api 
+
     return (
         <>
             <Header />
-            <div className="container airportsContainer">
+            <div className="container">
                 <AirportsHeader>
-                    <div className="col-md-4">
+                    <div className="col-sm-4">
                         <Link to="/airport/create">
                             <button className="btn btn-success">ADD</button>
                         </Link>
@@ -33,4 +36,4 @@ function Airports() {
     )
 }
 
-export default Airports;
+export default AirportsList;
