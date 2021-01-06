@@ -1,26 +1,26 @@
 import AirportsTable from "../../components/Airports/AirportsTable";
-import AirportButton from '../../components/Airports/AirportButton';
 import Header from '../../components/Header';
 import "./styles.css";
+import AirportsHeader from "../../components/Airports/AirportsHeader";
+
+import { Link } from "react-router-dom";
 
 function Airports() {
     return (
         <>
-        <Header />
-        <div className="container">
-            <div className="row header-title">
-                Airports Management
-            </div>
-            <hr></hr>
-            <div className="row button-container">
-                <div className="col-md-4">
-                    <AirportButton text="ADD" btnClass="btn-success" onClick={() => console.log("adicionar")}/>
+            <Header />
+            <div className="container">
+                <AirportsHeader> 
+                    <div className="col-md-4">
+                        <Link to="/airport/create">
+                            <button className="btn btn-success">ADD</button>
+                        </Link>
+                    </div>
+                </AirportsHeader>
+                <div className="row">
+                    <AirportsTable />
                 </div>
             </div>
-            <div className="row">
-                <AirportsTable />
-            </div>
-        </div>
         </>
     )
 }

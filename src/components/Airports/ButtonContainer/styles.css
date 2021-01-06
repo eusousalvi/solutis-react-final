@@ -1,0 +1,7 @@
+.button-container {
+    background-color: rgb(248, 246, 246);
+    padding: 10px;
+    justify-self: center;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}

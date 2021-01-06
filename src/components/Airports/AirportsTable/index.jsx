@@ -20,7 +20,7 @@ function AirportsTable() {
         },
         {
             id: 3,
-            code: "BJY",
+            code: "BJG",
             name: "Batajnica Arpt",
             citycode: "BEG",
             cityname: "Belgrade",
@@ -34,7 +34,7 @@ function AirportsTable() {
         },
         {
             id: 4,
-            code: "BJY",
+            code: "BKL",
             name: "Batajnica Arpt",
             citycode: "BEG",
             cityname: "Belgrade",
