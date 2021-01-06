@@ -1,6 +1,8 @@
 import HotelsHeader from "../../components/HotelsHeader";
 import Check from "../../images/check_bold.svg";
-import Close from "../../images/close_small.svg";
+import { FiEdit, FiX } from "react-icons/fi";
+import "./style.css";
+
 function Rooms() {
   return (
     <>
@@ -10,7 +12,7 @@ function Rooms() {
         <div className="row">
           <div className="col-md-12 mt-5">
             <table class="table table-striped table-hover">
-              <thead class="thead-dark">
+              <thead className="thead">
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Room Type</th>
@@ -27,189 +29,93 @@ function Rooms() {
                 <tr>
                   <th scope="row">1</th>
                   <td>
-                    <button
-                      className="btn btn-link"
-                      style={{
-                        background: "RGBA(104,173,255,0.23)",
-                        color: "#1e249a",
-                        textDecoration: "none",
-                      }}
-                    >
-                      Triple Rooms
-                    </button>
+                    <button className="btn btn-link">Triple Rooms</button>
                   </td>
                   <td>Rendezvous Hotels</td>
                   <td>10</td>
                   <td>100</td>
                   <td>
-                    <button
-                      className="btn btn-link"
-                      style={{
-                        background: "RGBA(104,173,255,0.23)",
-                        color: "#1e249a",
-                        textDecoration: "none",
-                      }}
-                    >
-                      Prices
-                    </button>
+                    <button className="btn btn-link">Prices</button>
                   </td>
                   <td>
-                    <button
-                      className="btn btn-link"
-                      style={{
-                        background: "RGBA(104,173,255,0.23)",
-                        color: "#1e249a",
-                        textDecoration: "none",
-                      }}
-                    >
-                      Availability
-                    </button>
+                    <button className="btn btn-link">Availability</button>
                   </td>
                   <td>
-                    <button
-                      className="btn btn-link"
-                      style={{
-                        background: "RGBA(104,173,255,0.23)",
-                        color: "#1e249a",
-                        textDecoration: "none",
-                      }}
-                    >
-                      Upload(1)
-                    </button>
+                    <button className="btn btn-link">Upload(1)</button>
                   </td>
 
                   <td>
-                    <div style={{ display: "flex" }}>
+                    <div className="status-container">
                       <img src={Check} alt="Check tick bold" />
 
-                      <button className="btn btn-warning mx-2">Edit</button>
-                      <button className="btn btn-danger">Remove</button>
+                      <button className="btn btn-warning mx-2">
+                        <FiEdit />
+                      </button>
+                      <button className="btn btn-danger">
+                        <FiX />
+                      </button>
                     </div>
                   </td>
                 </tr>
                 <tr>
                   <th scope="row">2</th>
                   <td>
-                    <button
-                      className="btn btn-link"
-                      style={{
-                        background: "RGBA(104,173,255,0.23)",
-                        color: "#1e249a",
-                        textDecoration: "none",
-                      }}
-                    >
-                      Junior Suites
-                    </button>
+                    <button className="btn btn-link">Junior Suites</button>
                   </td>
                   <td>Rendezvous Hotels</td>
                   <td>3</td>
                   <td>250</td>
                   <td>
-                    <button
-                      className="btn btn-link"
-                      style={{
-                        background: "RGBA(104,173,255,0.23)",
-                        color: "#1e249a",
-                        textDecoration: "none",
-                      }}
-                    >
-                      Prices
-                    </button>
+                    <button className="btn btn-link">Prices</button>
                   </td>
                   <td>
-                    <button
-                      className="btn btn-link"
-                      style={{
-                        background: "RGBA(104,173,255,0.23)",
-                        color: "#1e249a",
-                        textDecoration: "none",
-                      }}
-                    >
-                      Availability
-                    </button>
+                    <button className="btn btn-link">Availability</button>
                   </td>
                   <td>
-                    <button
-                      className="btn btn-link"
-                      style={{
-                        background: "RGBA(104,173,255,0.23)",
-                        color: "#1e249a",
-                        textDecoration: "none",
-                      }}
-                    >
-                      Upload(4)
-                    </button>
+                    <button className="btn btn-link">Upload(4)</button>
                   </td>
 
                   <td>
-                    <div style={{ display: "flex" }}>
+                    <div className="status-container">
                       <img src={Check} alt="Check tick bold" />
 
-                      <button className="btn btn-warning mx-2">Edit</button>
-                      <button className="btn btn-danger">Remove</button>
+                      <button className="btn btn-warning mx-2">
+                        <FiEdit />
+                      </button>
+                      <button className="btn btn-danger">
+                        <FiX />
+                      </button>
                     </div>
                   </td>
                 </tr>
                 <tr>
                   <th scope="row">3</th>
                   <td>
-                    <button
-                      className="btn btn-link"
-                      style={{
-                        background: "RGBA(104,173,255,0.23)",
-                        color: "#1e249a",
-                        textDecoration: "none",
-                      }}
-                    >
-                      Superior Double
-                    </button>
+                    <button className="btn btn-link">Superior Double</button>
                   </td>
                   <td>Rendezvous Hotels</td>
                   <td>3</td>
                   <td>150</td>
                   <td>
-                    <button
-                      className="btn btn-link"
-                      style={{
-                        background: "RGBA(104,173,255,0.23)",
-                        color: "#1e249a",
-                        textDecoration: "none",
-                      }}
-                    >
-                      Prices
-                    </button>
+                    <button className="btn btn-link">Prices</button>
                   </td>
                   <td>
-                    <button
-                      className="btn btn-link"
-                      style={{
-                        background: "RGBA(104,173,255,0.23)",
-                        color: "#1e249a",
-                        textDecoration: "none",
-                      }}
-                    >
-                      Availability
-                    </button>
+                    <button className="btn btn-link">Availability</button>
                   </td>
                   <td>
-                    <button
-                      className="btn btn-link"
-                      style={{
-                        background: "RGBA(104,173,255,0.23)",
-                        color: "#1e249a",
-                        textDecoration: "none",
-                      }}
-                    >
-                      Upload(4)
-                    </button>
+                    <button className="btn btn-link">Upload(4)</button>
                   </td>
 
                   <td>
-                    <div style={{ display: "flex" }}>
+                    <div className="status-container">
                       <img src={Check} alt="Check tick bold" />
 
-                      <button className="btn btn-warning mx-2">Edit</button>
-                      <button className="btn btn-danger">Remove</button>
+                      <button className="btn btn-warning mx-2">
+                        <FiEdit />
+                      </button>
+                      <button className="btn btn-danger">
+                        <FiX />
+                      </button>
                     </div>
                   </td>
                 </tr>

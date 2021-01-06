@@ -1,0 +1,23 @@
+.table-hover tbody tr:hover td {
+  background: #a8d1ff;
+}
+
+.thead {
+  background: #dee2e6;
+}
+
+.btn-link {
+  background: rgba(104, 173, 255, 0.23);
+
+  color: #1e249a;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.btn-link:hover {
+  text-decoration: underline;
+}
+
+.status-container {
+  display: flex;
+}
