@@ -10,7 +10,7 @@ function Routes() {
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={Landing} />
-        <Route path="/addroom" exact component={HotelAddRoom} />
+        <Route path="/hotels/addroom" exact component={HotelAddRoom} />
         <Route path="/hotels" exact component={Hotels} />
       </Switch>
     </BrowserRouter>

@@ -38,6 +38,15 @@ function HotelsHeader() {
               <Link
                 class="nav-link active"
                 aria-current="page"
+                to="/hotels/addroom"
+              >
+                AddRoom
+              </Link>
+            </li>
+            <li class="nav-item">
+              <Link
+                class="nav-link active"
+                aria-current="page"
                 to="/hotels/extras"
               >
                 Extras
