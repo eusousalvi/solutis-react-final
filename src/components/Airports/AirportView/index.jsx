@@ -11,11 +11,11 @@ function AirportView(props) {
             <AirportsHeader>
                 <div className="col-md-4">
                     <Link to="/airports">
-                        <button className="btn btn-warning">Return</button>
+                        <button className="btn btn-warning">RETURN</button>
                     </Link>
                 </div>
             </AirportsHeader>
-            
+
             <div className="row">
                 <div className="col-md-6">
                     <p><b>Code:</b> {airport.code}</p>

@@ -1,4 +1,4 @@
-import AirportEntry from '../AirportEntry';
+import AirportTableEntry from '../AirportTableEntry';
 import AirportsTableHeader from '../AirportsTableHeader';
 
 function AirportsTable() {
@@ -71,7 +71,7 @@ function AirportsTable() {
             <table className="table table-striped table-bordered" id="airportsTable">
                 <AirportsTableHeader fields={tableFields} prefix="airports" />
                 <tbody>
-                    {airports.map(airport => <AirportEntry key={airport.id} airport={airport} />)}
+                    {airports.map(airport => <AirportTableEntry key={airport.id} airport={airport} />)}
                 </tbody>
             </table>
         </div>
