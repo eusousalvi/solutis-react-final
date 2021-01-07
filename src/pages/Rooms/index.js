@@ -23,6 +23,8 @@ function Rooms() {
     }
     fetchData();
   }, [])
+
+ 
   return (
     <>
       <HotelsHeader />
@@ -112,7 +114,7 @@ function Rooms() {
                        <button className="btn btn-warning mx-2">
                          <FiEdit />
                        </button>
-                       <button className="btn btn-danger">
+                        <button className="btn btn-danger" >
                          <FiX />
                        </button>
                      </div>
