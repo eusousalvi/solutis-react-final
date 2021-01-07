@@ -8,7 +8,7 @@ export default function FlightRouteNode({ type, removable, onClickDelete }) {
     <tr>
       <td>
         <input
-          class="form-control text-center"
+          className="form-control text-center"
           type="text"
           placeholder={type}
           readOnly
@@ -16,7 +16,7 @@ export default function FlightRouteNode({ type, removable, onClickDelete }) {
       </td>
       <td>
         <select
-          class="form-control"
+          className="form-control"
           name={`${type.toLowerCase()}Airport`}
           id={`${type.toLowerCase()}Airport`}
         >
@@ -27,7 +27,7 @@ export default function FlightRouteNode({ type, removable, onClickDelete }) {
       </td>
       <td>
         <select
-          class="form-control"
+          className="form-control"
           name={`${type.toLowerCase()}Airline`}
           id={`${type.toLowerCase()}Airline`}
         >
@@ -37,16 +37,36 @@ export default function FlightRouteNode({ type, removable, onClickDelete }) {
         </select>
       </td>
       <td>
-        <input className="form-control" type="number" name="flightNumber" required/>
+        <input
+          className="form-control"
+          type="number"
+          name="flightNumber"
+          required
+        />
       </td>
       <td>
-        <input class="form-control" type="date" id="example-date-input" required/>
+        <input
+          className="form-control"
+          type="date"
+          id="example-date-input"
+          required
+        />
       </td>
       <td>
-        <input class="form-control" type="time" id="example-time-input" required/>
+        <input
+          className="form-control"
+          type="time"
+          id="example-time-input"
+          required
+        />
       </td>
       <td>
-        <input class="form-control" type="time" id="example-time-input" required/>
+        <input
+          className="form-control"
+          type="time"
+          id="example-time-input"
+          required
+        />
       </td>
       {removable && (
         <td>
