@@ -29,15 +29,15 @@ export default function MainSettingsForm() {
             </label>
           </div>
           <div className="form-floating main-settings-item">
-            <input className="form-control" id="totalHours" name="totalHours" />
+            <input required type="time" className="form-control" id="totalHours" name="totalHours" />
             <label htmlFor="totalHours">Total Hours</label>
           </div>
           <div className="form-floating main-settings-item">
-            <input className="form-control" id="vatTax" name="vatTax" />
+            <input type="number" className="form-control" id="vatTax" name="vatTax" />
             <label htmlFor="vatTax">Vat Tax</label>
           </div>
           <div className="form-floating main-settings-item">
-            <input className="form-control" id="deposite" name="deposite" />
+            <input type="number" className="form-control" id="deposite" name="deposite" />
             <label htmlFor="deposite">Deposite</label>
           </div>
           <div className="form-floating main-settings-item">

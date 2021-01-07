@@ -42,7 +42,7 @@ export default function FlightRouteManagerForm() {
           <FlightRouteNode type="Arrival" />
         </tbody>
       </table>
-      <button className="btn btn-success" onClick={handleAddTransitClick}>
+      <button type="button" className="btn btn-success" onClick={handleAddTransitClick}>
         Add Transit
       </button>
     </div>

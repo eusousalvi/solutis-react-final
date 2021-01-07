@@ -37,16 +37,16 @@ export default function FlightRouteNode({ type, removable, onClickDelete }) {
         </select>
       </td>
       <td>
-        <input className="form-control" type="text" name="flightNumber" />
+        <input className="form-control" type="number" name="flightNumber" required/>
       </td>
       <td>
-        <input class="form-control" type="date" id="example-date-input" />
+        <input class="form-control" type="date" id="example-date-input" required/>
       </td>
       <td>
-        <input class="form-control" type="time" id="example-time-input" />
+        <input class="form-control" type="time" id="example-time-input" required/>
       </td>
       <td>
-        <input class="form-control" type="time" id="example-time-input" />
+        <input class="form-control" type="time" id="example-time-input" required/>
       </td>
       {removable && (
         <td>

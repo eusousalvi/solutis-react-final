@@ -20,6 +20,8 @@ export default function FlightPricesForm() {
               className="form-control"
               id="adultPrice"
               name="adultPrice"
+              required
+              placeholder="R$"             
             />
           </th>
           <th>
@@ -28,6 +30,7 @@ export default function FlightPricesForm() {
               className="form-control"
               id="childPrice"
               name="childPrice"
+              placeholder="R$" 
             />
           </th>
           <th>
@@ -36,6 +39,7 @@ export default function FlightPricesForm() {
               className="form-control"
               id="infantPrice"
               name="infantPrice"
+              placeholder="R$" 
             />
           </th>
         </tr>

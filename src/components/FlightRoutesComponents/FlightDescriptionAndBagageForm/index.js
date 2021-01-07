@@ -13,6 +13,7 @@ export default function DescriptionAndBagageForm() {
             id="description-textarea"
             name="description"
             rows="8"
+            required
           />
         </div>
       </div>
