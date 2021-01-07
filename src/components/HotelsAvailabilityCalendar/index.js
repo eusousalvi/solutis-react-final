@@ -33,7 +33,15 @@ function HotelAvailabilityCalendar() {
         days.push(<td key={`empty${i}`}></td>);
       }
       for (let i = 1; i <= month.totalDays; i++) {
-        days.push(<td key={`filled${i}`}>{i}</td>);
+        days.push(
+          <>
+            <td key={`filled${i}`}>
+              <label>{i}</label>
+              <br />
+              <input maxLength={3} value={10} style={{ width: '23px' }} />
+            </td>
+          </>,
+        );
       }
 
       return (
