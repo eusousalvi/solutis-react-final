@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles.css";
 
-export default function MainSettingsForm() {
+export default function MainSettingsForm({ data }) {
   return (
     <div id="main-settings-form-wrapper" className="col-4">
       <div
@@ -19,7 +19,7 @@ export default function MainSettingsForm() {
               name="flightStatus"
               className="form-select"
               aria-label="Flight Status"
-              defaultValue="Enabled"
+              defaultValue={data?.status}
             >
               <option value="enabled">Enabled</option>
               <option value="disabled">Disabled</option>
@@ -29,15 +29,34 @@ export default function MainSettingsForm() {
             </label>
           </div>
           <div className="form-floating main-settings-item">
-            <input required type="time" className="form-control" id="totalHours" name="totalHours" />
+            <input
+              required
+              type="time"
+              className="form-control"
+              id="totalHours"
+              name="totalHours"
+              defaultValue={data?.totalHours}
+            />
             <label htmlFor="totalHours">Total Hours</label>
           </div>
           <div className="form-floating main-settings-item">
-            <input type="number" className="form-control" id="vatTax" name="vatTax" />
+            <input
+              type="number"
+              className="form-control"
+              id="vatTax"
+              name="vatTax"
+              defaultValue={data?.vatTax}
+            />
             <label htmlFor="vatTax">Vat Tax</label>
           </div>
           <div className="form-floating main-settings-item">
-            <input type="number" className="form-control" id="deposite" name="deposite" />
+            <input
+              type="number"
+              className="form-control"
+              id="deposite"
+              name="deposite"
+              defaultValue={data?.deposite}
+            />
             <label htmlFor="deposite">Deposite</label>
           </div>
           <div className="form-floating main-settings-item">
@@ -46,7 +65,7 @@ export default function MainSettingsForm() {
               name="flightType"
               className="form-select"
               aria-label="Flight Type"
-              defaultValue="Business"
+              defaultValue={data?.flightType}
             >
               <option value="business">Business</option>
               <option value="economic">Economic</option>
@@ -61,10 +80,10 @@ export default function MainSettingsForm() {
               name="refundable"
               className="form-select"
               aria-label="Refundable"
-              defaultValue="Refundable"
+              defaultValue={data?.refundable}
             >
               <option value="refundable">Refundable</option>
-              <option value="non-refundable">Non Refundable</option>
+              <option value="nonRefundable">Non Refundable</option>
             </select>
             <label htmlFor="refundable" className="form-label">
               Refundable
@@ -76,7 +95,7 @@ export default function MainSettingsForm() {
               name="direction"
               className="form-select"
               aria-label="Flight Direction"
-              defaultValue="one-way"
+              defaultValue={data?.direction}
             >
               <option value="one-way">One Way</option>
               <option value="return">Return</option>
