@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function DescriptionAndBagageForm() {
+export default function DescriptionAndBagageForm({ description }) {
   return (
     <div id="description-bagage-form">
       <div className="card">
@@ -13,6 +13,7 @@ export default function DescriptionAndBagageForm() {
             id="description-textarea"
             name="description"
             rows="8"
+            defaultValue={description}
             required
           />
         </div>
