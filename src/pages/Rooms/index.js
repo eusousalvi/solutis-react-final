@@ -1,3 +1,4 @@
+import {useState, useEffect} from "react"
 import HotelsHeader from "../../components/HotelsHeader";
 import {
   FiEdit,
@@ -9,7 +10,19 @@ import {
 } from "react-icons/fi";
 import "./style.css";
 
+import RoomsService from "../../services/rooms";
+
 function Rooms() {
+  const [rooms, setRooms] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await RoomsService.getRooms();
+
+      if (data) setRooms(data);
+    }
+    fetchData();
+  }, [])
   return (
     <>
       <HotelsHeader />
@@ -48,9 +61,14 @@ function Rooms() {
                 </button>
               </div>
             </div>
-            <table class="table table-striped table-hover">
+            <table className="table table-striped table-hover">
               <thead className="thead">
                 <tr>
+                  <th scrop="col">
+                    <div className="form-check">
+                      <input type="checkbox" value="" id="selectAll"className="form-check-input"/>
+                    </div>
+                  </th>
                   <th scope="col">#</th>
                   <th scope="col">Room Type</th>
                   <th scope="col">Hotel</th>
@@ -63,99 +81,46 @@ function Rooms() {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>
-                    <button className="btn btn-link">Triple Rooms</button>
-                  </td>
-                  <td>Rendezvous Hotels</td>
-                  <td>10</td>
-                  <td>100</td>
-                  <td>
-                    <button className="btn btn-link">Prices</button>
-                  </td>
-                  <td>
-                    <button className="btn btn-link">Availability</button>
-                  </td>
-                  <td>
-                    <button className="btn btn-link">Upload(1)</button>
-                  </td>
-
-                  <td>
-                    <div className="status-container">
-                      <FiCheck />
-
-                      <button className="btn btn-warning mx-2">
-                        <FiEdit />
-                      </button>
-                      <button className="btn btn-danger">
-                        <FiX />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>
-                    <button className="btn btn-link">Junior Suites</button>
-                  </td>
-                  <td>Rendezvous Hotels</td>
-                  <td>3</td>
-                  <td>250</td>
-                  <td>
-                    <button className="btn btn-link">Prices</button>
-                  </td>
-                  <td>
-                    <button className="btn btn-link">Availability</button>
-                  </td>
-                  <td>
-                    <button className="btn btn-link">Upload(4)</button>
-                  </td>
-
-                  <td>
-                    <div className="status-container">
-                      <FiCheck />
-
-                      <button className="btn btn-warning mx-2">
-                        <FiEdit />
-                      </button>
-                      <button className="btn btn-danger">
-                        <FiX />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>
-                    <button className="btn btn-link">Superior Double</button>
-                  </td>
-                  <td>Rendezvous Hotels</td>
-                  <td>3</td>
-                  <td>150</td>
-                  <td>
-                    <button className="btn btn-link">Prices</button>
-                  </td>
-                  <td>
-                    <button className="btn btn-link">Availability</button>
-                  </td>
-                  <td>
-                    <button className="btn btn-link">Upload(4)</button>
-                  </td>
-
-                  <td>
-                    <div className="status-container">
-                      <FiCheck />
-
-                      <button className="btn btn-warning mx-2">
-                        <FiEdit />
-                      </button>
-                      <button className="btn btn-danger">
-                        <FiX />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
+                {rooms.map(room => (
+                   <tr key={room.id}>
+                   <th scope="row">
+                   <div className="form-check">
+                       <input type="checkbox" value="" id="selectRoom"className="form-check-input"/>
+                     </div>
+                   </th>
+                    <th scope="row">{room.id}</th>
+                   <td>
+                      <button className="btn btn-link">{room.roomType}</button>
+                   </td>
+                   <td>{room.hotel}</td>
+                   <td>{room.qty}</td>
+                   <td>{room.price}</td>
+                   <td>
+                     <button className="btn btn-link">Prices</button>
+                   </td>
+                   <td>
+                     <button className="btn btn-link">Availability</button>
+                   </td>
+                   <td>
+                      <button className="btn btn-link">{`Upload(${room.uploads})` }</button>
+                   </td>
+ 
+                   <td>
+                     <div className="status-container">
+                       <FiCheck />
+ 
+                       <button className="btn btn-warning mx-2">
+                         <FiEdit />
+                       </button>
+                       <button className="btn btn-danger">
+                         <FiX />
+                       </button>
+                     </div>
+                   </td>
+                 </tr>
+                ))}
+                
+                
               </tbody>
             </table>
           </div>
