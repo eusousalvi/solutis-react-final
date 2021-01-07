@@ -1,6 +1,12 @@
 import HotelsHeader from "../../components/HotelsHeader";
-import Check from "../../images/check_bold.svg";
-import { FiEdit, FiX, FiPlusCircle, FiFile, FiPrinter } from "react-icons/fi";
+import {
+  FiEdit,
+  FiX,
+  FiPlusCircle,
+  FiFile,
+  FiPrinter,
+  FiCheck,
+} from "react-icons/fi";
 import "./style.css";
 
 function Rooms() {
@@ -77,7 +83,7 @@ function Rooms() {
 
                   <td>
                     <div className="status-container">
-                      <img src={Check} alt="Check tick bold" />
+                      <FiCheck />
 
                       <button className="btn btn-warning mx-2">
                         <FiEdit />
@@ -108,7 +114,7 @@ function Rooms() {
 
                   <td>
                     <div className="status-container">
-                      <img src={Check} alt="Check tick bold" />
+                      <FiCheck />
 
                       <button className="btn btn-warning mx-2">
                         <FiEdit />
@@ -139,7 +145,7 @@ function Rooms() {
 
                   <td>
                     <div className="status-container">
-                      <img src={Check} alt="Check tick bold" />
+                      <FiCheck />
 
                       <button className="btn btn-warning mx-2">
                         <FiEdit />

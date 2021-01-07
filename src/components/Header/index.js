@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 
 function Header() {
   return (
-    <nav class="navbar navbar-expand-lg navbar-light bg-info">
+    <nav className="navbar navbar-expand-lg navbar-light bg-info">
       <div className="container-fluid">
-        <a className="navbar-brand" href="/">
+        <a className="navbar-brand" href="#">
           Navbar
         </a>
         <button
@@ -16,7 +16,7 @@ function Header() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
@@ -26,7 +26,11 @@ function Header() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/hotels">
+              <Link
+                className="nav-link active"
+                aria-current="page"
+                to="/hotels"
+              >
                 Hotels
               </Link>
             </li>
