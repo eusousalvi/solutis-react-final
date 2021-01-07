@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 
 function Hotels(props) {
   const [hotels, setHotels] = useState([]);
+
   useEffect(() => {
     async function fetchData() {
       const res = await axios.get(
@@ -28,8 +29,11 @@ function Hotels(props) {
   }, []);
 
   function handleDelete(id) {
-    axios.delete(`https://5ff639a4941eaf0017f378b8.mockapi.io/hotels/${id}`);
-    props.history.push("/");
+    axios
+      .delete(`https://5ff639a4941eaf0017f378b8.mockapi.io/hotels/${id}`)
+      .then(() =>
+        window.confirm("Are you sure?").then(window.location.reload())
+      );
   }
   return (
     <>
