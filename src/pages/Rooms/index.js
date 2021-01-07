@@ -14,7 +14,7 @@ import RoomsService from "../../services/rooms";
 
 function Rooms() {
   const [rooms, setRooms] = useState([]);
-
+  const [deleted, setDeleted] = useState(false);
   useEffect(() => {
     async function fetchData() {
       const data = await RoomsService.getRooms();
@@ -22,8 +22,19 @@ function Rooms() {
       if (data) setRooms(data);
     }
     fetchData();
-  }, [])
+  }, [deleted])
 
+  async function handleDelete(id) {
+    const confirmDelete = window.confirm("Are you sure?");
+   
+  if (confirmDelete) {
+   const data = await RoomsService.deleteRoom(id);
+    if (data) setDeleted(!deleted);
+    window.alert("This room has been successfully deleted")
+  }
+  
+
+ }
  
   return (
     <>
@@ -114,7 +125,7 @@ function Rooms() {
                        <button className="btn btn-warning mx-2">
                          <FiEdit />
                        </button>
-                        <button className="btn btn-danger" >
+                         <button className="btn btn-danger" onClick={()=> handleDelete(room.id)}>
                          <FiX />
                        </button>
                      </div>
