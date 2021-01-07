@@ -43,7 +43,7 @@ function Hotels(props) {
         <div className="row">
           <div className="col-md-12 mt-5">
             <div className="border border-secondary rounded d-flex justify-content-between mb-4 bg-white p-3 ">
-              <Link className="btn btn-success" to="/hotels/add">
+              <Link className="btn btn-success" to="/hotels/create">
                 <FiPlus /> Add
               </Link>
               <a className="btn btn-danger" href="/hotels">
