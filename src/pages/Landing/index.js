@@ -1,10 +1,7 @@
-import Header from "../../components/Header";
 import "./styles.css";
-
 function Landing() {
   return (
     <>
-      <Header />
       <div className="container">
         <div className="row">
           <div className="col-md-12">
