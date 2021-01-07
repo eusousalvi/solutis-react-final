@@ -4,5 +4,15 @@
     bottom: 0;
     width: 100vw;
     background-color: white;
+    box-shadow:  0 0 1em 0 rgba(0, 0, 0, 0.15)
 }
 
+.footer-container {
+    display: flex;
+}
+
+@media(max-width: 576px) {
+    .footer-container {
+        display: inline-block;
+    }
+}

@@ -1,53 +1,21 @@
 import AirportsTableEntry from '../AirportsTableEntry';
 import AirportsTableHeader from '../AirportsTableHeader';
+import "./styles.css";
+import { useState } from "react";
 
-function AirportsTable() {
+function AirportsTable({ airports }) {
 
-    const airports = [
-        {
-            id: 1,
-            code: "BJY",
-            name: "Batajnica Arpt",
-            citycode: "BEG",
-            cityname: "Belgrade",
-            countryname: "SERBIA",
-            countrycode: "RS",
-            continentId: "1",
-            timezone: "1",
-            latitude: 44.9236,
-            longitude: 20.279,
-        },
-        {
-            id: 3,
-            code: "BJG",
-            name: "Batajnica Arpt",
-            citycode: "BEG",
-            cityname: "Belgrade",
-            countryname: "SERBIA",
-            countrycode: "RS",
-            continentId: "1",
-            timezone: "1",
-            latitude: 44.9236,
-            longitude: 20.279,
-        },
-        {
-            id: 4,
-            code: "BKL",
-            name: "Batajnica Arpt",
-            citycode: "BEG",
-            cityname: "Belgrade",
-            countryname: "SERBIA",
-            countrycode: "RS",
-            continentId: "1",
-            timezone: "1",
-            latitude: 44.9236,
-            longitude: 20.279,
-        }
-    ]
+    const [checkAll, setCheckAll] = useState(false)
+
+    const toggleCheck = () => {
+        setCheckAll(check => !check)
+    }
 
     const tableFields = [
         <input type="checkbox"
-            id="selectAirports" />,
+            id="selectAirports" 
+            onChange={toggleCheck}    
+        />,
         "#",
         "Code",
         "Name",
@@ -64,10 +32,17 @@ function AirportsTable() {
 
     return (
         <div className="table-responsive">
-            <table className="table table-striped table-bordered" id="airportsTable">
+            <table className="table table-striped" id="airportsTable">
                 <AirportsTableHeader fields={tableFields} prefix="airports" />
                 <tbody>
-                    {airports.map(airport => <AirportsTableEntry key={airport.id} airport={airport} />)}
+                    {airports.map((airport, idx) =>
+                            <AirportsTableEntry 
+                                checked={checkAll} 
+                                num={idx+1} 
+                                key={airport.id} 
+                                airport={airport} 
+                            />)
+                    }
                 </tbody>
             </table>
         </div>

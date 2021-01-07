@@ -1,17 +1,17 @@
 import "./styles.css";
 import AirportsPagination from "../AirportsPagination";
-import { useState } from 'react';
+import AirportsSearchBar from "../AirportsSearchBar";
 
-function AirportsFooter() {
-    const [currentPage, setCurrentPage] = useState(1)
-
-    const switchPage = (clickedPage) => {
-        setCurrentPage(clickedPage);
-    }
+function AirportsFooter({ total }) {
 
     return (
-        <div className="footer"> 
-            <AirportsPagination total={150} currentPage={currentPage} onClick={switchPage} />
+        <div className="footer">
+            <div className="row">
+                <div className="col-sm-12 footer-container">
+                    <AirportsPagination total={total} />
+                    <AirportsSearchBar />
+                </div>
+            </div>
         </div>
     )
 }

@@ -2,7 +2,6 @@ import AirportsHeader from "../../components/FlightsAirportsList/AirportsHeader"
 import Header from "../../components/Header";
 import { Link } from "react-router-dom";
 
-
 function AirportView(props) {
     const airport = props.location.airport;
 
@@ -12,7 +11,7 @@ function AirportView(props) {
         <div className="container">
             <AirportsHeader>
                 <div className="col-md-4">
-                    <Link to="/airports">
+                    <Link to="/flights/airports">
                         <button className="btn btn-warning">RETURN</button>
                     </Link>
                 </div>
@@ -29,8 +28,6 @@ function AirportView(props) {
                     <p><b>Continent Id:</b> {airport.continentId}</p>
                     <hr />
                     <p><b>Lat:</b> {airport.latitude}</p>
-                    <hr />
-                    <p><b>City:</b> {airport.city}</p>
                 </div>
                 <div className="col-md-6">
                     <p><b>Name:</b> {airport.name}</p>
