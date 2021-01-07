@@ -1,4 +1,4 @@
-import ReturnFlightRoutesButton from "../../components/flights-routes-list/ReturnFlightRoutesButton";
+import ReturnFlightRoutesButton from "../../components/FlightsRoutesList/ReturnFlightRoutesButton";
 import Header from "../../components/Header";
 
 function Visualization() {
@@ -37,7 +37,7 @@ function Visualization() {
               </tr>
               <tr>
                 <td>Translado</td>
-                <td>Salvador</td>
+                <td>São Paulo</td>
                 <td>Gol</td>
                 <td>2345</td>
                 <td>11/01/2020</td>
@@ -46,7 +46,7 @@ function Visualization() {
               </tr>
               <tr>
                 <td>Chegada</td>
-                <td>Salvador</td>
+                <td>Curitiba</td>
                 <td>Gol</td>
                 <td>2345</td>
                 <td>11/01/2020</td>
@@ -55,8 +55,67 @@ function Visualization() {
               </tr>
             </tbody>
           </table>
-          <div>
-              
+          <div className={"container"}>
+            <div className={"row"}>
+              <div className={"col-3"}>
+                <table class="table table-borderless mt-5">
+                  <tbody>
+                    <tr>
+                      <th scope="row">Status:</th>
+                      <td>Confirmado</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Total de horas:</th>
+                      <td>03:00:00</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Vat Tax</th>
+                      <td>35%</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Deposito</th>
+                      <td>80%</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Tipo de voo</th>
+                      <td>Econômico</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Reembolsável</th>
+                      <td>Não</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Direção</th>
+                      <td>Apenas ida</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div className={"col-sm"}>
+                <table class="table table-striped mt-5">
+                  <thead>
+                    <tr>
+                      <th scope="col">Descrição</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        exercitation ullamco laboris nisi ut aliquip ex ea
+                        commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu
+                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                        non proident, sunt in culpa qui officia deserunt mollit
+                        anim id est laborum.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>

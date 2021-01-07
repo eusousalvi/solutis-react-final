@@ -1,6 +1,6 @@
 import Header from "../../components/Header";
-import CreateFlightRoutesButton from "../../components/flights-routes-list/CreateFlightRoutesButton";
-import FlightRoutesTable from "../../components/flights-routes-list/FlightRoutesTable";
+import CreateFlightRoutesButton from "../../components/FlightsRoutesList/CreateFlightRoutesButton";
+import FlightRoutesTable from "../../components/FlightsRoutesList/FlightRoutesTable";
 
 function FlightRoutes() {
   return (
