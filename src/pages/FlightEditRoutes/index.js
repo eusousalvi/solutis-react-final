@@ -9,35 +9,37 @@ const mock = {
     priceAdult: 0,
     priceChild: 0,
     priceInfant: 0,
-    route: [
-      {
+    route: {
+      departure: {
         type: "Departure",
         airport: "VCP",
-        airline: "GOL",
+        airline: "Azul",
         flightNumber: 0,
-        date: "dd/mm/aaaa",
-        time: "hh:mm",
-        checkout: "hh:mm",
+        date: "2021-01-01",
+        time: "12:00",
+        checkout: "12:00",
       },
-      {
-        type: "Transit",
-        airport: "SSA",
-        airline: "GOL",
-        flightNumber: 0,
-        date: "dd/mm/aaaa",
-        time: "hh:mm",
-        checkout: "hh:mm",
-      },
-      {
+      arrival: {
         type: "Arrival",
         airport: "CWP",
         airline: "GOL",
         flightNumber: 0,
-        date: "dd/mm/aaaa",
-        time: "hh:mm",
-        checkout: "hh:mm",
+        date: "2021-01-01",
+        time: "12:00",
+        checkout: "12:00",
       },
-    ],
+      connections: [
+        {
+          type: "Transit",
+          airport: "SSA",
+          airline: "GOL",
+          flightNumber: 555,
+          date: "2021-01-01",
+          time: "12:30",
+          checkout: "12:22",
+        },
+      ],
+    },
     description:
       "Some lorem ipsum here, just to illustrate the flight description.",
   },
@@ -55,6 +57,7 @@ const mock = {
 export default function EditFlightRoutes() {
   const [route, setRoute] = React.useState(undefined);
   const [loading, setLoading] = React.useState(true);
+
   const { id } = useParams();
 
   React.useEffect(() => {

@@ -2,11 +2,31 @@ import React from "react";
 
 import FlightRouteNode from "../FlightRouteNode";
 
-export default function FlightRouteManagerForm() {
-  const [connections, setConnections] = React.useState([]);
+const DEFAULT_NODE = {
+  airport: "",
+  airline: "",
+  flightNumber: 0,
+  date: "",
+  time: "",
+  checkout: "",
+};
+
+export default function FlightRouteManagerForm({ route }) {
+  const [connections, setConnections] = React.useState(
+    route ? route.connections : []
+  );
+
+  const departure = route
+    ? route.departure
+    : { ...DEFAULT_NODE, type: "Departure" };
+
+  const arrival = route ? route.arrival : { ...DEFAULT_NODE, type: "Arival" };
 
   function handleAddTransitClick() {
-    setConnections([...connections, { id: connections.length }]);
+    setConnections([
+      ...connections,
+      { ...DEFAULT_NODE, id: connections.length, type: "Transit" },
+    ]);
   }
 
   function handleDeleteNodeClick(id) {
@@ -30,19 +50,23 @@ export default function FlightRouteManagerForm() {
           </tr>
         </thead>
         <tbody>
-          <FlightRouteNode type="Departure" />
-          {connections.map((connection) => (
+          <FlightRouteNode node={departure} />
+          {connections.map((node) => (
             <FlightRouteNode
-              key={connection.id}
-              type="Transit"
-              onClickDelete={handleDeleteNodeClick(connection.id)}
+              key={node.id}
+              node={node}
+              onClickDelete={handleDeleteNodeClick(node.id)}
               removable
             />
           ))}
-          <FlightRouteNode type="Arrival" />
+          <FlightRouteNode node={arrival} />
         </tbody>
       </table>
-      <button type="button" className="btn btn-success" onClick={handleAddTransitClick}>
+      <button
+        type="button"
+        className="btn btn-success"
+        onClick={handleAddTransitClick}
+      >
         Add Transit
       </button>
     </div>

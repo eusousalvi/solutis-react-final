@@ -9,7 +9,7 @@ export default function DescriptionAndBagageForm({ description }) {
         </div>
         <div className="card-body">
           <textarea
-            class="form-control"
+            className="form-control"
             id="description-textarea"
             name="description"
             rows="8"
