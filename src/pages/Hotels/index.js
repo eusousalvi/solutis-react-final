@@ -5,13 +5,36 @@ import { FiX } from "react-icons/fi";
 import { BiWorld } from "react-icons/bi";
 import { FiEdit } from "react-icons/fi";
 import { FiPlus } from "react-icons/fi";
-
 import { AiOutlineDelete } from "react-icons/ai";
+import { withRouter } from "react-router-dom";
 
 import "./styles.css";
 import { Link } from "react-router-dom";
 
-function Hotels() {
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+function Hotels(props) {
+  const [hotels, setHotels] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const res = await axios.get(
+        "https://5ff639a4941eaf0017f378b8.mockapi.io/hotels"
+      );
+      setHotels(res.data);
+      console.log(res.data);
+    }
+    fetchData();
+  }, []);
+
+  function handleDelete(id) {
+    axios
+      .delete(`https://5ff639a4941eaf0017f378b8.mockapi.io/hotels/${id}`)
+      .then(() =>
+        window.confirm("Are you sure?").then(window.location.reload())
+      );
+  }
   return (
     <>
       <Header />
@@ -23,12 +46,12 @@ function Hotels() {
               <Link className="btn btn-success" to="/hotels/add">
                 <FiPlus /> Add
               </Link>
-              <a className="btn btn-danger" href="#">
+              <a className="btn btn-danger" href="/hotels">
                 <FiX /> Delete All
               </a>
             </div>
-            <table class="table">
-              <thead class="thead-dark">
+            <table className="table">
+              <thead className="thead-dark">
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Image</th>
@@ -44,126 +67,61 @@ function Hotels() {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>
-                    <img
-                      src="https://a0.muscache.com/im/pictures/04e8c888-45f4-4047-b1ba-21dceea9eeaa.jpg?im_w=1200"
-                      alt="Sunset view from a window"
-                      className="rounded"
-                      height="40"
-                    />
-                  </td>
-                  <td>Mark</td>
-                  <td>3</td>
-                  <td>Airbnb</td>
-                  <td>Salvador-BA</td>
-                  <td>
-                    <a className="btn btn-outline-dark" href="#">
-                      Upload(3)
-                    </a>
-                  </td>
-                  <td>
-                    <input type="number" className="form-control input-sm" />
-                  </td>
-                  <td>
-                    <input type="number" className="form-control input-sm" />
-                  </td>
-                  <td>
-                    <FiCheck />
-                  </td>
-                  <td>
-                    <button className="btn btn-primary">
-                      <BiWorld />
-                    </button>
-                    <button className="btn btn-warning mx-2">
-                      <FiEdit />
-                    </button>
-                    <button className="btn btn-danger">
-                      <AiOutlineDelete />
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>
-                    <img
-                      src="https://a0.muscache.com/im/pictures/04e8c888-45f4-4047-b1ba-21dceea9eeaa.jpg?im_w=1200"
-                      alt="Sunset view from a window"
-                      className="rounded"
-                      height="40"
-                    />
-                  </td>
-                  <td>Mark</td>
-                  <td>3</td>
-                  <td>Airbnb</td>
-                  <td>Salvador-BA</td>
-                  <td>
-                    <a className="btn btn-outline-dark" href="#">
-                      Upload(3)
-                    </a>
-                  </td>
-                  <td>
-                    <input type="number" className="form-control input-sm" />
-                  </td>
-                  <td>
-                    <input type="number" className="form-control input-sm" />
-                  </td>
-                  <td>
-                    <FiX />
-                  </td>
-                  <td>
-                    <button className="btn btn-primary">
-                      <BiWorld />
-                    </button>
-                    <button className="btn btn-warning mx-2">
-                      <FiEdit />
-                    </button>
-                    <button className="btn btn-danger">
-                      <AiOutlineDelete />
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>
-                    <img
-                      src="https://a0.muscache.com/im/pictures/04e8c888-45f4-4047-b1ba-21dceea9eeaa.jpg?im_w=1200"
-                      alt="Sunset view from a window"
-                      className="rounded"
-                      height="40"
-                    />
-                  </td>
-                  <td>Mark</td>
-                  <td>3</td>
-                  <td>Airbnb</td>
-                  <td>Salvador-BA</td>
-                  <td>
-                    <a className="btn btn-outline-dark" href="#">
-                      Upload(3)
-                    </a>
-                  </td>
-                  <td>
-                    <input type="number" className="form-control input-sm" />
-                  </td>
-                  <td>
-                    <input type="number" className="form-control input-sm" />
-                  </td>
-                  <td>
-                    <FiCheck />
-                  </td>
-                  <td>
-                    <button className="btn btn-primary">
-                      <BiWorld />
-                    </button>
-                    <button className="btn btn-warning mx-2">
-                      <FiEdit />
-                    </button>
-                    <button className="btn btn-danger">
-                      <AiOutlineDelete />
-                    </button>
-                  </td>
-                </tr>
+                {hotels.map((hotel, index) => {
+                  return (
+                    <tr key={index}>
+                      <th scope="row">{index + 1}</th>
+                      <td>
+                        <img
+                          src={hotel.image}
+                          alt="Sunset view from a window"
+                          className="rounded"
+                          height="40"
+                        />
+                      </td>
+                      <td>{hotel.name}</td>
+                      <td>{hotel.star}</td>
+                      <td>{hotel.owned_by}</td>
+                      <td>{hotel.location}</td>
+                      <td>
+                        <a className="btn btn-outline-dark" href="/hotels">
+                          Upload
+                        </a>
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          className="form-control input-sm"
+                          defaultValue={hotel.order}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          className="form-control input-sm"
+                          defaultValue={hotel.discount}
+                        />
+                      </td>
+                      <td>{hotel.status === true ? <FiCheck /> : <FiX />}</td>
+                      <td>
+                        <button className="btn btn-primary">
+                          <BiWorld />
+                        </button>
+                        <button className="btn btn-warning mx-2">
+                          <FiEdit />
+                        </button>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => {
+                            handleDelete(hotel.id);
+                          }}
+                        >
+                          <AiOutlineDelete />
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -173,4 +131,4 @@ function Hotels() {
   );
 }
 
-export default Hotels;
+export default withRouter(Hotels);
