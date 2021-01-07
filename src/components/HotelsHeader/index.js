@@ -42,7 +42,7 @@ function HotelsHeader() {
               <Link
                 className="nav-link active"
                 aria-current="page"
-                to="/hotels/addroom"
+                to="/hotels/create"
               >
                 AddRoom
               </Link>

@@ -1,4 +1,4 @@
-export const roomTypes = [
+export const roomsList = [
     "One-Bedroom",
     "Two-Bedroom Apartment",
     "Studio Apartment With Creek View",
