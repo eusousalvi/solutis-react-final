@@ -1,4 +1,3 @@
-import Header from "../../components/Header";
 import HotelsHeader from "../../components/HotelsHeader";
 import { FiCheck } from "react-icons/fi";
 import { FiX } from "react-icons/fi";
@@ -43,7 +42,6 @@ function Hotels(props) {
 
   return (
     <>
-      <Header />
       <HotelsHeader />
       <div className="container">
         <div className="row">
