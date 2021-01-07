@@ -1,0 +1,17 @@
+.header-title {
+    font-weight: 600;
+    margin-left: 10px;
+    margin-top: 20px;
+}
+
+.button-container {
+    background-color: rgb(248, 246, 246);
+    padding: 10px;
+    justify-self: center;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.airportsContainer {
+    position: relative;
+}
