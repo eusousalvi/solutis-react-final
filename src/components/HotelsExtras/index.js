@@ -1,17 +1,15 @@
-import { BiSearch } from 'react-icons/bi';
-import { FiEdit, FiX } from 'react-icons/fi';
-import axios from 'axios';
-import './styles.css';
+import { BiSearch } from "react-icons/bi";
+import { FiEdit, FiX } from "react-icons/fi";
+import ExtraServices from "../../services/extras";
+import "./styles.css";
 
 function HotelExtras({ item, setIsRemovingItem }) {
   const { id, tableId, img, name, status, price } = item;
 
-  function handleDelete() {
-    if (window.confirm('Realmente deseja deletar esse item ?')) {
+  async function handleDelete() {
+    if (window.confirm("Realmente deseja deletar esse item ?")) {
       setIsRemovingItem(true);
-      axios
-        .delete(`https://5ff71a40e7164b0017e1a256.mockapi.io/extras/${id}`)
-        .finally(() => setIsRemovingItem(false));
+      ExtraServices.deleteExtra(id).finally(() => setIsRemovingItem(false));
     }
   }
 
@@ -28,7 +26,7 @@ function HotelExtras({ item, setIsRemovingItem }) {
           <img src={img} alt={name} />
         </td>
         <td>{name}</td>
-        <td>{status ? 'Sim' : 'Não'}</td>
+        <td>{status ? "Sim" : "Não"}</td>
         <td>{price}</td>
         <td>
           <button type="button" className="btn btn-link">

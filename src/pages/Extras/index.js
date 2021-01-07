@@ -1,13 +1,10 @@
-import ListExtras from '../../components/HotelsListExtras';
-import Header from '../../components/Header';
-import HotelsHeader from '../../components/HotelsHeader';
-import { FiX } from 'react-icons/fi';
-import { FiPlus } from 'react-icons/fi';
+import ListExtras from "../../components/HotelsListExtras";
+import HotelsHeader from "../../components/HotelsHeader";
+import { FiX, FiPlus } from "react-icons/fi";
 
 function Extras() {
   return (
     <>
-      <Header />
       <HotelsHeader />
       <div className="container">
         <div className="row">

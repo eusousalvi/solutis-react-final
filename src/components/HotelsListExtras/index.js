@@ -1,17 +1,16 @@
-import { useState, useEffect } from 'react';
-import Extras from '../HotelsExtras';
-import axios from 'axios';
-import './styles.css';
+import { useState, useEffect } from "react";
+import Extras from "../HotelsExtras";
+import ExtraServices from "../../services/extras";
+import "./styles.css";
 
 function HotelListItens() {
   const [extras, setExtras] = useState([]);
   const [isRemovingItem, setIsRemovingItem] = useState(false);
 
   async function fetchData() {
-    const res = await axios.get(
-      'https://5ff71a40e7164b0017e1a256.mockapi.io/extras'
-    );
-    setExtras(res.data);
+    const data = await ExtraServices.getExtras();
+
+    if (data) setExtras(data);
   }
 
   useEffect(() => {
