@@ -1,6 +1,6 @@
 import HotelsHeader from "../../components/HotelsHeader";
 import Check from "../../images/check_bold.svg";
-import { FiEdit, FiX } from "react-icons/fi";
+import { FiEdit, FiX, FiPlusCircle, FiFile, FiPrinter } from "react-icons/fi";
 import "./style.css";
 
 function Rooms() {
@@ -8,9 +8,40 @@ function Rooms() {
     <>
       <HotelsHeader />
 
-      <div className="container">
+      <div className="container ">
         <div className="row">
           <div className="col-md-12 mt-5">
+            <div className="border border-secondary rounded d-flex justify-content-between mb-4 bg-white p-3 ">
+              <button
+                type="button"
+                className="btn btn-success btn-outline-light"
+              >
+                ADD <FiPlusCircle />
+              </button>
+              <div>
+                <button
+                  type="button"
+                  className="btn btn-light btn-outline-dark"
+                  style={{ marginRight: 10 }}
+                >
+                  <FiPrinter /> PRINT
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-light btn-outline-dark"
+                  style={{ marginRight: 10 }}
+                >
+                  <FiFile /> EXPORT INTO CSV
+                </button>
+
+                <button
+                  type="button"
+                  className="btn btn-danger btn-outline-light"
+                >
+                  <FiX /> DELETE SELECTED
+                </button>
+              </div>
+            </div>
             <table class="table table-striped table-hover">
               <thead className="thead">
                 <tr>
