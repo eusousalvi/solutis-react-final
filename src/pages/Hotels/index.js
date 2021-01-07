@@ -6,6 +6,7 @@ import { BiWorld } from "react-icons/bi";
 import { FiEdit } from "react-icons/fi";
 import { FiPlus } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
+import { withRouter } from "react-router-dom";
 
 import "./styles.css";
 import { Link } from "react-router-dom";
@@ -13,7 +14,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-function Hotels() {
+function Hotels(props) {
   const [hotels, setHotels] = useState([]);
   useEffect(() => {
     async function fetchData() {
@@ -25,6 +26,11 @@ function Hotels() {
     }
     fetchData();
   }, []);
+
+  function handleDelete(id) {
+    axios.delete(`https://5ff639a4941eaf0017f378b8.mockapi.io/hotels/${id}`);
+    props.history.push("/");
+  }
   return (
     <>
       <Header />
@@ -36,7 +42,7 @@ function Hotels() {
               <Link className="btn btn-success" to="/hotels/add">
                 <FiPlus /> Add
               </Link>
-              <a className="btn btn-danger" href="#">
+              <a className="btn btn-danger" href="/hotels">
                 <FiX /> Delete All
               </a>
             </div>
@@ -57,10 +63,10 @@ function Hotels() {
                 </tr>
               </thead>
               <tbody>
-                {hotels.map((hotel) => {
+                {hotels.map((hotel, index) => {
                   return (
-                    <tr>
-                      <th scope="row">{hotel.id}</th>
+                    <tr key={index}>
+                      <th scope="row">{index + 1}</th>
                       <td>
                         <img
                           src={hotel.image}
@@ -74,7 +80,7 @@ function Hotels() {
                       <td>{hotel.owned_by}</td>
                       <td>{hotel.location}</td>
                       <td>
-                        <a className="btn btn-outline-dark" href="#">
+                        <a className="btn btn-outline-dark" href="/hotels">
                           Upload
                         </a>
                       </td>
@@ -82,14 +88,14 @@ function Hotels() {
                         <input
                           type="number"
                           className="form-control input-sm"
-                          value={hotel.order}
+                          defaultValue={hotel.order}
                         />
                       </td>
                       <td>
                         <input
                           type="number"
                           className="form-control input-sm"
-                          value={hotel.discount}
+                          defaultValue={hotel.discount}
                         />
                       </td>
                       <td>{hotel.status === true ? <FiCheck /> : <FiX />}</td>
@@ -100,7 +106,12 @@ function Hotels() {
                         <button className="btn btn-warning mx-2">
                           <FiEdit />
                         </button>
-                        <button className="btn btn-danger">
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => {
+                            handleDelete(hotel.id);
+                          }}
+                        >
                           <AiOutlineDelete />
                         </button>
                       </td>
@@ -116,4 +127,4 @@ function Hotels() {
   );
 }
 
-export default Hotels;
+export default withRouter(Hotels);
