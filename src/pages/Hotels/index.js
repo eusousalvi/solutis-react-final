@@ -18,26 +18,35 @@ function Hotels(props) {
   const [hotels, setHotels] = useState([]);
   const [deleted, setDeleted] = useState(false);
 
-
   useEffect(() => {
     async function fetchData() {
-      const data = await hotelServices.getHotels();
-
-      if (data) setHotels(data);
-      
+      try {
+        const response = await hotelServices.getHotels();
+        if (response.status === 200 || response.status || 201)
+          setHotels(response.data);
+      } catch (error) {
+        window.alert("ocorreu um erro");
+        console.log(error);
+      }
     }
     fetchData();
   }, [deleted]);
 
   async function handleDelete(id) {
     const confirmDelete = window.confirm("Are you sure?");
-    
+
     if (confirmDelete) {
-     const data = await hotelServices.deleteHotel(id);
-      if (data) setDeleted(!deleted);
-      window.alert("This room has been successfully deleted")
+      try {
+        const response = await hotelServices.deleteHotel(id);
+        if (response.status === 200 || response.status || 201) {
+          setDeleted(!deleted);
+          window.alert("This room has been successfully deleted");
+        }
+      } catch (error) {
+        window.alert("ocorreu um erro");
+        console.log(error);
+      }
     }
-    
   }
 
   return (
