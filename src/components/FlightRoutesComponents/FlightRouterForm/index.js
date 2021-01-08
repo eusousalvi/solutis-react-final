@@ -20,7 +20,7 @@ function useForm(initialValues) {
   };
 }
 
-export default function EditFlightForm({ onSubmit, data }) {
+export default function EditFlightForm({ onSubmit: customOnSubmit, data }) {
   const handler = useForm(
     data || {
       refundable: "refundable",
@@ -67,15 +67,22 @@ export default function EditFlightForm({ onSubmit, data }) {
       id="edit-flight-form-wrapper"
       className="container-fluid edit-flight-form "
     >
-      <form onSubmit={onSubmit} id="edit-flight-form">
+      <form
+        onSubmit={(e) => {
+          console.log("ON SUBMIT");
+          e.preventDefault();
+          customOnSubmit(handler.values);
+        }}
+        id="edit-flight-form"
+      >
         <div className="d-flex justify-content-between">
           <FlightManagementForm handler={handler} />
           <MainSettingsForm handler={handler} />
         </div>
         <div className="col-8">
           <button
-            onClick={() => onSubmit(handler.values)}
-            type="button"
+            type="submit"
+            form="edit-flight-form"
             className="btn btn-primary w-100 edit-submit-button"
           >
             Submit
