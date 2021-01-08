@@ -16,7 +16,7 @@ export default function AddFlightRoutes() {
 
   return (
     <div id="edit-flight">
-      <Header />
+      {/* <Header /> */}
       <FlightRouteForm onSubmit={handleFormSubmit} />
     </div>
   );
