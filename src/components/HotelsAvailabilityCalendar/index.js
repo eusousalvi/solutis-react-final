@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import getFirstDayMonth from '../../helpers/getFirstDayMonth';
+import './styles.css';
 
 const months = [
   { name: 'January', totalDays: 31 },
@@ -29,24 +30,29 @@ function HotelAvailabilityCalendar() {
   function generateDayRows() {
     const rows = months.map((month, index) => {
       const days = [];
-      for (let i = 1; i <= getDay(index); i++) {
+      for (let i = 0; i < getDay(index); i++) {
         days.push(<td key={`empty${i}`}></td>);
       }
       for (let i = 1; i <= month.totalDays; i++) {
         days.push(
-          <>
-            <td key={`filled${i}`}>
-              <label>{i}</label>
-              <br />
-              <input maxLength={3} value={10} style={{ width: '23px' }} />
-            </td>
-          </>,
+          <td key={`filled${i}`} className="d-flex flex-column text-center">
+            <label>{i}</label>
+            <input
+              className="availabilityInput"
+              id={`${month.name}${i}`}
+              maxLengtd={3}
+              value={10}
+            />
+          </td>,
         );
       }
 
       return (
-        <tr key={index}>
-          <td>{month.name}</td>
+        <tr key={index} className="d-flex flex-row">
+          <td className="monthName ">{month.name}</td>
+          <td>
+            <button>{'>>'}</button>
+          </td>
           {days}
         </tr>
       );
@@ -56,60 +62,59 @@ function HotelAvailabilityCalendar() {
   }
 
   return (
-    <div>
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">
-              <select onChange={(e) => setCurrentYear(e.target.value)}>
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-              </select>
-            </th>
-            <th scope="col">Su</th>
-            <th scope="col">Mo</th>
-            <th scope="col">Tu</th>
-            <th scope="col">We</th>
-            <th scope="col">Th</th>
-            <th scope="col">Fr</th>
-            <th scope="col">Sa</th>
-            <th scope="col">Su</th>
-            <th scope="col">Mo</th>
-            <th scope="col">Tu</th>
-            <th scope="col">We</th>
-            <th scope="col">Th</th>
-            <th scope="col">Fr</th>
-            <th scope="col">Sa</th>
-            <th scope="col">Su</th>
-            <th scope="col">Mo</th>
-            <th scope="col">Tu</th>
-            <th scope="col">We</th>
-            <th scope="col">Th</th>
-            <th scope="col">Fr</th>
-            <th scope="col">Sa</th>
-            <th scope="col">Su</th>
-            <th scope="col">Mo</th>
-            <th scope="col">Tu</th>
-            <th scope="col">We</th>
-            <th scope="col">Th</th>
-            <th scope="col">Fr</th>
-            <th scope="col">Sa</th>
-            <th scope="col">Su</th>
-            <th scope="col">Mo</th>
-            <th scope="col">Tu</th>
-            <th scope="col">We</th>
-            <th scope="col">Th</th>
-            <th scope="col">Fr</th>
-            <th scope="col">Sa</th>
-            <th scope="col">Su</th>
-            <th scope="col">Mo</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </table>
-    </div>
+    <table className="table availabilityTable">
+      <tbody>
+        <tr className="d-flex flex-row">
+          <td className="d-flex text-center monthName">
+            <select onChange={(e) => setCurrentYear(e.target.value)}>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+              <option value="2023">2023</option>
+              <option value="2024">2024</option>
+            </select>
+          </td>
+          <td></td>
+          <td>Su</td>
+          <td>Mo</td>
+          <td>Tu</td>
+          <td>We</td>
+          <td>Th</td>
+          <td>Fr</td>
+          <td>Sa</td>
+          <td>Su</td>
+          <td>Mo</td>
+          <td>Tu</td>
+          <td>We</td>
+          <td>Th</td>
+          <td>Fr</td>
+          <td>Sa</td>
+          <td>Su</td>
+          <td>Mo</td>
+          <td>Tu</td>
+          <td>We</td>
+          <td>Th</td>
+          <td>Fr</td>
+          <td>Sa</td>
+          <td>Su</td>
+          <td>Mo</td>
+          <td>Tu</td>
+          <td>We</td>
+          <td>Th</td>
+          <td>Fr</td>
+          <td>Sa</td>
+          <td>Su</td>
+          <td>Mo</td>
+          <td>Tu</td>
+          <td>We</td>
+          <td>Th</td>
+          <td>Fr</td>
+          <td>Sa</td>
+          <td>Su</td>
+          <td>Mo</td>
+        </tr>
+        {rows}
+      </tbody>
+    </table>
   );
 }
 

@@ -15,7 +15,11 @@ function Routes() {
       <Switch>
         <Route path="/" exact component={Landing} />
         <Route path="/hotels" exact component={Hotels} />
-        <Route path="/rooms/availability" exact component={RoomsAvailability} />
+        <Route
+          path="/hotels/rooms/availability"
+          exact
+          component={RoomsAvailability}
+        />
         <Route path="/hotels/rooms" exact component={Rooms} />
         <Route path="/flights/routes/add" exact component={AddFlightRoutes} />
       </Switch>

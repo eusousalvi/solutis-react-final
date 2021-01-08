@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.availabilityTable {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  width: 100%;
+}
+
+.monthName {
+  width: 100px;
+  display: flex;
+  align-items: center;
+}
+
+.availabilityInput {
+  width: 23px;
+  height: 19px;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.availabilityTable td {
+  min-width: 39px;
+}
+
+.availabilityTable tr:first-child {
+  text-align: center;
+}
+
+.availabilityTable tr:not(:first-child) {
+  font-size: 10px;
+  line-height: 10px;
+  color: #555555;
+}
+
+.availabilityTable button {
+  height: 25px;
+  width: 20px;
+  text-align: center;
+  border: none;
+  background-color: #fff;
+  border: 0.5px solid #ccc;
+  border-radius: 3px;
+}
