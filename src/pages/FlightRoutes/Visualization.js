@@ -8,7 +8,7 @@ function Visualization() {
       <div className="container">
         <div className="row">
           <div className="col-md-12">
-            <h1 className="d-flex justify-content-center mt-5">Visualização</h1>
+            <h1 className="d-flex justify-content-center mt-5">Flight Route</h1>
           </div>
         </div>
         <ReturnFlightRoutesButton />
@@ -16,18 +16,18 @@ function Visualization() {
           <table className={"table table-bordered"}>
             <thead>
               <tr>
-                <th scope="col">Tipo</th>
-                <th scope="col">Cidade</th>
-                <th scope="col">Liha Aérea</th>
-                <th scope="col">Número do voo</th>
-                <th scope="col">Data</th>
-                <th scope="col">Tempo</th>
+                <th scope="col">Type</th>
+                <th scope="col">City</th>
+                <th scope="col">Airline</th>
+                <th scope="col">Flight Number</th>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
                 <th scope="col">Checkout</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Partida</td>
+                <td>Departure</td>
                 <td>Salvador</td>
                 <td>Gol</td>
                 <td>2345</td>
@@ -36,7 +36,7 @@ function Visualization() {
                 <td>09:30:00</td>
               </tr>
               <tr>
-                <td>Translado</td>
+                <td>Transit</td>
                 <td>São Paulo</td>
                 <td>Gol</td>
                 <td>2345</td>
@@ -45,7 +45,7 @@ function Visualization() {
                 <td>09:30:00</td>
               </tr>
               <tr>
-                <td>Chegada</td>
+                <td>Arrival</td>
                 <td>Curitiba</td>
                 <td>Gol</td>
                 <td>2345</td>
@@ -58,14 +58,14 @@ function Visualization() {
           <div className={"container"}>
             <div className={"row"}>
               <div className={"col-3"}>
-                <table class="table table-borderless mt-5">
+                <table className={"table table-borderless mt-5"}>
                   <tbody>
                     <tr>
                       <th scope="row">Status:</th>
-                      <td>Confirmado</td>
+                      <td>Confirmed</td>
                     </tr>
                     <tr>
-                      <th scope="row">Total de horas:</th>
+                      <th scope="row">Total hours:</th>
                       <td>03:00:00</td>
                     </tr>
                     <tr>
@@ -73,29 +73,29 @@ function Visualization() {
                       <td>35%</td>
                     </tr>
                     <tr>
-                      <th scope="row">Deposito</th>
+                      <th scope="row">Deposite</th>
                       <td>80%</td>
                     </tr>
                     <tr>
-                      <th scope="row">Tipo de voo</th>
-                      <td>Econômico</td>
+                      <th scope="row">Flight Type</th>
+                      <td>Economic</td>
                     </tr>
                     <tr>
-                      <th scope="row">Reembolsável</th>
-                      <td>Não</td>
+                      <th scope="row">Refundable</th>
+                      <td>No</td>
                     </tr>
                     <tr>
-                      <th scope="row">Direção</th>
-                      <td>Apenas ida</td>
+                      <th scope="row">Direction</th>
+                      <td>One way</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
               <div className={"col-sm"}>
-                <table class="table table-striped mt-5">
+                <table className={"table table-striped mt-5"}>
                   <thead>
                     <tr>
-                      <th scope="col">Descrição</th>
+                      <th scope="col">Description</th>
                     </tr>
                   </thead>
                   <tbody>

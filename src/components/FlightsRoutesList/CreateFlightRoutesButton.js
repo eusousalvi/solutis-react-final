@@ -1,6 +1,6 @@
 function CreateFlightRoutesButton() {
     return(
-        <button type="button" class="btn btn-success btn-lg mt-4">ADD</button>
+        <button type="button" className="btn btn-success btn-lg mt-4">ADD</button>
     );
 }
 
