@@ -34,7 +34,10 @@ async function deleteRoom(id) {
   return data;
 }
 
-export default {
+const exportData = {
+  api,
   getRooms,
   deleteRoom,
 };
+
+export default exportData;
