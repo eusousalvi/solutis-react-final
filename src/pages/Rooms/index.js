@@ -8,6 +8,7 @@ import {
   FiPrinter,
   FiCheck,
 } from "react-icons/fi";
+import { IoClose } from "react-icons/io5";
 import "./style.css";
 
 import RoomsService from "../../services/rooms";
@@ -15,11 +16,16 @@ import RoomsService from "../../services/rooms";
 function Rooms() {
   const [rooms, setRooms] = useState([]);
   const [deleted, setDeleted] = useState(false);
+
   useEffect(() => {
     async function fetchData() {
-      const data = await RoomsService.getRooms();
-
-      if (data) setRooms(data);
+      try {
+        const response = await RoomsService.getRooms();
+        if (response.status === 200 || response.status || 201)
+          setRooms(response.data);
+      } catch (error) {
+        console.log(error);
+      }
     }
     fetchData();
   }, [deleted]);
@@ -28,9 +34,15 @@ function Rooms() {
     const confirmDelete = window.confirm("Are you sure?");
 
     if (confirmDelete) {
-      const data = await RoomsService.deleteRoom(id);
-      if (data) setDeleted(!deleted);
-      window.alert("This room has been successfully deleted");
+      try {
+        const response = await RoomsService.deleteRoom(id);
+        if (response.status === 200 || response.status || 201) {
+          setDeleted(!deleted);
+          window.alert("This room has been successfully deleted");
+        }
+      } catch (error) {
+        window.alert("Ocorreu um erro");
+      }
     }
   }
 
@@ -68,7 +80,7 @@ function Rooms() {
                   type="button"
                   className="btn btn-danger btn-outline-light"
                 >
-                  <FiX /> DELETE SELECTED
+                  <IoClose /> DELETE SELECTED
                 </button>
               </div>
             </div>
@@ -137,7 +149,7 @@ function Rooms() {
                           className="btn btn-danger"
                           onClick={() => handleDelete(room.id)}
                         >
-                          <FiX />
+                          <IoClose />
                         </button>
                       </div>
                     </td>

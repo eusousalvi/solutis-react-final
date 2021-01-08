@@ -1,7 +1,7 @@
-.table-hover tbody tr:hover td {
+.table-hover tbody tr:hover {
   background: #a8d1ff;
+  cursor: pointer;
 }
-
 .thead {
   background: #dee2e6;
 }
