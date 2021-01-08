@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 function Header() {
   return (
@@ -26,11 +26,7 @@ function Header() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                className="nav-link active"
-                aria-current="page"
-                to="/hotels"
-              >
+              <Link className="nav-link active" aria-current="page" to="/hotels">
                 Hotels
               </Link>
             </li>

@@ -1,4 +1,3 @@
-import Header from "../../components/Header";
 import HotelsHeader from "../../components/HotelsHeader";
 import { FiCheck } from "react-icons/fi";
 import { FiX } from "react-icons/fi";
@@ -7,6 +6,7 @@ import { FiEdit } from "react-icons/fi";
 import { FiPlus } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
 import { withRouter } from "react-router-dom";
+import hotelServices from "../../services/hotels";
 
 import "./styles.css";
 import { Link } from "react-router-dom";
@@ -16,34 +16,47 @@ import { useEffect, useState } from "react";
 
 function Hotels(props) {
   const [hotels, setHotels] = useState([]);
+  const [deleted, setDeleted] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
-      const res = await axios.get(
-        "https://5ff639a4941eaf0017f378b8.mockapi.io/hotels"
-      );
-      setHotels(res.data);
-      console.log(res.data);
+      try {
+        const response = await hotelServices.getHotels();
+        if (response.status === 200 || response.status || 201)
+          setHotels(response.data);
+      } catch (error) {
+        window.alert("ocorreu um erro");
+        console.log(error);
+      }
     }
     fetchData();
-  }, []);
+  }, [deleted]);
 
-  function handleDelete(id) {
-    axios
-      .delete(`https://5ff639a4941eaf0017f378b8.mockapi.io/hotels/${id}`)
-      .then(() =>
-        window.confirm("Are you sure?").then(window.location.reload())
-      );
+  async function handleDelete(id) {
+    const confirmDelete = window.confirm("Are you sure?");
+
+    if (confirmDelete) {
+      try {
+        const response = await hotelServices.deleteHotel(id);
+        if (response.status === 200 || response.status || 201) {
+          setDeleted(!deleted);
+          window.alert("This room has been successfully deleted");
+        }
+      } catch (error) {
+        window.alert("ocorreu um erro");
+        console.log(error);
+      }
+    }
   }
+
   return (
     <>
-      <Header />
       <HotelsHeader />
       <div className="container">
         <div className="row">
           <div className="col-md-12 mt-5">
             <div className="border border-secondary rounded d-flex justify-content-between mb-4 bg-white p-3 ">
-              <Link className="btn btn-success" to="/hotels/add">
+              <Link className="btn btn-success" to="/hotels/create">
                 <FiPlus /> Add
               </Link>
               <a className="btn btn-danger" href="/hotels">
