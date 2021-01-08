@@ -1,0 +1,17 @@
+.btn-search { 
+    margin-left: 5px;
+}
+
+.form-complete {
+    margin: 3px 0px 7px 5px;
+    display: grid;
+    grid-template-columns: 80% 20%;
+    grid-gap: 5px;
+    align-items: center;
+}
+
+.form-solo {
+    display: grid;
+    align-items: center;
+    margin: 3px 0px 7px 5px;
+}
