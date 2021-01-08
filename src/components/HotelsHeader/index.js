@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function HotelsHeader() {
   return (
@@ -36,15 +36,6 @@ function HotelsHeader() {
                 to="/hotels/rooms"
               >
                 Rooms
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                className="nav-link active"
-                aria-current="page"
-                to="/hotels/create"
-              >
-                AddRoom
               </Link>
             </li>
             <li class="nav-item">
