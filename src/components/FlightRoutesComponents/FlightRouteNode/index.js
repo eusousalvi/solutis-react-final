@@ -1,6 +1,11 @@
 import React from "react";
 
-export default function FlightRouteNode({ node, removable, onClickDelete }) {
+export default function FlightRouteNode({
+  node,
+  removable,
+  onClickDelete,
+  onChange,
+}) {
   const airportList = ["VCP", "REC", "CWB", "SSA"];
   const airlineList = ["GOL", "Azul", "Passaredo"];
 
@@ -12,6 +17,7 @@ export default function FlightRouteNode({ node, removable, onClickDelete }) {
         <input
           className="form-control text-center"
           type="text"
+          name="type"
           placeholder={type}
           readOnly
         />
@@ -19,9 +25,10 @@ export default function FlightRouteNode({ node, removable, onClickDelete }) {
       <td>
         <select
           className="form-control"
-          name={`${type.toLowerCase()}Airport`}
           id={`${type.toLowerCase()}Airport`}
+          name="city"
           defaultValue={airport}
+          onChange={onChange}
         >
           {airportList.map((airport) => (
             <option key={airport}>{airport}</option>
@@ -31,9 +38,11 @@ export default function FlightRouteNode({ node, removable, onClickDelete }) {
       <td>
         <select
           className="form-control"
-          name={`${type.toLowerCase()}Airline`}
           id={`${type.toLowerCase()}Airline`}
+          name="airline"
           defaultValue={airline}
+          onChange={onChange}
+          required
         >
           {airlineList.map((airline) => (
             <option key={airline}>{airline}</option>
@@ -46,14 +55,17 @@ export default function FlightRouteNode({ node, removable, onClickDelete }) {
           type="number"
           name="flightNumber"
           defaultValue={flightNumber}
+          onChange={onChange}
           required
         />
       </td>
       <td>
         <input
           className="form-control"
-          type="date"
           id="flight-date"
+          type="date"
+          name="date"
+          onChange={onChange}
           defaultValue={date}
           required
         />
@@ -63,6 +75,8 @@ export default function FlightRouteNode({ node, removable, onClickDelete }) {
           className="form-control"
           type="time"
           id="flight-time"
+          name="time"
+          onChange={onChange}
           defaultValue={time}
           required
         />
@@ -72,6 +86,8 @@ export default function FlightRouteNode({ node, removable, onClickDelete }) {
           className="form-control"
           type="time"
           id="flight-checkout"
+          name="checkout"
+          onChange={onChange}
           defaultValue={checkout}
           required
         />

@@ -3,31 +3,45 @@ import React from "react";
 import FlightRouteNode from "../FlightRouteNode";
 
 const DEFAULT_NODE = {
+  checkout: "",
   airport: "",
   airline: "",
-  flightNumber: 0,
+  flightNo: 0,
   date: "",
   time: "",
-  checkout: "",
 };
 
-export default function FlightRouteManagerForm({ route }) {
-  const [connections, setConnections] = React.useState(
-    route ? route.connections : []
-  );
-
-  const departure = route
-    ? route.departure
-    : { ...DEFAULT_NODE, type: "Departure" };
-
-  const arrival = route ? route.arrival : { ...DEFAULT_NODE, type: "Arival" };
+export default function FlightRouteManagerForm({ handler }) {
+  const [connections, setConnections] = React.useState(handler.values.route);
 
   function handleAddTransitClick() {
     setConnections([
-      ...connections,
-      { ...DEFAULT_NODE, id: connections.length, type: "Transit" },
+      ...connections.slice(0, connections.length - 1),
+      {
+        id: connections.length,
+        type: "Transit",
+        ...DEFAULT_NODE,
+      },
+      ...connections.slice(connections.length - 1),
     ]);
   }
+
+  function onChange(id) {
+    return (e) => {
+      const { name, value } = e.target;
+
+      setConnections(
+        connections.map((item, i) =>
+          i === id ? { ...item, [name]: value } : item
+        )
+      );
+    };
+  }
+
+  React.useEffect(() => {
+    handler.onChange({ target: { name: "route", value: connections } });
+    return () => {};
+  }, [connections]);
 
   function handleDeleteNodeClick(id) {
     return () => {
@@ -50,16 +64,15 @@ export default function FlightRouteManagerForm({ route }) {
           </tr>
         </thead>
         <tbody>
-          <FlightRouteNode node={departure} />
-          {connections.map((node) => (
+          {connections.map((node, i) => (
             <FlightRouteNode
               key={node.id}
               node={node}
               onClickDelete={handleDeleteNodeClick(node.id)}
-              removable
+              onChange={onChange(i)}
+              removable={i > 0 && i < connections.length - 1}
             />
           ))}
-          <FlightRouteNode node={arrival} />
         </tbody>
       </table>
       <button

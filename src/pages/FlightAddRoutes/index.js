@@ -1,17 +1,12 @@
 import React from "react";
 
-import { useParams } from "react-router-dom";
-
 import FlightRouteForm from "../../components/FlightRoutesComponents/FlightRouterForm";
 import Header from "../../components/Header";
 
 export default function AddFlightRoutes() {
-  const { id } = useParams();
-
-  function handleFormSubmit(e) {
-    e.preventDefault();
+  function handleFormSubmit(values) {
     console.log("Custom submit method.");
-    console.log(id);
+    console.log(values);
   }
 
   return (

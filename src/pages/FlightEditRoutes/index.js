@@ -6,9 +6,9 @@ import Header from "../../components/Header";
 
 const mock = {
   flightManagement: {
-    priceAdult: 0,
-    priceChild: 0,
-    priceInfant: 0,
+    adultsPrice: 123,
+    childPrice: 456,
+    infantPrice: 789,
     route: {
       departure: {
         type: "Departure",
@@ -47,32 +47,42 @@ const mock = {
     status: "disabled",
     totalHours: "12:00",
     vatTax: 123,
-    deposite: 456,
+    deposite: 452,
     flightType: "economic",
-    refundable: "nonRefundable",
+    refundable: "non-refundable",
     direction: "return",
   },
 };
 
 export default function EditFlightRoutes() {
-  const [route, setRoute] = React.useState(undefined);
-  const [loading, setLoading] = React.useState(true);
-
   const { id } = useParams();
 
-  React.useEffect(() => {
-    // Fetch data and display only after promisse.
-    setLoading(false);
-    setRoute(mock);
-    return () => {};
-  }, []);
+  function handleFormSubmit(values) {
+    console.log(values);
+  }
 
-  function handleFormSubmit(e) {}
+  const data = {
+    refundable: mock.mainSettings.refundable,
+    flightType: mock.mainSettings.flightType,
+    totalHours: mock.mainSettings.totalHours,
+    direction: mock.mainSettings.direction,
+    deposite: mock.mainSettings.deposite,
+    status: mock.mainSettings.status,
+    vatTax: mock.mainSettings.vatTax,
+
+    route: {},
+
+    adultsPrice: mock.flightManagement.adultsPrice,
+    infantPrice: mock.flightManagement.infantPrice,
+    childPrice: mock.flightManagement.childPrice,
+
+    description: mock.flightManagement.description,
+  };
 
   return (
     <div id="edit-flight-routes">
       <Header />
-      {!loading && <FlightRouteForm onSubmit={handleFormSubmit} data={route} />}
+      <FlightRouteForm onSubmit={handleFormSubmit} data={data} />
     </div>
   );
 }

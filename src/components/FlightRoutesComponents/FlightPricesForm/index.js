@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function FlightPricesForm({ prices }) {
+export default function FlightPricesForm({ handler }) {
   return (
     <table className="table table-hover text-center">
       <thead>
@@ -18,11 +18,12 @@ export default function FlightPricesForm({ prices }) {
             <input
               type="text"
               className="form-control"
-              id="adultPrice"
-              name="adultPrice"
+              id="adultsPrice"
+              name="adultsPrice"
               required
               placeholder="R$"
-              defaultValue={prices?.adult}
+              value={handler.values.adultsPrice}
+              onChange={handler.onChange}
             />
           </th>
           <th>
@@ -33,7 +34,8 @@ export default function FlightPricesForm({ prices }) {
               name="childPrice"
               required
               placeholder="R$"
-              defaultValue={prices?.child}
+              value={handler.values.childPrice}
+              onChange={handler.onChange}
             />
           </th>
           <th>
@@ -44,7 +46,8 @@ export default function FlightPricesForm({ prices }) {
               name="infantPrice"
               required
               placeholder="R$"
-              defaultValue={prices?.infant}
+              value={handler.values.infantPrice}
+              onChange={handler.onChange}
             />
           </th>
         </tr>
