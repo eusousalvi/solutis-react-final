@@ -1,64 +1,52 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import getFirstDayMonth from '../../helpers/getFirstDayMonth';
+import { getRoomAvailability } from '../../services/roomsAvailability';
 import './styles.css';
-
-const months = [
-  { name: 'January', totalDays: 31 },
-  { name: 'February', totalDays: 28 },
-  { name: 'March', totalDays: 31 },
-  { name: 'April', totalDays: 30 },
-  { name: 'May', totalDays: 31 },
-  { name: 'June', totalDays: 30 },
-  { name: 'July', totalDays: 31 },
-  { name: 'August', totalDays: 31 },
-  { name: 'September', totalDays: 30 },
-  { name: 'October', totalDays: 31 },
-  { name: 'November', totalDays: 30 },
-  { name: 'December', totalDays: 31 },
-];
 
 function HotelAvailabilityCalendar() {
   let getDay;
   const [currentYear, setCurrentYear] = useState('2021');
   const [rows, setRows] = useState([]);
+  const { id } = useParams();
 
   useEffect(() => {
     getDay = getFirstDayMonth(currentYear);
-    setRows(generateDayRows());
+    generateDayRows();
   }, [currentYear]);
 
-  function generateDayRows() {
+  async function generateDayRows() {
+    const months = await getRoomAvailability(id);
     const rows = months.map((month, index) => {
       const days = [];
       for (let i = 0; i < getDay(index); i++) {
         days.push(<td key={`empty${i}`}></td>);
       }
-      for (let i = 1; i <= month.totalDays; i++) {
+      for (let i = 1; i <= month.availabilityDays.length; i++) {
         days.push(
           <td key={`filled${i}`} className="d-flex flex-column text-center">
             <label>{i}</label>
             <input
               className="availabilityInput"
               id={`${month.name}${i}`}
-              maxLengtd={3}
-              value={10}
+              maxLength={3}
+              value={month.availabilityDays[i - 1]}
             />
           </td>,
         );
       }
-
       return (
         <tr key={index} className="d-flex flex-row">
           <td className="monthName ">{month.name}</td>
           <td>
-            <button>{'>>'}</button>
+            <button onClick={() => getRoomAvailability(2)}>{'>>'}</button>
           </td>
           {days}
         </tr>
       );
     });
 
-    return rows;
+    setRows(rows);
   }
 
   return (

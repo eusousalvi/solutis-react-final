@@ -5,7 +5,6 @@ import HotelsHeader from '../../components/HotelsHeader';
 function RoomsAvailability() {
   return (
     <>
-      <Header />
       <HotelsHeader />
       <div className="container">
         <div className="row">

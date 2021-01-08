@@ -7,7 +7,7 @@ import Hotels from './pages/Hotels';
 import Rooms from './pages/Rooms';
 import Header from './components/Header';
 import AddFlightRoutes from './pages/AddFlightRoutes';
-import Airports from "./pages/Airports";
+import Airports from './pages/Airports';
 
 function Routes() {
   return (
@@ -17,7 +17,7 @@ function Routes() {
         <Route path="/" exact component={Landing} />
         <Route path="/hotels" exact component={Hotels} />
         <Route
-          path="/hotels/rooms/availability"
+          path="/hotels/rooms/availability/:id"
           exact
           component={RoomsAvailability}
         />
