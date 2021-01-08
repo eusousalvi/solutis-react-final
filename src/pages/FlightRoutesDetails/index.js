@@ -1,10 +1,8 @@
-import ReturnFlightRoutesButton from "../../components/FlightsRoutesList/ReturnFlightRoutesButton";
-import Header from "../../components/Header";
+import ReturnFlightRoutesButton from "../../components/FlightRoutesComponents/FlightRoutesReturnButton";
 
 function Visualization() {
   return (
     <>
-      <Header />
       <div className="container">
         <div className="row">
           <div className="col-md-12">
