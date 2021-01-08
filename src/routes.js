@@ -8,6 +8,7 @@ import Rooms from './pages/Rooms';
 import Header from './components/Header';
 import AddFlightRoutes from './pages/AddFlightRoutes';
 import Airports from "./pages/Airports";
+import AddAirport from './pages/AddAirport'
 
 function Routes() {
   return (
@@ -20,6 +21,7 @@ function Routes() {
         <Route path="/hotels/rooms" exact component={Rooms} />
         <Route path="/flights/routes/add" exact component={AddFlightRoutes} />
         <Route path="/flights/airports" exact component={Airports} />
+        <Route path="/flights/airports/add" exact component={AddAirport} />
       </Switch>
     </BrowserRouter>
   );
