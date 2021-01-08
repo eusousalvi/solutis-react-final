@@ -2,24 +2,36 @@ import { roomsList } from "../../utils/RoomArrays/roomsList";
 import { hotelsList } from "../../utils/RoomArrays/hotelsList";
 import { amenitiesList } from "../../utils/RoomArrays/amenitiesList";
 import { useState } from "react";
-import Quill from "quill";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+
+import RoomCreateService from "../../services/roomCreate";
 
 function HotelRoomCreate() {
+  const [descriptions, setDescription] = useState({
+    english: "",
+    portuguese: "",
+    japanese: "",
+    russian: "",
+    arabic: "",
+  });
+
   const [mainForm, setForm] = useState({
     status: "enabled",
     price: 0,
-    type: "",
-    hotel: "",
+    type: roomsList[0],
+    hotel: hotelsList[0],
     quantity: 0,
     stay: 0,
     adult: 0,
     child: 0,
     bed: 0,
     charge: 0,
+    descriptions: descriptions,
     amenities: [],
   });
 
-  function handleChange(category, value) {
+  function handleForm(category, value) {
     const aux = mainForm;
     if (category !== "checklistInput") {
       aux[category] = value;
@@ -36,31 +48,59 @@ function HotelRoomCreate() {
     }
     console.log(category, "-", value, "-", mainForm);
   }
-  var toolbarOptions = [
-    ["bold", "italic"],
-    ["link", "image"],
-  ];
-  var quill = new Quill("#editor", {
-    modules: {
-      toolbar: toolbarOptions,
-    },
-    theme: "snow",
-  });
 
+  function handleLanguage(category, value) {
+    const auxDesc = descriptions;
+    auxDesc[category] = value;
+    setDescription(auxDesc);
+    console.log(descriptions);
+
+    const auxForm = mainForm;
+    auxForm["descriptions"] = descriptions;
+    setForm(auxForm);
+    console.log(mainForm);
+  }
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      const response = await RoomCreateService.addRoom(mainForm);
+      if (response.status === 200 || response.status || 201)
+        console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <div className="mx-auto">
-      <form>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <div className="form-row">
-          <div id="editor">
-            <p>Hello World!</p>
-          </div>
+          <ReactQuill
+            id="english"
+            onChange={(e) => handleLanguage("english", e)}
+          />
+          <ReactQuill
+            id="portuguese"
+            onChange={(e) => handleLanguage("portuguese", e)}
+          />
+          <ReactQuill
+            id="japanese"
+            onChange={(e) => handleLanguage("japanese", e)}
+          />
+          <ReactQuill
+            id="russian"
+            onChange={(e) => handleLanguage("russian", e)}
+          />
+          <ReactQuill
+            id="arabic"
+            onChange={(e) => handleLanguage("arabic", e)}
+          />
           <div className="form-group col-6">
             <label for="Status">Status</label>
             <select
               className="form-select"
               aria-label="Status"
               id="status"
-              onChange={(e) => handleChange(e.target.id, e.target.value)}
+              onChange={(e) => handleForm(e.target.id, e.target.value)}
             >
               <option value="enabled">Enabled</option>
               <option value="disabled">Disabled</option>
@@ -74,84 +114,90 @@ function HotelRoomCreate() {
           <input
             type="number"
             className="form-control"
-            id="Price"
+            id="price"
             placeholder="Price"
             aria-label="Price"
+            onChange={(e) => handleForm(e.target.id, parseInt(e.target.value))}
             required
           />
         </div>
 
         <div className="col">
-          <select className="form-select" aria-label="RoomType">
+          <select
+            className="form-select"
+            aria-label="RoomType"
+            onChange={(e) => handleForm(e.target.id, e.target.value)}
+          >
             {roomsList.map((e) => (
-              <option
-                value={e}
-                onChange={(e) => handleChange(e.target.id, e.target.value)}
-              >
-                {e}
-              </option>
+              <option value={e}>{e}</option>
             ))}
           </select>
         </div>
 
         <div className="col">
-          <select className="form-select" aria-label="Hotel">
+          <select
+            className="form-select"
+            aria-label="Hotel"
+            onChange={(e) => handleForm(e.target.id, e.target.value)}
+          >
             {hotelsList.map((e) => (
-              <option
-                value={e}
-                onChange={(e) => handleChange(e.target.id, e.target.value)}
-              >
-                {e}
-              </option>
+              <option value={e}>{e}</option>
             ))}
           </select>
         </div>
         <input
           type="number"
           className="form-control"
+          id="quantity"
           placeholder="Quantity"
           aria-label="Quantity"
+          onChange={(e) => handleForm(e.target.id, parseInt(e.target.value))}
         />
 
         <input
           type="number"
           className="form-control"
+          id="stay"
           placeholder="Mininum Stay"
           aria-label="MinStay"
+          onChange={(e) => handleForm(e.target.id, parseInt(e.target.value))}
         />
 
         <input
           type="number"
           className="form-control"
+          id="adult"
           placeholder="Max Adults"
           aria-label="MaxAdults"
+          onChange={(e) => handleForm(e.target.id, parseInt(e.target.value))}
         />
 
         <input
           type="number"
           className="form-control"
+          id="child"
           placeholder="Max Children"
           aria-label="MaxChild"
+          onChange={(e) => handleForm(e.target.id, parseInt(e.target.value))}
         />
 
         <input
           type="number"
           className="form-control"
+          id="bed"
           placeholder="Extra Beds"
           aria-label="ExtraBeds"
+          onChange={(e) => handleForm(e.target.id, parseInt(e.target.value))}
         />
 
         <input
           type="number"
           className="form-control"
+          id="charge"
           placeholder="Beds Charges"
           aria-label="BedsCharges"
+          onChange={(e) => handleForm(e.target.id, parseInt(e.target.value))}
         />
-
-        <input type="checkbox" aria-label="SelectAll"></input>
-        <label for="SelectAll" className="form-label">
-          SelectAll
-        </label>
 
         {amenitiesList.map((amenity) => (
           <div>
@@ -160,7 +206,7 @@ function HotelRoomCreate() {
               className="checklistInput"
               aria-label={amenity}
               value={amenity}
-              onChange={(e) => handleChange(e.target.className, e.target.value)}
+              onChange={(e) => handleForm(e.target.className, e.target.value)}
             ></input>
             <label for={amenity} className="form-label">
               {amenity}
