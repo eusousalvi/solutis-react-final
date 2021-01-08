@@ -12,33 +12,29 @@ import hotelServices from "../../services/hotels";
 import "./styles.css";
 import { Link } from "react-router-dom";
 
-import axios from "axios";
 import { useEffect, useState } from "react";
 
 function Hotels(props) {
   const [hotels, setHotels] = useState([]);
   const [deleted, setDeleted] = useState(false);
 
-
   useEffect(() => {
     async function fetchData() {
       const data = await hotelServices.getHotels();
 
       if (data) setHotels(data);
-      
     }
     fetchData();
   }, [deleted]);
 
   async function handleDelete(id) {
     const confirmDelete = window.confirm("Are you sure?");
-    
+
     if (confirmDelete) {
-     const data = await hotelServices.deleteHotel(id);
+      const data = await hotelServices.deleteHotel(id);
       if (data) setDeleted(!deleted);
-      window.alert("This room has been successfully deleted")
+      window.alert("This room has been successfully deleted");
     }
-    
   }
 
   return (
