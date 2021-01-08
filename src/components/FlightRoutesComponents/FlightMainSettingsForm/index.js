@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles.css";
 
-export default function MainSettingsForm() {
+export default function MainSettingsForm({ handler }) {
   return (
     <div id="main-settings-form-wrapper" className="col-4">
       <div
@@ -15,11 +15,12 @@ export default function MainSettingsForm() {
         <div className="card-body">
           <div className="form-floating main-settings-item">
             <select
-              id="flightStatus"
-              name="flightStatus"
+              id="status"
+              name="status"
               className="form-select"
               aria-label="Flight Status"
-              defaultValue="Enabled"
+              value={handler.values.status}
+              onChange={handler.onChange}
             >
               <option value="enabled">Enabled</option>
               <option value="disabled">Disabled</option>
@@ -29,15 +30,37 @@ export default function MainSettingsForm() {
             </label>
           </div>
           <div className="form-floating main-settings-item">
-            <input required type="time" className="form-control" id="totalHours" name="totalHours" />
+            <input
+              required
+              type="time"
+              className="form-control"
+              id="totalHours"
+              name="totalHours"
+              value={handler.values.totalHours}
+              onChange={handler.onChange}
+            />
             <label htmlFor="totalHours">Total Hours</label>
           </div>
           <div className="form-floating main-settings-item">
-            <input type="number" className="form-control" id="vatTax" name="vatTax" />
+            <input
+              type="number"
+              className="form-control"
+              id="vatTax"
+              name="vatTax"
+              value={handler.values.vatTax}
+              onChange={handler.onChange}
+            />
             <label htmlFor="vatTax">Vat Tax</label>
           </div>
           <div className="form-floating main-settings-item">
-            <input type="number" className="form-control" id="deposite" name="deposite" />
+            <input
+              type="number"
+              className="form-control"
+              id="deposite"
+              name="deposite"
+              value={handler.values.deposite}
+              onChange={handler.onChange}
+            />
             <label htmlFor="deposite">Deposite</label>
           </div>
           <div className="form-floating main-settings-item">
@@ -46,7 +69,8 @@ export default function MainSettingsForm() {
               name="flightType"
               className="form-select"
               aria-label="Flight Type"
-              defaultValue="Business"
+              value={handler.values.flightType}
+              onChange={handler.onChange}
             >
               <option value="business">Business</option>
               <option value="economic">Economic</option>
@@ -61,7 +85,8 @@ export default function MainSettingsForm() {
               name="refundable"
               className="form-select"
               aria-label="Refundable"
-              defaultValue="Refundable"
+              value={handler.values.refundable}
+              onChange={handler.onChange}
             >
               <option value="refundable">Refundable</option>
               <option value="non-refundable">Non Refundable</option>
@@ -76,7 +101,8 @@ export default function MainSettingsForm() {
               name="direction"
               className="form-select"
               aria-label="Flight Direction"
-              defaultValue="one-way"
+              value={handler.values.direction}
+              onChange={handler.onChange}
             >
               <option value="one-way">One Way</option>
               <option value="return">Return</option>

@@ -1,17 +1,17 @@
 import React from "react";
 
-import { useParams } from "react-router-dom";
+import axios from "axios";
 
 import FlightRouteForm from "../../components/FlightRoutesComponents/FlightRouterForm";
 import Header from "../../components/Header";
 
 export default function AddFlightRoutes() {
-  const { id } = useParams();
+  function handleFormSubmit(values) {
+    axios
+      .post("https://5ff83d6510778b0017042ff3.mockapi.io/routes/", values)
+      .catch((erro) => console.log(erro));
 
-  function handleFormSubmit(e) {
-    e.preventDefault();
-    console.log("Custom submit method.");
-    console.log(id);
+    console.log(values);
   }
 
   return (
