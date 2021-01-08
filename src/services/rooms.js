@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const api = axios.create({
-  baseURL: "https://5ff73901e7164b0017e1a4fd.mockapi.io"
+ const api = axios.create({
+  baseURL: "https://5ff3741c28c3980017b1953d.mockapi.io"
 })
 
 async function getRooms() {
@@ -31,6 +31,8 @@ async function deleteRoom(id) {
 
 
 export default {
+  api,
   getRooms,
   deleteRoom,
 }
+
