@@ -1,14 +1,8 @@
 import { useState, useEffect } from "react";
 import HotelsHeader from "../../components/HotelsHeader";
-import {
-  FiEdit,
-  FiX,
-  FiPlusCircle,
-  FiFile,
-  FiPrinter,
-  FiCheck,
-} from "react-icons/fi";
-import { IoClose } from "react-icons/io5";
+import { FiEdit, FiPlusCircle, FiFile, FiPrinter } from "react-icons/fi";
+import { FaCheck, FaTimes } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import "./style.css";
 
 import RoomsService from "../../services/rooms";
@@ -80,7 +74,7 @@ function Rooms() {
                   type="button"
                   className="btn btn-danger btn-outline-light"
                 >
-                  <IoClose /> DELETE SELECTED
+                  <FaTimes /> DELETE SELECTED
                 </button>
               </div>
             </div>
@@ -132,7 +126,12 @@ function Rooms() {
                       <button className="btn btn-link">Prices</button>
                     </td>
                     <td>
-                      <button className="btn btn-link">Availability</button>
+                      <Link
+                        className="btn btn-link"
+                        to={`/hotels/rooms/availabilty/${room.id}`}
+                      >
+                        Availability
+                      </Link>
                     </td>
                     <td>
                       <button className="btn btn-link">{`Upload(${room.uploads})`}</button>
@@ -140,7 +139,7 @@ function Rooms() {
 
                     <td>
                       <div className="status-container">
-                        <FiCheck />
+                        <FaCheck />
 
                         <button className="btn btn-warning mx-2">
                           <FiEdit />
@@ -149,7 +148,7 @@ function Rooms() {
                           className="btn btn-danger"
                           onClick={() => handleDelete(room.id)}
                         >
-                          <IoClose />
+                          <FaTimes />
                         </button>
                       </div>
                     </td>
