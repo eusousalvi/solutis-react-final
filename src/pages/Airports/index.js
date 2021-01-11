@@ -2,7 +2,7 @@ import AirportsHeader from "../../components/FlightsAirportsList/AirportsHeader"
 import AirportsTable from "../../components/FlightsAirportsList/AirportsTable";
 import AirportsPagination from "../../components/FlightsAirportsList/AirportsPagination";
 import AirportsSearchBar from "../../components/FlightsAirportsList/AirportsSearchBar";
-//import Pagination from "../../components/Pagination";
+// import Pagination from "../../components/Pagination";
 
 import { useEffect, useState } from "react";
 import { FiX } from "react-icons/fi";
@@ -29,7 +29,7 @@ function Airports() {
         const data = await airportServices.getAirports()
         if (data) setTotalAirports(data.length)
     }
-    
+
     function updateItemsPerPage(quantity) {
         setItemsPerPage(quantity)
         setCurrentPage(1)
@@ -98,14 +98,14 @@ function Airports() {
                 <div className="footer">
                     <div className="row">
                         <div className="col-sm-12 footer-container">
-                            <AirportsPagination 
-                                total={totalAiports}
+                            <AirportsPagination
+                                totalPages={totalAiports}
                                 currentPage={currentPage}
-                                setCurrentPage={setCurrentPage}
+                                handleChangePage={setCurrentPage}
                                 pages={pages}
                                 setPages={setPages}
-                                itemsPerPage={itemsPerPage}
-                                setItemsPerPage={updateItemsPerPage}
+                                limit={itemsPerPage}
+                                handleChangeLimit={updateItemsPerPage} 
                             />
                             <AirportsSearchBar searchAirports={searchAirports} />
                         </div>
