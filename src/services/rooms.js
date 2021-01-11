@@ -1,36 +1,32 @@
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://5ff73901e7164b0017e1a4fd.mockapi.io"
-})
+  baseURL: "https://5ff3741c28c3980017b1953d.mockapi.io",
+});
 
-async function getRooms() {
-  let data = false;
+function getRooms() {
+  const response = api.get("/rooms");
 
-  await api.get("/Rooms").then(response => {
-    if (response) data = response.data;
-  }).catch(error => {
-    console.log("Ocorreu algum erro:", error)
-    
-  })
-
-  return data;
+  return response;
 }
 
-async function deleteRoom(id) {
-  let data = false;
+function getRoomsPaginate(page, limit) {
+  const response = api.get(`/rooms?page=${page}&limit=${limit}`);
 
-  await api.delete(`/Rooms/${id}`).then(response => {
-    if (response) data = true;
-  }).catch(error => {
-    console.log('Ocorreu algum erro:', error)
-  })
-
-  return data;
+  return response;
 }
 
+function deleteRoom(id) {
+  const response = api.delete(`/rooms/${id}`);
 
-export default {
+  return response;
+}
+
+const exportData = {
+  api,
   getRooms,
+  getRoomsPaginate,
   deleteRoom,
-}
+};
+
+export default exportData;

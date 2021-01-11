@@ -1,0 +1,4 @@
+.table-hover tbody tr:hover {
+  background: #a8d1ff;
+  cursor: pointer;
+}
