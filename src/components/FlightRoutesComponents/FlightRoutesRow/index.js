@@ -27,7 +27,7 @@ function FlightRoutesRow(props) {
       <td className="text-center">{props.flight.timeArrival}</td>
       <td className="d-flex">
         <button className="btn btn-info mx-1">
-          <Link className={"text-dark"} to={"/flights/routes/visualization"}>
+          <Link className={"text-dark"} to={"/flights/routes/details"}>
             <BiWorld/>
           </Link>
         </button>
