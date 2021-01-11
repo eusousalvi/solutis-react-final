@@ -4,34 +4,31 @@ const api = axios.create({
   baseURL: "https://5ff71a40e7164b0017e1a256.mockapi.io",
 });
 
-async function getExtras() {
-  let data = true;
-
-  await api
-    .get("/extras")
-    .then(response => {
-      if (response) data = response.data;
-    })
-    .catch(err => console.log("Error: ", err));
-
-  return data;
+function getExtras() {
+  const res = api.get("/extras");
+  return res;
 }
 
-async function deleteExtra(id) {
-  let data = false;
-
-  await api
-    .delete(`/extras/${id}`)
-    .then(response => {
-      if (response) data = true;
-    })
-    .catch(err => {
-      console.log("Err", err);
-    });
-
-  return data;
+function getById(id) {
+  const res = api.get(`/extras/${id}`);
+  return res;
 }
 
-const exportDate = { getExtras, deleteExtra };
+function create(data) {
+  const res = api.post("/extras", data);
+  return res;
+}
+
+function update(id, data) {
+  const res = api.put(`extras/${id}`, data);
+  return res;
+}
+
+function deleteExtra(id) {
+  const res = api.delete(`/extras/${id}`);
+  return res;
+}
+
+const exportDate = { getExtras, getById, deleteExtra, create, update };
 
 export default exportDate;
