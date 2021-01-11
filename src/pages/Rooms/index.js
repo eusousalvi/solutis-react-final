@@ -20,6 +20,17 @@ function Rooms() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(25);
   const [totalPages, setTotalPages] = useState([]);
+  const titleColumns = [
+    "#",
+    "Room Type",
+    "Hotel",
+    "Qty",
+    "Price",
+    "Prices",
+    "Availability",
+    "Gallery",
+    "Status",
+  ];
 
   useEffect(() => {
     async function fetchData() {
@@ -96,7 +107,11 @@ function Rooms() {
             <RoomsButton variant="delete" title="DELETE SELECTED" />
           </div>
         </RoomsListTopToolBar>
-        <RoomsTable rooms={rooms} handleDeleteRoom={handleDelete} />
+        <RoomsTable
+          rooms={rooms}
+          handleDeleteRoom={handleDelete}
+          fields={titleColumns}
+        />
       </div>
     </div>
   );
