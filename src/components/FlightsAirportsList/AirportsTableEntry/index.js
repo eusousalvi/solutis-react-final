@@ -1,17 +1,24 @@
 import { Link } from 'react-router-dom';
 import { BiSearch } from "react-icons/bi";
 import { FiEdit } from "react-icons/fi";
+import { useState, useEffect } from 'react';
 import AirportsDeleteButton from "../AirportsDeleteButton";
 import "./styles.css";
-import { useState, useEffect } from 'react';
 
-const AirportsTableEntry = ({ airport, checked, num }) => {
+const AirportsTableEntry = ({ airport, checked, num, setSelectedForRemoval }) => {
     
     const [isChecked, setIsChecked] = useState(checked)
     
     useEffect(() => {
         setIsChecked(checked)
     }, [checked])
+
+    useEffect(() => {
+        if(isChecked)
+            setSelectedForRemoval(state => [...state, airport.id])
+        else
+            setSelectedForRemoval(state => state.filter(id => id !== airport.id))
+    }, [isChecked])
 
     return (
         <tr>
