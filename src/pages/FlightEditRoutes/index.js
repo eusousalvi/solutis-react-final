@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 import FlightRouteForm from "../../components/FlightRoutesComponents/FlightRouterForm";
 
@@ -10,8 +10,15 @@ export default function EditFlightRoutes() {
   const [data, setData] = React.useState();
   const { id } = useParams();
 
+  const history = useHistory();
+
   function handleFormSubmit(values) {
-    console.log(values);
+    axios
+      .put(`https://5ff83d6510778b0017042ff3.mockapi.io/routes/${id}`, values)
+      .then((response) => {
+        history.push("/flights/routes");
+      })
+      .catch((erro) => console.log(erro));
   }
 
   React.useEffect(() => {
@@ -24,8 +31,6 @@ export default function EditFlightRoutes() {
       .catch((erro) => console.log(erro));
     return () => {};
   }, [id]);
-
-  console.log(data);
 
   return (
     <div id="edit-flight-routes">
