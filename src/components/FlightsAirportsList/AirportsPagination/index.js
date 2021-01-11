@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import "./styles.css"
 
 function AirportsPagination({
     totalPages,
@@ -42,7 +43,7 @@ function AirportsPagination({
     }, [currentPage, totalPages, limit])
 
     return (
-        <div className="btn-toolbar">
+        <div className="btn-toolbar airportsPagination">
             <div className="btn-group me-2" role="group">
                 <button
                     className={`${limit === 10 ? "btn btn-primary" : "btn btn-light btn-outline-dark "

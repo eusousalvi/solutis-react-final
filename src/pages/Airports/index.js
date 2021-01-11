@@ -2,6 +2,7 @@ import AirportsHeader from "../../components/FlightsAirportsList/AirportsHeader"
 import AirportsTable from "../../components/FlightsAirportsList/AirportsTable";
 import AirportsPagination from "../../components/FlightsAirportsList/AirportsPagination";
 import AirportsSearchBar from "../../components/FlightsAirportsList/AirportsSearchBar";
+import FlightsHeader from "../../components/FlightsHeader";
 // import Pagination from "../../components/Pagination";
 
 import { useEffect, useState } from "react";
@@ -74,6 +75,7 @@ function Airports() {
 
     return (
         <>
+            <FlightsHeader /> 
             <div className="container">
                 <AirportsHeader>
                     <Link to="airports/add">
