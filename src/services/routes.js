@@ -12,8 +12,12 @@ function getRoute(id) {
   return api.get(`/routes/${id}`);
 }
 
-function putRoute(id) {
-  return api.put(`/routes/${id}`);
+function addRoute(params) {
+  return api.post(`/routes/`, params);
+}
+
+function putRoute(id, params) {
+  return api.put(`/routes/${id}`, params);
 }
 
 function deleteRoute(id) {
@@ -22,6 +26,7 @@ function deleteRoute(id) {
 
 const exportData = {
   api,
+  addRoute,
   getRoute,
   putRoute,
   getRoutes,
