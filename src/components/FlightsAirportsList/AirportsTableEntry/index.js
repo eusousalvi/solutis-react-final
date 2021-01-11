@@ -43,7 +43,7 @@ const AirportsTableEntry = ({ airport, checked, num, setSelectedForRemoval }) =>
             <td id={`airportLongitude-${airport.id}`}>{airport.longitude}</td>
 
             <td id={`airportActions-${airport.id}`}>
-                <span>
+                <span className="airportSpan">
                     <Link to={{
                         pathname: "airports/view",
                         airport: airport

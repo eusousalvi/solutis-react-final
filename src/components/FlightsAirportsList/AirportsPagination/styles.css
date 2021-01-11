@@ -1,8 +1,8 @@
-.pagination li button {
+.airportsPagination li button {
     margin: 5px;
 }
 
-.pagination {
+.airportsPagination {
     margin-bottom: 5px;
     display: flex;
     flex-direction: row;
