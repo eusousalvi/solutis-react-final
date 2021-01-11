@@ -1,17 +1,39 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import AvailabilityCalendarRows from './AvailabilityCalendarRows';
+import getDaysInMonth from '../../helpers/getDaysInMonth';
+import { editRoomAvailability } from '../../services/roomsAvailability';
 import './styles.css';
+
+const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
 
 function HotelAvailabilityCalendar() {
   const [currentYear, setCurrentYear] = useState('2021');
-  const [availability, setAvailability] = useState([]);
+  // const [availability, setAvailability] = useState([]);
 
   const { id } = useParams();
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(e.target);
+    const data = {
+      availability: months.map((month) => {
+        return { name: month, availabilityDays: getDaysInMonth(month) };
+      }),
+    };
+    editRoomAvailability(id, data);
   }
 
   return (

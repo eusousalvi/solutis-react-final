@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 import AvailabilityCalendarDay from '../AvailabilityCalendarDay';
+import getTotalDaysInMonth from '../../../helpers/getTotalDaysInMonth';
 import './styles.css';
 
-function AvailabilityCalendarRow({ month, getDay, monthIndex }) {
+function AvailabilityCalendarRow({ month, getDay, monthIndex, currentYear }) {
   const [currentTotalAvailability, setCurrentTotalAvailability] = useState(0);
 
   const days = [];
   for (let i = 0; i < getDay(monthIndex); i++) {
     days.push(<td key={`empty${i}`}></td>);
   }
-  for (let i = 1; i <= month.availabilityDays.length; i++) {
+  for (
+    let i = 1;
+    i <=
+    (month.availabilityDays.length ||
+      getTotalDaysInMonth(currentYear, monthIndex));
+    i++
+  ) {
     days.push(
       <AvailabilityCalendarDay
         key={`filled${i}`}

@@ -1,11 +1,13 @@
 import exportData from '../services/rooms';
+import getMonths from '../helpers/getMonths';
 
 const { api } = exportData;
 
 export async function getRoomAvailability(roomId) {
   try {
     const response = await api.get(`/rooms/${roomId}`);
-    const { availability } = response.data;
+    let { availability } = response.data;
+    availability = availability.length > 0 ? availability : getMonths();
     return availability;
   } catch (error) {
     console.log(error);

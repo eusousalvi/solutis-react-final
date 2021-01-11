@@ -16,6 +16,7 @@ function AvailabilityCalendarRows({ currentYear, roomId }) {
           month={month}
           getDay={getDay}
           monthIndex={index}
+          currentYear={currentYear}
         />
       );
     });
