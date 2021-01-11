@@ -1,8 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles.css';
 
-function AvailabilityCalendarDay({ month, dayIndex }) {
-  const [value, setValue] = useState(month.availabilityDays[dayIndex - 1]);
+function AvailabilityCalendarDay({
+  month,
+  dayIndex,
+  currentTotalAvailability,
+}) {
+  const [value, setValue] = useState(
+    month.availabilityDays[dayIndex - 1] || 10,
+  );
+
+  useEffect(() => {
+    return () => setValue(currentTotalAvailability);
+  }, [currentTotalAvailability]);
 
   return (
     <td className="d-flex flex-column text-center">
@@ -13,6 +23,7 @@ function AvailabilityCalendarDay({ month, dayIndex }) {
         maxLength={3}
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        name={month.name}
       />
     </td>
   );
