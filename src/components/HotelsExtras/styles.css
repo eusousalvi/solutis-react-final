@@ -1,0 +1,40 @@
+td {
+  vertical-align: middle;
+}
+
+.zoom-img {
+  max-height: 20px;
+}
+
+.zoom-img img {
+  width: 28px;
+  padding: 0 !important;
+  border-radius: 4px;
+  transition: 0.1s ease-in;
+  -moz-transition: -moz-transform 0.1s ease-in;
+  -webkit-transition: -webkit-transform 0.1s ease-in;
+  -o-transition: -o-transform 0.1s ease-in;
+}
+
+.zoom-img img:hover {
+  transform: scale(2.9);
+  -moz-transform: scale(2.9);
+  -webkit-transform: scale(2.9);
+  -o-transform: scale(2.9);
+}
+
+.btn-link {
+  background: rgba(104, 173, 255, 0.23);
+
+  color: #1e249a;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.btn-link:hover {
+  text-decoration: underline;
+}
+
+.modify-buttons {
+  width: 0.5rem;
+}

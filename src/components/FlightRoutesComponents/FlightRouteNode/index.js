@@ -1,24 +1,34 @@
 import React from "react";
 
-export default function FlightRouteNode({ type, removable, onClickDelete }) {
+export default function FlightRouteNode({
+  node,
+  removable,
+  onClickDelete,
+  onChange,
+}) {
   const airportList = ["VCP", "REC", "CWB", "SSA"];
   const airlineList = ["GOL", "Azul", "Passaredo"];
+
+  const { type, airport, airline, flightNumber, date, time, checkout } = node;
 
   return (
     <tr>
       <td>
         <input
-          class="form-control text-center"
+          className="form-control text-center"
           type="text"
+          name="type"
           placeholder={type}
           readOnly
         />
       </td>
       <td>
         <select
-          class="form-control"
-          name={`${type.toLowerCase()}Airport`}
+          className="form-control"
           id={`${type.toLowerCase()}Airport`}
+          name="city"
+          defaultValue={airport}
+          onChange={onChange}
         >
           {airportList.map((airport) => (
             <option key={airport}>{airport}</option>
@@ -27,9 +37,12 @@ export default function FlightRouteNode({ type, removable, onClickDelete }) {
       </td>
       <td>
         <select
-          class="form-control"
-          name={`${type.toLowerCase()}Airline`}
+          className="form-control"
           id={`${type.toLowerCase()}Airline`}
+          name="airline"
+          defaultValue={airline}
+          onChange={onChange}
+          required
         >
           {airlineList.map((airline) => (
             <option key={airline}>{airline}</option>
@@ -37,16 +50,47 @@ export default function FlightRouteNode({ type, removable, onClickDelete }) {
         </select>
       </td>
       <td>
-        <input className="form-control" type="number" name="flightNumber" required/>
+        <input
+          className="form-control"
+          type="number"
+          name="flightNumber"
+          defaultValue={flightNumber}
+          onChange={onChange}
+          required
+        />
       </td>
       <td>
-        <input class="form-control" type="date" id="example-date-input" required/>
+        <input
+          className="form-control"
+          id="flight-date"
+          type="date"
+          name="date"
+          onChange={onChange}
+          defaultValue={date}
+          required
+        />
       </td>
       <td>
-        <input class="form-control" type="time" id="example-time-input" required/>
+        <input
+          className="form-control"
+          type="time"
+          id="flight-time"
+          name="time"
+          onChange={onChange}
+          defaultValue={time}
+          required
+        />
       </td>
       <td>
-        <input class="form-control" type="time" id="example-time-input" required/>
+        <input
+          className="form-control"
+          type="time"
+          id="flight-checkout"
+          name="checkout"
+          onChange={onChange}
+          defaultValue={checkout}
+          required
+        />
       </td>
       {removable && (
         <td>
