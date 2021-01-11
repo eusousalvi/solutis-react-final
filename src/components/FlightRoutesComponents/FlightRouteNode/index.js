@@ -1,6 +1,7 @@
 import React from "react";
 import InputMask from "react-input-mask";
 
+import airportsService from "../../../services/airports";
 
 export default function FlightNode({
   node,
@@ -8,8 +9,22 @@ export default function FlightNode({
   onClickDelete,
   onChange,
 }) {
-  const airportList = ["VCP", "REC", "CWB", "SSA"];
+  const [airports, setAirports] = React.useState([]);
+  const [loadingAirports, setLoadingAirports] = React.useState(true);
+
   const airlineList = ["GOL", "Azul", "Passaredo"];
+
+  React.useEffect(() => {
+    airportsService.getAirports().then((response) => {
+      setAirports(response);
+      setLoadingAirports(false);
+
+      onChange({ target: { name: "city", value: response[0].id } });
+    });
+
+    onChange({ target: { name: "airline", value: airlineList[0] } });
+    return () => {};
+  }, []);
 
   const { type, airport, airline, flightNumber, date, time, checkout } = node;
 
@@ -24,19 +39,23 @@ export default function FlightNode({
           readOnly
         />
       </td>
-      <td>
-        <select
-          className="form-control"
-          id={`${type.toLowerCase()}Airport`}
-          name="city"
-          defaultValue={airport}
-          onChange={onChange}
-        >
-          {airportList.map((airport) => (
-            <option key={airport}>{airport}</option>
-          ))}
-        </select>
-      </td>
+      {!loadingAirports && (
+        <td>
+          <select
+            className="form-control"
+            id={`${type.toLowerCase()}Airport`}
+            name="city"
+            defaultValue={airport}
+            onChange={onChange}
+          >
+            {airports.map((airport) => (
+              <option key={airport.id} value={airport.id}>
+                {airport.citycode}
+              </option>
+            ))}
+          </select>
+        </td>
+      )}
       <td>
         <select
           className="form-control"

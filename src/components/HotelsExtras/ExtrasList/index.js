@@ -24,12 +24,13 @@ function ExtrasList() {
   return (
     <>
       <table className="table table-striped table-hover">
-        <thead className="thead">
+        <thead className="thead-extras">
           <tr>
             <th scope="col">
               <div className="form-check mb-0">
                 <input
                   className="form-check-input"
+                  style={{width: '1.2rem', height:'1.2rem'}}
                   type="checkbox"
                   name=""
                   id=""

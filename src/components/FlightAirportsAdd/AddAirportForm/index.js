@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function AddAirportForm({onSubmit}) {
     return (
-        <div>
+        <div className="AddAirportForm">
             <form onSubmit={onSubmit}>
                 <h1>Inisira os dados do Aeroporto</h1>
                 <div className="row">
@@ -62,7 +62,9 @@ export default function AddAirportForm({onSubmit}) {
                         
                     </div>
                     <div className="form-group col-md-10">
-                        <button type="submit" className="btn btn-primary">Salvar</button>
+                        <div className="btnSaveForm">
+                            <button type="submit" className="btn btn-primary">Salvar</button>
+                        </div>
                     </div>
                 </div>
             </form>

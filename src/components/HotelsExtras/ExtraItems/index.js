@@ -25,7 +25,7 @@ function ExtraItems({ item, setIsRemovingItem }) {
       <tr>
         <td>
           <div className="form-check mb-0">
-            <input className="form-check-input" type="checkbox" name="" id="" />
+            <input className="form-check-input" style={{width: '1.2rem', height:'1.2rem'}} type="checkbox" name="" id="" />
           </div>
         </td>
         <td className="item-num">{tableId}</td>
@@ -38,9 +38,7 @@ function ExtraItems({ item, setIsRemovingItem }) {
         <td>
           <button
             type="button"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-            className="btn btn-link">
+            className="btn btn-link mt-0">
             Tradução
           </button>
         </td>
@@ -58,7 +56,7 @@ function ExtraItems({ item, setIsRemovingItem }) {
             </Link>
             <button
               type="button"
-              className="btn btn-danger btn-sm mx-1"
+              className="btn btn-danger btn-sm mx-1 mt-0"
               onClick={handleDelete}>
               <FiX color="white" />
             </button>
