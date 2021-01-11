@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
-import Extras from "../HotelsExtras";
-import ExtraServices from "../../services/extras";
+import Extras from "../ExtraItems";
+import ExtraServices from "../../../services/extras";
 import "./styles.css";
 
-function HotelListItens() {
+function ExtrasList() {
   const [extras, setExtras] = useState([]);
   const [isRemovingItem, setIsRemovingItem] = useState(false);
 
   async function fetchData() {
-    const data = await ExtraServices.getExtras();
-
-    if (data) setExtras(data);
+    try {
+      const res = await ExtraServices.getExtras();
+      if (res.status || res.status === 200) setExtras(res.data);
+    } catch (error) {
+      window.alert("Não foi possível resgatar os itens");
+      console.log(error.message);
+    }
   }
 
   useEffect(() => {
@@ -57,4 +61,4 @@ function HotelListItens() {
   );
 }
 
-export default HotelListItens;
+export default ExtrasList;

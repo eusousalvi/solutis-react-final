@@ -1,15 +1,22 @@
+import { Link } from "react-router-dom";
 import { BiSearch } from "react-icons/bi";
 import { FiEdit, FiX } from "react-icons/fi";
-import ExtraServices from "../../services/extras";
+import ExtraServices from "../../../services/extras";
 import "./styles.css";
 
-function HotelExtras({ item, setIsRemovingItem }) {
+function ExtraItems({ item, setIsRemovingItem }) {
   const { id, tableId, img, name, status, price } = item;
 
   async function handleDelete() {
     if (window.confirm("Realmente deseja deletar esse item ?")) {
-      setIsRemovingItem(true);
-      ExtraServices.deleteExtra(id).finally(() => setIsRemovingItem(false));
+      try {
+        setIsRemovingItem(true);
+        const res = await ExtraServices.deleteExtra(id);
+        if (res.status || res.status === 200)
+          window.alert("Item excluido com sucesso");
+      } finally {
+        setIsRemovingItem(false);
+      }
     }
   }
 
@@ -26,26 +33,33 @@ function HotelExtras({ item, setIsRemovingItem }) {
           <img src={img} alt={name} />
         </td>
         <td>{name}</td>
-        <td>{status ? "Sim" : "Não"}</td>
+        <td>{status === "true" ? "Sim" : "Não"}</td>
         <td>{price}</td>
         <td>
-          <button type="button" className="btn btn-link">
+          <button
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            className="btn btn-link">
             Tradução
           </button>
         </td>
         <td className="modify-buttons">
           <div className="d-flex justify-content-end">
-            <button type="button" className="btn btn-info btn-sm mx-1">
+            <Link
+              to={`/hotels/extras/${id}`}
+              className="btn btn-info btn-sm mx-1">
               <BiSearch color="white" />
-            </button>
-            <button type="button" className="btn btn-warning btn-sm mx-1">
+            </Link>
+            <Link
+              to={`/hotels/extras/edit/${id}`}
+              className="btn btn-warning btn-sm mx-1">
               <FiEdit color="white" />
-            </button>
+            </Link>
             <button
               type="button"
               className="btn btn-danger btn-sm mx-1"
-              onClick={handleDelete}
-            >
+              onClick={handleDelete}>
               <FiX color="white" />
             </button>
           </div>
@@ -55,4 +69,4 @@ function HotelExtras({ item, setIsRemovingItem }) {
   );
 }
 
-export default HotelExtras;
+export default ExtraItems;

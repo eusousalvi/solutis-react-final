@@ -13,7 +13,9 @@ import FlightRoutes from "./pages/FlightRoutes";
 import FlightRoutesDetails from "./pages/FlightRoutesDetails";
 import Airports from "./pages/Airports";
 import AddAirport from "./pages/AddAirport";
-import Extras from "./pages/Extras";
+import Extras from "./pages/Extras/List";
+import ModifyExtras from "./pages/Extras/Modify";
+import DetailExtra from "./pages/Extras/Detail";
 
 function Routes() {
   return (
@@ -31,6 +33,9 @@ function Routes() {
         <Route path="/flights/airports" exact component={Airports} />
         <Route path="/flights/airports/add" exact component={AddAirport} />
         <Route path="/hotels/extras" exact component={Extras} />
+        <Route path="/hotels/extras/create" exact component={ModifyExtras} />
+        <Route path="/hotels/extras/edit/:id" exact component={ModifyExtras} />
+        <Route path="/hotels/extras/:id" exact component={DetailExtra} />
       </Switch>
     </BrowserRouter>
   );
