@@ -1,7 +1,8 @@
 import "./styles.css";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
-function AirportsPagination({ total, 
+function AirportsPagination({ 
+        total, 
         currentPage, 
         setCurrentPage, 
         pages, 
@@ -50,12 +51,24 @@ function AirportsPagination({ total,
     return (
         <nav>
             <ul className="pagination">
-                <button className={"btn " + (itemsPerPage === 10 ? "btn-primary" : "")} onClick={() => setItemsPerPage(10)}>10</button>
-                <button className={"btn " + (itemsPerPage === 25 ? "btn-primary" : "")} onClick={() => setItemsPerPage(25)}>25</button>
-                <button className={"btn last-button " + (itemsPerPage === 50 ? "btn-primary" : "")} onClick={() => setItemsPerPage(50)}>50</button>
+                <button 
+                    className={"btn airport-button " + (itemsPerPage === 10 ? "btn-primary" : "")} 
+                    onClick={() => setItemsPerPage(10)}>
+                        10
+                    </button>
+                <button 
+                    className={"btn airport-button " + (itemsPerPage === 25 ? "btn-primary" : "")} 
+                    onClick={() => setItemsPerPage(25)}>
+                        25
+                    </button>
+                <button 
+                    className={"btn last-button airport-button " + (itemsPerPage === 50 ? "btn-primary" : "")} 
+                    onClick={() => setItemsPerPage(50)}>
+                        50
+                    </button>
                 {pages.map((page, idx) => (
                     <li key={idx} className={"page-item " + (page === currentPage ? "active" : (page === "..." ? "disabled" : ""))}>
-                        <button className={"btn page-link "}
+                        <button className={"btn page-link airport-button "}
                             onClick={() => { switchPage(page) }}
                         >
                             {page}

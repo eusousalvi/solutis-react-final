@@ -16,7 +16,7 @@ function AirportsDeleteButton({ id }) {
 
     return (
         <>
-            <button className="btn btn-danger" onClick={deleteAirport}>
+            <button className="btn btn-danger airport-button" onClick={deleteAirport}>
                 <FaTimes />
             </button>
         </>

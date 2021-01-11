@@ -49,13 +49,13 @@ const AirportsTableEntry = ({ airport, checked, num, setSelectedForRemoval }) =>
                         airport: airport
                     }}
                     >
-                        <button id={`airportButtonView-${airport.id}`} className="btn btn-info">
+                        <button id={`airportButtonView-${airport.id}`} className="btn btn-info airport-button">
                             <BiSearch />
                         </button>
                     </Link>
 
                     <Link to={"airports/" + airport.id} >
-                        <button id={`airportButtonEdit-${airport.id}`} className="btn btn-warning">
+                        <button id={`airportButtonEdit-${airport.id}`} className="btn btn-warning airport-button">
                             <FiEdit />
                         </button>
                     </Link>

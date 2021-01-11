@@ -26,7 +26,7 @@ function AirportsSearchBar({ searchAirports }) {
     }
 
     return (
-        <form className={"form float-right " + (isClicked ? "form-complete" : "form-solo")}>
+        <form className={"airports-form form float-right " + (isClicked ? "form-complete" : "form-solo")}>
             {   isClicked ?
                 <input className="form-control" type="text" name="query"
                     placeholder="ex.: nome da cidade"
@@ -37,13 +37,13 @@ function AirportsSearchBar({ searchAirports }) {
                 null
             }
 
-            <button className="btn btn-primary" id="btnSearch" type="submit" onClick={onSubmit}>
+            <button className="btn btn-primary airport-button" id="btnSearch" type="submit" onClick={onSubmit}>
                 {isClicked ? "Go" : "Search"}
             </button>
 
             { isClicked ?
                 <Link to="/flights/airports">
-                    <button className="btn btn-warning" onClick={refreshPage}>
+                    <button className="btn btn-warning airport-button" onClick={refreshPage}>
                         Return
                     </button>
                 </Link>
