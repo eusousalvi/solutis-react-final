@@ -13,21 +13,26 @@ function FlightRoutesRow(props) {
       .catch((erro) => console.log(erro));
   }
 
+  function findSize() {
+    const size = props.flight.route.length -1;
+    return size;
+  }
+
   return (
     <tr>
       <th scope="row">{props.flight.id}</th>
-      <td className="text-center">{props.flight.from}</td>
-      <td className="text-center">{props.flight.to}</td>
+      <td className="text-center">{props.flight.route[0].airport}</td>
+      <td className="text-center">{props.flight.route[findSize()].airport}</td>
       <td className="text-center">{props.flight.status}</td>
-      <td className="text-center">{props.flight.mode}</td>
+      <td className="text-center">{props.flight.direction}</td>
       <td className="text-center">{props.flight.totalHours}</td>
-      <td className="text-center">{props.flight.departureDate}</td>
-      <td className="text-center">{props.flight.dateArrival}</td>
-      <td className="text-center">{props.flight.timeDeparture}</td>
-      <td className="text-center">{props.flight.timeArrival}</td>
+      <td className="text-center">{props.flight.route[0].date}</td>
+      <td className="text-center">{props.flight.route[findSize()].date}</td>
+      <td className="text-center">{props.flight.route[0].time}</td>
+      <td className="text-center">{props.flight.route[findSize()].checkout}</td>
       <td className="d-flex">
         <button className="btn btn-info mx-1">
-          <Link className={"text-dark"} to={"/flights/routes/details"}>
+          <Link className={"text-dark"} to={`/flights/routes/details/${props.flight.id}`}>
             <BiWorld/>
           </Link>
         </button>
