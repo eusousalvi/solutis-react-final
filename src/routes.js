@@ -4,10 +4,18 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import RoomsAvailability from './pages/RoomsAvailability';
 import Landing from './pages/Landing';
 import Hotels from './pages/Hotels';
+
+import EditFlightRoutes from './pages/FlightEditRoutes';
+import AddFlightRoutes from './pages/FlightAddRoutes';
 import Rooms from './pages/Rooms';
 import Header from './components/Header';
-import AddFlightRoutes from './pages/AddFlightRoutes';
+import FlightRoutes from './pages/FlightRoutes';
+import FlightRoutesDetails from './pages/FlightRoutesDetails';
 import Airports from './pages/Airports';
+import AddAirport from './pages/AddAirport';
+import Extras from './pages/Extras/List';
+import ModifyExtras from './pages/Extras/Modify';
+import DetailExtra from './pages/Extras/Detail';
 
 function Routes() {
   return (
@@ -22,8 +30,20 @@ function Routes() {
           component={RoomsAvailability}
         />
         <Route path="/hotels/rooms" exact component={Rooms} />
+        <Route path="/flights/routes" exact component={FlightRoutes} />
+        <Route
+          path="/flights/routes/details/:id"
+          exact
+          component={FlightRoutesDetails}
+        />
         <Route path="/flights/routes/add" exact component={AddFlightRoutes} />
+        <Route path="/flights/routes/manage/:id" component={EditFlightRoutes} />
         <Route path="/flights/airports" exact component={Airports} />
+        <Route path="/flights/airports/add" exact component={AddAirport} />
+        <Route path="/hotels/extras" exact component={Extras} />
+        <Route path="/hotels/extras/create" exact component={ModifyExtras} />
+        <Route path="/hotels/extras/edit/:id" exact component={ModifyExtras} />
+        <Route path="/hotels/extras/:id" exact component={DetailExtra} />
       </Switch>
     </BrowserRouter>
   );

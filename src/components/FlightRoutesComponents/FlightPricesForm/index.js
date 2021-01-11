@@ -1,6 +1,7 @@
 import React from "react";
+import InputMask from "react-input-mask";
 
-export default function FlightPricesForm() {
+export default function FlightPricesForm({ handler }) {
   return (
     <table className="table table-hover text-center">
       <thead>
@@ -15,31 +16,42 @@ export default function FlightPricesForm() {
         <tr>
           <th className="align-middle">Price</th>
           <th>
-            <input
+            <InputMask 
               type="text"
               className="form-control"
-              id="adultPrice"
-              name="adultPrice"
+              id="adultsPrice"
+              name="adultsPrice"
               required
-              placeholder="R$"             
+              placeholder="R$"
+              value={handler.values.adultsPrice}
+              onChange={handler.onChange}
+              mask="R$999,99"
             />
           </th>
           <th>
-            <input
+            <InputMask
               type="text"
               className="form-control"
               id="childPrice"
               name="childPrice"
-              placeholder="R$" 
+              required
+              placeholder="R$"
+              value={handler.values.childPrice}
+              onChange={handler.onChange}
+              mask="R$999,99"
             />
           </th>
           <th>
-            <input
+            <InputMask
               type="text"
               className="form-control"
               id="infantPrice"
               name="infantPrice"
-              placeholder="R$" 
+              required
+              placeholder="R$"
+              value={handler.values.infantPrice}
+              onChange={handler.onChange}
+              mask="R$999,99"
             />
           </th>
         </tr>
