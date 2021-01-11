@@ -25,11 +25,7 @@ function Routes() {
         <Route path="/rooms/availability" exact component={RoomsAvailability} />
         <Route path="/hotels/rooms" exact component={Rooms} />
         <Route path="/flights/routes" exact component={FlightRoutes} />
-        <Route
-          path="/flights/routes/details"
-          exact
-          component={FlightRoutesDetails}
-        />
+        <Route path="/flights/routes/details/:id" exact component={FlightRoutesDetails}/>
         <Route path="/flights/routes/add" exact component={AddFlightRoutes} />
         <Route path="/flights/routes/manage/:id" component={EditFlightRoutes} />
         <Route path="/flights/airports" exact component={Airports} />
