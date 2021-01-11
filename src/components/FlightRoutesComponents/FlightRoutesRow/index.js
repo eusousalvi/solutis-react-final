@@ -5,16 +5,17 @@ import axios from "axios";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function FlightRoutesRow(props) {
-
   function deleteRow() {
     axios
-      .delete(`https://5ff83d6510778b0017042ff3.mockapi.io/routes/${props.flight.id}`)
+      .delete(
+        `https://5ff83d6510778b0017042ff3.mockapi.io/routes/${props.flight.id}`
+      )
       .then(() => props.refresh(1))
       .catch((erro) => console.log(erro));
   }
 
   function findSize() {
-    const size = props.flight.route.length -1;
+    const size = props.flight.route.length - 1;
     return size;
   }
 
@@ -32,15 +33,27 @@ function FlightRoutesRow(props) {
       <td className="text-center">{props.flight.route[findSize()].checkout}</td>
       <td className="d-flex">
         <button className="btn btn-info mx-1">
-          <Link className={"text-dark"} to={`/flights/routes/details/${props.flight.id}`}>
-            <BiWorld/>
+          <Link
+            className={"text-dark"}
+            to={`/flights/routes/details/${props.flight.id}`}
+          >
+            <BiWorld />
           </Link>
         </button>
         <button className="btn btn-warning mx-1">
-          <FiEdit/>
+          <Link
+            className={"text-dark"}
+            to={`/flights/routes/manage/${props.flight.id}`}
+          >
+            <FiEdit />
+          </Link>
         </button>
-        <button type={"button"} onClick={deleteRow} className="btn btn-danger mx-1">
-          <AiOutlineDelete/>
+        <button
+          type={"button"}
+          onClick={deleteRow}
+          className="btn btn-danger mx-1"
+        >
+          <AiOutlineDelete />
         </button>
       </td>
     </tr>
