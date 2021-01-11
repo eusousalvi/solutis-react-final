@@ -10,6 +10,12 @@ function getHotels() {
   return response;
 }
 
+function getHotelsPaginate(page, limit) {
+  const response = api.get(`/hotels?page=${page}&limit=${limit}`);
+
+  return response;
+}
+
 function deleteHotel(id) {
   const response = api.delete(`/hotels/${id}`);
   return response;
@@ -17,6 +23,7 @@ function deleteHotel(id) {
 
 const exportData = {
   getHotels,
+  getHotelsPaginate,
   deleteHotel,
 };
 
