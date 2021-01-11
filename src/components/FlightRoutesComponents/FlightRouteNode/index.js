@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function FlightRouteNode({
+export default function FlightNode({
   node,
   removable,
   onClickDelete,

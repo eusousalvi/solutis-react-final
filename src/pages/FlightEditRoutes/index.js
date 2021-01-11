@@ -4,9 +4,9 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 import FlightRouteForm from "../../components/FlightRoutesComponents/FlightRouterForm";
-import Header from "../../components/Header";
 
 export default function EditFlightRoutes() {
+  const [loading, setLoading] = React.useState(true);
   const [data, setData] = React.useState();
   const { id } = useParams();
 
@@ -18,16 +18,19 @@ export default function EditFlightRoutes() {
     axios
       .get(`https://5ff83d6510778b0017042ff3.mockapi.io/routes/${id}`)
       .then((response) => {
-        console.log(response);
+        setData(response.data);
+        setLoading(false);
       })
       .catch((erro) => console.log(erro));
     return () => {};
   }, [id]);
 
+  console.log(data);
+
   return (
     <div id="edit-flight-routes">
       {/* <Header /> */}
-      <FlightRouteForm onSubmit={handleFormSubmit} data={data} />
+      {!loading && <FlightRouteForm onSubmit={handleFormSubmit} data={data} />}
     </div>
   );
 }
