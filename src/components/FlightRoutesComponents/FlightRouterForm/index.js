@@ -37,7 +37,7 @@ export default function EditFlightForm({ onSubmit: customOnSubmit, data }) {
           type: "Departure",
           airport: "",
           airline: "",
-          flightNo: 0,
+          flightNumber: 0,
           date: "",
           time: "",
           checkout: "",
@@ -47,7 +47,7 @@ export default function EditFlightForm({ onSubmit: customOnSubmit, data }) {
           type: "Arrival",
           airport: "",
           airline: "",
-          flightNo: 0,
+          flightNumber: 0,
           date: "",
           time: "",
           checkout: "",
@@ -69,7 +69,6 @@ export default function EditFlightForm({ onSubmit: customOnSubmit, data }) {
     >
       <form
         onSubmit={(e) => {
-          console.log("ON SUBMIT");
           e.preventDefault();
           customOnSubmit(handler.values);
         }}

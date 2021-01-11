@@ -1,6 +1,8 @@
 import React from "react";
+import InputMask from "react-input-mask";
 
-export default function FlightRouteNode({
+
+export default function FlightNode({
   node,
   removable,
   onClickDelete,
@@ -50,13 +52,15 @@ export default function FlightRouteNode({
         </select>
       </td>
       <td>
-        <input
+        <InputMask
           className="form-control"
-          type="number"
+          type="text"
           name="flightNumber"
           defaultValue={flightNumber}
           onChange={onChange}
           required
+          mask="999999"
+          maskPlaceholder={null}
         />
       </td>
       <td>
