@@ -10,6 +10,12 @@ function getRooms() {
   return response;
 }
 
+function getRoomsPaginate(page, limit) {
+  const response = api.get(`/rooms?page=${page}&limit=${limit}`);
+
+  return response;
+}
+
 function deleteRoom(id) {
   const response = api.delete(`/rooms/${id}`);
 
@@ -19,6 +25,7 @@ function deleteRoom(id) {
 const exportData = {
   api,
   getRooms,
+  getRoomsPaginate,
   deleteRoom,
 };
 
