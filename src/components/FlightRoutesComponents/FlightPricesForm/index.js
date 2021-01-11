@@ -1,4 +1,5 @@
 import React from "react";
+import InputMask from "react-input-mask";
 
 export default function FlightPricesForm({ handler }) {
   return (
@@ -15,7 +16,7 @@ export default function FlightPricesForm({ handler }) {
         <tr>
           <th className="align-middle">Price</th>
           <th>
-            <input
+            <InputMask 
               type="text"
               className="form-control"
               id="adultsPrice"
@@ -24,10 +25,11 @@ export default function FlightPricesForm({ handler }) {
               placeholder="R$"
               value={handler.values.adultsPrice}
               onChange={handler.onChange}
+              mask="R$999,99"
             />
           </th>
           <th>
-            <input
+            <InputMask
               type="text"
               className="form-control"
               id="childPrice"
@@ -36,10 +38,11 @@ export default function FlightPricesForm({ handler }) {
               placeholder="R$"
               value={handler.values.childPrice}
               onChange={handler.onChange}
+              mask="R$999,99"
             />
           </th>
           <th>
-            <input
+            <InputMask
               type="text"
               className="form-control"
               id="infantPrice"
@@ -48,6 +51,7 @@ export default function FlightPricesForm({ handler }) {
               placeholder="R$"
               value={handler.values.infantPrice}
               onChange={handler.onChange}
+              mask="R$999,99"
             />
           </th>
         </tr>

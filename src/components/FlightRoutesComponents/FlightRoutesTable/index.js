@@ -21,6 +21,8 @@ function FlightRoutesTable() {
     setRefresh(refresh + 1);
   }
 
+  console.log(flights);
+
   return (
     <table className="table table-striped table-bordered mt-2">
       <thead>

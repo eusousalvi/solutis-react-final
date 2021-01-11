@@ -1,5 +1,7 @@
 import React from "react";
 import "./styles.css";
+import InputMask from "react-input-mask";
+
 
 export default function MainSettingsForm({ handler }) {
   return (
@@ -42,24 +44,28 @@ export default function MainSettingsForm({ handler }) {
             <label htmlFor="totalHours">Total Hours</label>
           </div>
           <div className="form-floating main-settings-item">
-            <input
-              type="number"
+            <InputMask 
+              type="text"
               className="form-control"
               id="vatTax"
               name="vatTax"
               value={handler.values.vatTax}
               onChange={handler.onChange}
+              mask="99%"
+              placeholder="%"
             />
             <label htmlFor="vatTax">Vat Tax</label>
           </div>
           <div className="form-floating main-settings-item">
-            <input
-              type="number"
+            <InputMask 
+              type="text"
               className="form-control"
               id="deposite"
               name="deposite"
               value={handler.values.deposite}
               onChange={handler.onChange}
+              mask="R$9999,99"
+              placeholder="R$"
             />
             <label htmlFor="deposite">Deposite</label>
           </div>
