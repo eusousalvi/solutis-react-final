@@ -1,28 +1,3 @@
-.table-hover tbody tr:hover {
-  background: #a8d1ff;
-  cursor: pointer;
-}
-
-.btn-link {
-  background: rgba(104, 173, 255, 0.23);
-
-  color: #1e249a;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.col-color {
-  background: #f8f8f8;
-  border: 1px solid #e3e3e3;
-  border-radius: 3px;
-  padding: 15px !important;
-  margin-bottom: 10px;
-}
-
-.btn-link:hover {
-  text-decoration: underline;
-}
-
 .status-container {
   display: flex;
   align-items: center;
