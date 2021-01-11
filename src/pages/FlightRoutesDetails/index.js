@@ -1,6 +1,26 @@
 import ReturnFlightRoutesButton from "../../components/FlightRoutesComponents/FlightRoutesReturnButton";
+import { useParams } from "react-router";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import FlightRoutesDetailsTableRow from "../../components/FlightRoutesComponents/FlightRouteDetailsTableRow";
 
 function Visualization() {
+  const id = useParams();
+  const [routeData, setRouteData] = useState({route: []});
+
+  useEffect(getAPIdata, []);
+
+  function getAPIdata() {
+    axios
+      .get(`https://5ff83d6510778b0017042ff3.mockapi.io/routes/${id.id}`)
+      .then((res) => {
+        setRouteData(res.data);
+      })
+      .catch((erro) => console.log(erro));
+  }
+
+  console.log(routeData.route);
+
   return (
     <>
       <div className="container">
@@ -15,7 +35,7 @@ function Visualization() {
             <thead>
               <tr>
                 <th scope="col">Type</th>
-                <th scope="col">City</th>
+                <th scope="col">Airport</th>
                 <th scope="col">Airline</th>
                 <th scope="col">Flight Number</th>
                 <th scope="col">Date</th>
@@ -24,33 +44,14 @@ function Visualization() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Departure</td>
-                <td>Salvador</td>
-                <td>Gol</td>
-                <td>2345</td>
-                <td>11/01/2020</td>
-                <td>01:30:00</td>
-                <td>09:30:00</td>
-              </tr>
-              <tr>
-                <td>Transit</td>
-                <td>São Paulo</td>
-                <td>Gol</td>
-                <td>2345</td>
-                <td>11/01/2020</td>
-                <td>01:30:00</td>
-                <td>09:30:00</td>
-              </tr>
-              <tr>
-                <td>Arrival</td>
-                <td>Curitiba</td>
-                <td>Gol</td>
-                <td>2345</td>
-                <td>11/01/2020</td>
-                <td>01:30:00</td>
-                <td>09:30:00</td>
-              </tr>
+              {routeData.route.map((route, index) => {
+                return (
+                  <FlightRoutesDetailsTableRow
+                    key={index}
+                    route={route}
+                  />
+                );
+              })}
             </tbody>
           </table>
           <div className={"container"}>
@@ -60,31 +61,31 @@ function Visualization() {
                   <tbody>
                     <tr>
                       <th scope="row">Status:</th>
-                      <td>Confirmed</td>
+                      <td>{routeData.status}</td>
                     </tr>
                     <tr>
                       <th scope="row">Total hours:</th>
-                      <td>03:00:00</td>
+                      <td>{routeData.totalHours}</td>
                     </tr>
                     <tr>
                       <th scope="row">Vat Tax</th>
-                      <td>35%</td>
+                      <td>{routeData.vatTax}</td>
                     </tr>
                     <tr>
                       <th scope="row">Deposite</th>
-                      <td>80%</td>
+                      <td>{routeData.deposite}</td>
                     </tr>
                     <tr>
                       <th scope="row">Flight Type</th>
-                      <td>Economic</td>
+                      <td>{routeData.flightType}</td>
                     </tr>
                     <tr>
                       <th scope="row">Refundable</th>
-                      <td>No</td>
+                      <td>{routeData.refundable}</td>
                     </tr>
                     <tr>
                       <th scope="row">Direction</th>
-                      <td>One way</td>
+                      <td>{routeData.direction}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -98,17 +99,7 @@ function Visualization() {
                   </thead>
                   <tbody>
                     <tr>
-                      <td>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu
-                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit
-                        anim id est laborum.
-                      </td>
+                      <td>{routeData.description}</td>
                     </tr>
                   </tbody>
                 </table>
