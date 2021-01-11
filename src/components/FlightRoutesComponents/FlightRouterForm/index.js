@@ -35,7 +35,7 @@ export default function EditFlightForm({ onSubmit: customOnSubmit, data }) {
         {
           id: 0,
           type: "Departure",
-          airport: "",
+          city: "",
           airline: "",
           flightNumber: 0,
           date: "",
@@ -45,7 +45,7 @@ export default function EditFlightForm({ onSubmit: customOnSubmit, data }) {
         {
           id: 1,
           type: "Arrival",
-          airport: "",
+          city: "",
           airline: "",
           flightNumber: 0,
           date: "",
