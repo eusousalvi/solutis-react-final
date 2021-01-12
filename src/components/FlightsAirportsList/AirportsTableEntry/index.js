@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { BiSearch } from "react-icons/bi";
 import { FiEdit } from "react-icons/fi";
+import { useState, useEffect } from 'react';
 import AirportsDeleteButton from "../AirportsDeleteButton";
 import "./styles.css";
-import { useState, useEffect } from 'react';
 
-const AirportsTableEntry = ({ airport, checked, num }) => {
+const AirportsTableEntry = ({ airport, checked, num, setSelectedForRemoval, setDeleted }) => {
     
     const [isChecked, setIsChecked] = useState(checked)
     
@@ -13,11 +13,19 @@ const AirportsTableEntry = ({ airport, checked, num }) => {
         setIsChecked(checked)
     }, [checked])
 
+    useEffect(() => {
+        if(isChecked)
+            setSelectedForRemoval(state => [...state, airport.id])
+        else
+            setSelectedForRemoval(state => state.filter(id => id !== airport.id))
+    }, [isChecked])
+
     return (
         <tr>
             <td id="airportSelected">
                 <input type="checkbox" 
                     id={`airportCheckbox-${airport.id}`} 
+                    className="form-check-input"
                     checked={isChecked} 
                     onChange={() => setIsChecked(check => !check)}
                 />
@@ -36,24 +44,21 @@ const AirportsTableEntry = ({ airport, checked, num }) => {
             <td id={`airportLongitude-${airport.id}`}>{airport.longitude}</td>
 
             <td id={`airportActions-${airport.id}`}>
-                <span>
-                    <Link to={{
-                        pathname: "airports/view",
-                        airport: airport
-                    }}
+                <span className="airportSpan">
+                    <Link to={`airports/details/${airport.id}`}
                     >
-                        <button id={`airportButtonView-${airport.id}`} className="btn btn-info">
+                        <button id={`airportButtonView-${airport.id}`} className="btn btn-info airport-button">
                             <BiSearch />
                         </button>
                     </Link>
 
-                    <Link to={"airports/" + airport.id} >
-                        <button id={`airportButtonEdit-${airport.id}`} className="btn btn-warning">
+                    <Link to={"airports/edit/" + airport.id} >
+                        <button id={`airportButtonEdit-${airport.id}`} className="btn btn-warning airport-button">
                             <FiEdit />
                         </button>
                     </Link>
 
-                    <AirportsDeleteButton id={airport.id} />
+                    <AirportsDeleteButton id={airport.id} setDeleted={setDeleted}/>
                 </span>
             </td>
         </tr>

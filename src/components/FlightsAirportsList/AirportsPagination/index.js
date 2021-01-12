@@ -1,17 +1,23 @@
-import "./styles.css";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import "./styles.css"
 
-function AirportsPagination({ total }) {
-    
-    const [currentPage, setCurrentPage] = useState(1)
-    const [pages, setPages] = useState([]);
-    const numOfPages = Math.ceil(total / 10);
+function AirportsPagination({
+    totalItems,
+    currentPage,
+    pages,
+    setPages,
+    limit,
+    handleChangeLimit,
+    handleChangePage
+}) {
 
-    const updatePages = () => {
+    const numOfPages = Math.ceil(totalItems / limit);
+
+    function updatePages() {
         setPages(numOfPages <= 10 ? [...Array(numOfPages).keys()].map(x => x + 1) : reducePages());
     }
 
-    const reducePages = () => {
+    function reducePages() {
         let pages = []
 
         if (currentPage <= 4) {
@@ -32,33 +38,73 @@ function AirportsPagination({ total }) {
         return pages
     }
 
-    const switchPage = (clickedPage) => {
-        setCurrentPage(clickedPage);
-    }
-
     useEffect(() => {
         updatePages();
-    }, [currentPage])
-
-    if (total <= 10)
-        return null
+    }, [currentPage, totalItems, limit])
 
     return (
-        <nav>
-            <ul className="pagination">
-                {pages.map((page, idx) => (
-                    <li key={idx} className={"page-item " + (page === currentPage ? "active" : (page === "..." ? "disabled" : ""))}>
-                        <button className={"btn page-link "}
-                            onClick={() => { switchPage(page) }}
-                        >
-                            {page}
-                        </button>
-                    </li>
-                )
-                )}
-            </ul>
-        </nav>
-    )
+        <div className="btn-toolbar airportsPagination">
+            <div className="btn-group me-2" role="group">
+                <button
+                    className={`${limit === 10 ? "btn btn-primary" : "btn btn-light btn-outline-dark "
+                        }`}
+                    onClick={() => handleChangeLimit(10)}
+                >
+                    10
+        </button>
+                <button
+                    className={`${limit === 25 ? "btn btn-primary" : "btn btn-light btn-outline-dark "
+                        }`}
+                    onClick={() => handleChangeLimit(25)}
+                >
+                    25
+        </button>
+                <button
+                    className={`${limit === 50 ? "btn btn-primary" : "btn btn-light btn-outline-dark "
+                        }`}
+                    onClick={() => handleChangeLimit(50)}
+                >
+                    50
+        </button>
+                <button
+                    className={`${limit === 100
+                        ? "btn btn-primary"
+                        : "btn btn-light btn-outline-dark "
+                        }`}
+                    onClick={() => handleChangeLimit(100)}
+                >
+                    100
+        </button>
+                <button
+                    className={`${limit === "all"
+                        ? "btn btn-primary"
+                        : "btn btn-light btn-outline-dark "
+                        }`}
+                    onClick={() => handleChangeLimit(totalItems)}
+                >
+                    All
+        </button>
+            </div>
+            {pages.length > 1 && limit !== "all" && (
+                <div className="btn-group me-2" role="group">
+                    {pages.map((item, idx) => {
+                        return (
+                            <button
+                                className={`${currentPage === item
+                                    ? "btn btn-primary"
+                                    : ("btn btn-light btn-outline-dark " + (item === "..." ? "disabled" : ""))
+                                    }`}
+                                key={idx}
+                                onClick={() => handleChangePage(item)}
+                            >
+                                {item}
+                            </button>
+                        );
+                    })}
+                </div>
+            )}
+        </div>
+    );
 }
 
 export default AirportsPagination;

@@ -5,7 +5,7 @@ function AirportsHeader({ children }) {
                 AIRPORTS MANAGEMENT
             </div>
             <hr />
-            <div className="row button-container">
+            <div className="button-container d-flex justify-content-between mb-4">
                 {children}
             </div>
         </>

@@ -3,10 +3,10 @@ import React from "react";
 import FlightRouteNode from "../FlightRouteNode";
 
 const DEFAULT_NODE = {
+  flightNumber: 0,
   checkout: "",
-  airport: "",
   airline: "",
-  flightNo: 0,
+  city: "",
   date: "",
   time: "",
 };
@@ -30,7 +30,7 @@ export default function FlightRouteManagerForm({ handler }) {
     return (e) => {
       const { name, value } = e.target;
 
-      setConnections(
+      setConnections((connections) =>
         connections.map((item, i) =>
           i === id ? { ...item, [name]: value } : item
         )
