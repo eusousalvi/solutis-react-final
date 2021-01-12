@@ -35,7 +35,7 @@ function Visualization() {
             <thead>
               <tr>
                 <th scope="col">Type</th>
-                <th scope="col">Airport</th>
+                <th scope="col">City Code</th>
                 <th scope="col">Airline</th>
                 <th scope="col">Flight Number</th>
                 <th scope="col">Date</th>

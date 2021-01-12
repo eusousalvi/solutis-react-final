@@ -19,11 +19,13 @@ function FlightRoutesRow(props) {
     return size;
   }
 
+  console.log(props.flight);
+
   return (
     <tr>
       <th scope="row">{props.flight.id}</th>
-      <td className="text-center">{props.flight.route[0].airport}</td>
-      <td className="text-center">{props.flight.route[findSize()].airport}</td>
+      <td className="text-center">{props.flight.route[0].city}</td>
+      <td className="text-center">{props.flight.route[findSize()].city}</td>
       <td className="text-center">{props.flight.status}</td>
       <td className="text-center">{props.flight.direction}</td>
       <td className="text-center">{props.flight.totalHours}</td>
