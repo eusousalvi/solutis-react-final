@@ -68,7 +68,8 @@ export default function FlightRouteManagerForm() {
           </tr>
         </thead>
         <tbody>
-          {connections.map((node, i) => (
+          {/* TODO: REDUX ON CONNECTIONS */}
+          {/* {connections.map((node, i) => (
             <FlightRouteNode
               key={node.id}
               node={node}
@@ -76,7 +77,7 @@ export default function FlightRouteManagerForm() {
               onChange={onChange(i)}
               removable={i > 0 && i < connections.length - 1}
             />
-          ))}
+          ))} */}
         </tbody>
       </table>
       <button

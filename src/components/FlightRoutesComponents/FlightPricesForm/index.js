@@ -1,14 +1,33 @@
 import React from "react";
-import InputMask from "react-input-mask";
 
-export default function FlightPricesForm() {
+function PriceField({ id }) {
   function onChange(e) {
     const { name, value } = e.target;
     console.log(`${name} changed to ${value} on FlightPricesForm`);
   }
 
-  const { adultsPrice, childPrice, infantPrice } = [0, 0, 0]; // TODO: useSelector to catch store data.
+  return (
+    <th>
+      <div className="input-group">
+        <span className="input-group-text" id="basic-addon1">
+          R$
+        </span>
+        <input
+          className="form-control"
+          type="text"
+          name={id}
+          id={id}
+          title="Informe um valor numérico. Ex: 150,00 ou 1500,10"
+          pattern="[\d]+(,\d{2})?"
+          onChange={onChange}
+          required
+        />
+      </div>
+    </th>
+  );
+}
 
+export default function FlightPricesForm() {
   return (
     <table className="table table-hover text-center">
       <thead>
@@ -22,45 +41,9 @@ export default function FlightPricesForm() {
       <tbody>
         <tr>
           <th className="align-middle">Price</th>
-          <th>
-            <InputMask
-              type="text"
-              className="form-control"
-              id="adultsPrice"
-              name="adultsPrice"
-              required
-              placeholder="R$"
-              value={adultsPrice}
-              onChange={onChange}
-              mask="R$999,99"
-            />
-          </th>
-          <th>
-            <InputMask
-              type="text"
-              className="form-control"
-              id="childPrice"
-              name="childPrice"
-              required
-              placeholder="R$"
-              value={childPrice}
-              onChange={onChange}
-              mask="R$999,99"
-            />
-          </th>
-          <th>
-            <InputMask
-              type="text"
-              className="form-control"
-              id="infantPrice"
-              name="infantPrice"
-              required
-              placeholder="R$"
-              value={infantPrice}
-              onChange={onChange}
-              mask="R$999,99"
-            />
-          </th>
+          <PriceField id="adultsPrice" />
+          <PriceField id="childPrice" />
+          <PriceField id="infantPrice" />
         </tr>
       </tbody>
     </table>
