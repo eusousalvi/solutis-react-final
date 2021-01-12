@@ -1,16 +1,17 @@
-import "./styles.css";
 import { useEffect } from "react";
+import "./styles.css"
 
-function AirportsPagination({ 
-        total, 
-        currentPage, 
-        setCurrentPage, 
-        pages, 
-        setPages, 
-        itemsPerPage, 
-        setItemsPerPage }) {
-    
-    const numOfPages = Math.ceil(total / itemsPerPage);
+function AirportsPagination({
+    totalItems,
+    currentPage,
+    pages,
+    setPages,
+    limit,
+    handleChangeLimit,
+    handleChangePage
+}) {
+
+    const numOfPages = Math.ceil(totalItems / limit);
 
     function updatePages() {
         setPages(numOfPages <= 10 ? [...Array(numOfPages).keys()].map(x => x + 1) : reducePages());
@@ -37,48 +38,73 @@ function AirportsPagination({
         return pages
     }
 
-    function switchPage(clickedPage) {
-        setCurrentPage(clickedPage);
-    }
-
     useEffect(() => {
         updatePages();
-    }, [currentPage, total, itemsPerPage])
-
-    if (total <= 10)
-        return null
+    }, [currentPage, totalItems, limit])
 
     return (
-        <nav>
-            <ul className="pagination">
-                <button 
-                    className={"btn airport-button " + (itemsPerPage === 10 ? "btn-primary" : "")} 
-                    onClick={() => setItemsPerPage(10)}>
-                        10
-                    </button>
-                <button 
-                    className={"btn airport-button " + (itemsPerPage === 25 ? "btn-primary" : "")} 
-                    onClick={() => setItemsPerPage(25)}>
-                        25
-                    </button>
-                <button 
-                    className={"btn last-button airport-button " + (itemsPerPage === 50 ? "btn-primary" : "")} 
-                    onClick={() => setItemsPerPage(50)}>
-                        50
-                    </button>
-                {pages.map((page, idx) => (
-                    <li key={idx} className={"page-item " + (page === currentPage ? "active" : (page === "..." ? "disabled" : ""))}>
-                        <button className={"btn page-link airport-button "}
-                            onClick={() => { switchPage(page) }}
-                        >
-                            {page}
-                        </button>
-                    </li>
-                )
-                )}
-            </ul>
-        </nav>
-    )
+        <div className="btn-toolbar airportsPagination">
+            <div className="btn-group me-2" role="group">
+                <button
+                    className={`${limit === 10 ? "btn btn-primary" : "btn btn-light btn-outline-dark "
+                        }`}
+                    onClick={() => handleChangeLimit(10)}
+                >
+                    10
+        </button>
+                <button
+                    className={`${limit === 25 ? "btn btn-primary" : "btn btn-light btn-outline-dark "
+                        }`}
+                    onClick={() => handleChangeLimit(25)}
+                >
+                    25
+        </button>
+                <button
+                    className={`${limit === 50 ? "btn btn-primary" : "btn btn-light btn-outline-dark "
+                        }`}
+                    onClick={() => handleChangeLimit(50)}
+                >
+                    50
+        </button>
+                <button
+                    className={`${limit === 100
+                        ? "btn btn-primary"
+                        : "btn btn-light btn-outline-dark "
+                        }`}
+                    onClick={() => handleChangeLimit(100)}
+                >
+                    100
+        </button>
+                <button
+                    className={`${limit === "all"
+                        ? "btn btn-primary"
+                        : "btn btn-light btn-outline-dark "
+                        }`}
+                    onClick={() => handleChangeLimit(totalItems)}
+                >
+                    All
+        </button>
+            </div>
+            {pages.length > 1 && limit !== "all" && (
+                <div className="btn-group me-2" role="group">
+                    {pages.map((item, idx) => {
+                        return (
+                            <button
+                                className={`${currentPage === item
+                                    ? "btn btn-primary"
+                                    : ("btn btn-light btn-outline-dark " + (item === "..." ? "disabled" : ""))
+                                    }`}
+                                key={idx}
+                                onClick={() => handleChangePage(item)}
+                            >
+                                {item}
+                            </button>
+                        );
+                    })}
+                </div>
+            )}
+        </div>
+    );
 }
 
 export default AirportsPagination;

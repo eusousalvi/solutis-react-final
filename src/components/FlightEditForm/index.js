@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import './style.css'
 
-import { getAirport, updateAirport } from '../../services/flightService'
+//import { getAirport, updateAirport } from '../../services/flightService'
+import airportsService from "../../services/airports";
 import { useParams } from 'react-router-dom'
 
 function FlightEditForm() {
@@ -9,14 +10,14 @@ function FlightEditForm() {
     const airport =
     {
         code: '',
-        cityCode: '',
-        country: '',
-        continent: '',
-        lat: '',
-        long: '',
+        citycode: '',
+        countryname: '',
+        continentId: '',
+        latitude: '',
+        longitude: '',
         timezone: '',
-        countryCode: '',
-        city: '',
+        countrycode: '',
+        cityname: '',
         name: ''
 
     }
@@ -30,7 +31,7 @@ function FlightEditForm() {
 
     useEffect(() => {
         const getData = async () => {
-            const response = await getAirport(id)
+            const response = await airportsService.getAirportById(id)
             setForm(response.data)
 
         }
@@ -39,7 +40,7 @@ function FlightEditForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        updateAirport(id, form)
+        airportsService.updateAirport(id, form)
     }
 
     return (
@@ -62,30 +63,30 @@ function FlightEditForm() {
                         </div>
                         {/* {console.log(code)} */}
                         <div className="form-floating">
-                            <input type="text" name="cityCode" placeholder="Digite" maxLength="3" value={form.cityCode} onChange={(e) => {
-                                setInput({ cityCode: e.target.value })
+                            <input type="text" name="cityCode" placeholder="Digite" maxLength="3" value={form.citycode} onChange={(e) => {
+                                setInput({ citycode: e.target.value })
                             }} className="form-control input-space" id="floatingInput" />
                             <label for="floatingInput">Código da Cidade</label>
                         </div>
                         {/* {console.log(cityCode)} */}
 
                         <div className="form-floating">
-                            <input type="text" name="country" placeholder="Digite" value={form.country} onChange={(e) => {
-                                setInput({ country: e.target.value })
+                            <input type="text" name="country" placeholder="Digite" value={form.countryname} onChange={(e) => {
+                                setInput({ countryname: e.target.value })
                             }} className="form-control input-space" id="floatingInput" />
                             <label for="floatingInput">País</label>
                         </div>
                         {/* {console.log(country)} */}
                         <div className="form-floating">
-                            <input type="number" name="continent" placeholder="Digite" maxLength="3" value={form.continent} onChange={(e) => {
-                                setInput({ continent: e.target.value })
+                            <input type="number" name="continent" placeholder="Digite" maxLength="3" value={form.continentId} onChange={(e) => {
+                                setInput({ continentId: e.target.value })
                             }} className="form-control input-space" id="floatingInput" />
                             <label for="floatingInput">Id do Continente</label>
                         </div>
                         {/* {console.log(continent)} */}
                         <div className="form-floating">
-                            <input type="number" name="lat" placeholder="Digite" value={form.lat} onChange={(e) => {
-                                setInput({ lat: e.target.value })
+                            <input type="number" name="lat" placeholder="Digite" value={form.latitude} onChange={(e) => {
+                                setInput({ latitude: e.target.value })
                             }} className="form-control input-space" id="floatingInput" />
                             <label for="floatingInput">Latitude</label>
                         </div>
@@ -102,15 +103,15 @@ function FlightEditForm() {
                         </div>
                         {/* {console.log(name)} */}
                         <div className="form-floating">
-                            <input type="text" name="city" placeholder="Digite" value={form.city} onChange={(e) => {
-                                setInput({ city: e.target.value })
+                            <input type="text" name="city" placeholder="Digite" value={form.cityname} onChange={(e) => {
+                                setInput({ cityname: e.target.value })
                             }} className="form-control input-space" id="floatingInput" />
                             <label for="floatingInput">Cidade</label>
                         </div>
                         {/* {console.log(city)} */}
                         <div className="form-floating">
-                            <input type="text" name="countryCode" placeholder="Digite" maxLength="4" value={form.countryCode} onChange={(e) => {
-                                setInput({ countryCode: e.target.value })
+                            <input type="text" name="countryCode" placeholder="Digite" maxLength="4" value={form.countrycode} onChange={(e) => {
+                                setInput({ countrycode: e.target.value })
                             }} className="form-control input-space" id="floatingInput" />
                             <label for="floatingInput">Código do País</label>
                         </div>
@@ -123,7 +124,7 @@ function FlightEditForm() {
                         </div>
                         {/* {console.log(timezone)} */}
                         <div className="form-floating">
-                            <input type="number" name="long" placeholder="Digite" value={form.long} onChange={(e) => {
+                            <input type="number" name="long" placeholder="Digite" value={form.longitude} onChange={(e) => {
                                 setInput({ long: e.target.value })
                             }} className="form-control input-space" id="floatingInput" />
                             <label for="floatingInput">Longitude</label>

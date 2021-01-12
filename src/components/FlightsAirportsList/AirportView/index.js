@@ -1,22 +1,8 @@
-import AirportsHeader from "../../components/FlightsAirportsList/AirportsHeader";
-import Header from "../../components/Header";
-import { Link } from "react-router-dom";
-
-function AirportView(props) {
-    const airport = props.location.airport;
+function AirportView({ airport }) {
 
     return (
         <>
-        <Header />
         <div className="container">
-            <AirportsHeader>
-                <div className="col-md-4">
-                    <Link to="/flights/airports">
-                        <button className="btn btn-warning">RETURN</button>
-                    </Link>
-                </div>
-            </AirportsHeader>
-
             <div className="row">
                 <div className="col-md-6">
                     <p><b>Code:</b> {airport.code}</p>

@@ -1,0 +1,7 @@
+.rooms-table-column-title {
+  cursor: pointer;
+}
+
+.rooms-table-column-title:hover {
+  text-decoration: underline;
+}
