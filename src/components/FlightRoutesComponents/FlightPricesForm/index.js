@@ -1,5 +1,23 @@
 import React from "react";
-import InputMask from "react-input-mask";
+
+function PriceField({ id }) {
+  return (
+    <div className="input-group">
+      <span className="input-group-text" id="basic-addon1">
+        R$
+      </span>
+      <input
+        type="text"
+        className="form-control"
+        id={id}
+        name={id}
+        required
+        pattern="[\d]+(,\d{2})?"
+        title="Informe um valor numérico. Ex: 150,00 ou 1500,10"
+      />
+    </div>
+  );
+}
 
 export default function FlightPricesForm({ handler }) {
   return (
@@ -16,43 +34,13 @@ export default function FlightPricesForm({ handler }) {
         <tr>
           <th className="align-middle">Price</th>
           <th>
-            <InputMask 
-              type="text"
-              className="form-control"
-              id="adultsPrice"
-              name="adultsPrice"
-              required
-              placeholder="R$"
-              value={handler.values.adultsPrice}
-              onChange={handler.onChange}
-              mask="R$999,99"
-            />
+            <PriceField id="adultsPrice" />
           </th>
           <th>
-            <InputMask
-              type="text"
-              className="form-control"
-              id="childPrice"
-              name="childPrice"
-              required
-              placeholder="R$"
-              value={handler.values.childPrice}
-              onChange={handler.onChange}
-              mask="R$999,99"
-            />
+            <PriceField id="childPrice" />
           </th>
           <th>
-            <InputMask
-              type="text"
-              className="form-control"
-              id="infantPrice"
-              name="infantPrice"
-              required
-              placeholder="R$"
-              value={handler.values.infantPrice}
-              onChange={handler.onChange}
-              mask="R$999,99"
-            />
+            <PriceField id="infantPrice" />
           </th>
         </tr>
       </tbody>
