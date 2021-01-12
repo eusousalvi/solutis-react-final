@@ -2,12 +2,46 @@ import React from "react";
 
 import FlightRouteNode from "../FlightRouteNode";
 
-export default function FlightRouteManagerForm() {
-  const [connections, setConnections] = React.useState([]);
+const DEFAULT_NODE = {
+  flightNumber: 0,
+  checkout: "",
+  airline: "",
+  city: "",
+  date: "",
+  time: "",
+};
+
+export default function FlightRouteManagerForm({ handler }) {
+  const [connections, setConnections] = React.useState(handler.values.route);
 
   function handleAddTransitClick() {
-    setConnections([...connections, { id: connections.length }]);
+    setConnections([
+      ...connections.slice(0, connections.length - 1),
+      {
+        id: connections.length,
+        type: "Transit",
+        ...DEFAULT_NODE,
+      },
+      ...connections.slice(connections.length - 1),
+    ]);
   }
+
+  function onChange(id) {
+    return (e) => {
+      const { name, value } = e.target;
+
+      setConnections((connections) =>
+        connections.map((item, i) =>
+          i === id ? { ...item, [name]: value } : item
+        )
+      );
+    };
+  }
+
+  React.useEffect(() => {
+    handler.onChange({ target: { name: "route", value: connections } });
+    return () => {};
+  }, [connections]);
 
   function handleDeleteNodeClick(id) {
     return () => {
@@ -30,19 +64,22 @@ export default function FlightRouteManagerForm() {
           </tr>
         </thead>
         <tbody>
-          <FlightRouteNode type="Departure" />
-          {connections.map((connection) => (
+          {connections.map((node, i) => (
             <FlightRouteNode
-              key={connection.id}
-              type="Transit"
-              onClickDelete={handleDeleteNodeClick(connection.id)}
-              removable
+              key={node.id}
+              node={node}
+              onClickDelete={handleDeleteNodeClick(node.id)}
+              onChange={onChange(i)}
+              removable={i > 0 && i < connections.length - 1}
             />
           ))}
-          <FlightRouteNode type="Arrival" />
         </tbody>
       </table>
-      <button type="button" className="btn btn-success" onClick={handleAddTransitClick}>
+      <button
+        type="button"
+        className="btn btn-success"
+        onClick={handleAddTransitClick}
+      >
         Add Transit
       </button>
     </div>

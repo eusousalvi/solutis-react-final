@@ -1,0 +1,7 @@
+.rooms-footer {
+  position: fixed;
+  top: 90vh;
+  width: 100vw;
+  background: #f8f8f8;
+  padding: 20px;
+}

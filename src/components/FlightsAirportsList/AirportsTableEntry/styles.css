@@ -6,3 +6,8 @@ span button {
     margin-right: 2px;
     margin-top: 2px;
 }
+
+.airport-button {
+    width: auto;
+    margin-top: 0px;
+}

@@ -11,7 +11,6 @@ import hotelServices from "../../services/hotels";
 import "./styles.css";
 import { Link } from "react-router-dom";
 
-import axios from "axios";
 import { useEffect, useState } from "react";
 
 function Hotels(props) {

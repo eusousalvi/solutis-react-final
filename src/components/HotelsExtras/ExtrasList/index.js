@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
-import Extras from "../HotelsExtras";
-import ExtraServices from "../../services/extras";
+import Extras from "../ExtraItems";
+import ExtraServices from "../../../services/extras";
 import "./styles.css";
 
-function HotelListItens() {
+function ExtrasList() {
   const [extras, setExtras] = useState([]);
   const [isRemovingItem, setIsRemovingItem] = useState(false);
 
   async function fetchData() {
-    const data = await ExtraServices.getExtras();
-
-    if (data) setExtras(data);
+    try {
+      const res = await ExtraServices.getExtras();
+      if (res.status || res.status === 200) setExtras(res.data);
+    } catch (error) {
+      window.alert("Não foi possível resgatar os itens");
+      console.log(error.message);
+    }
   }
 
   useEffect(() => {
@@ -20,12 +24,13 @@ function HotelListItens() {
   return (
     <>
       <table className="table table-striped table-hover">
-        <thead className="thead">
+        <thead className="thead-extras">
           <tr>
             <th scope="col">
               <div className="form-check mb-0">
                 <input
                   className="form-check-input"
+                  style={{width: '1.2rem', height:'1.2rem'}}
                   type="checkbox"
                   name=""
                   id=""
@@ -57,4 +62,4 @@ function HotelListItens() {
   );
 }
 
-export default HotelListItens;
+export default ExtrasList;
