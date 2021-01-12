@@ -1,33 +1,22 @@
 import RoomsTableRow from "../RoomsTableRow/index";
+import RoomsTableHeader from "../RoomsTableHeader/index";
 
 import "./style.css";
 
-function RoomsTable({ rooms, handleDeleteRoom }) {
+function RoomsTable({
+  rooms,
+  handleDeleteRoom,
+  fields,
+  order,
+  handleChangeOrder,
+}) {
   return (
     <table className="table table-striped table-hover">
-      <thead className="bg-light">
-        <tr>
-          <th scrop="col">
-            <div className="form-check">
-              <input
-                type="checkbox"
-                value=""
-                id="selectAll"
-                className="form-check-input"
-              />
-            </div>
-          </th>
-          <th scope="col">#</th>
-          <th scope="col">Room Type</th>
-          <th scope="col">Hotel</th>
-          <th scope="col">Qty</th>
-          <th scope="col">Price</th>
-          <th scope="col">Prices</th>
-          <th scope="col">Availability</th>
-          <th scope="col">Gallery</th>
-          <th scope="col">Status</th>
-        </tr>
-      </thead>
+      <RoomsTableHeader
+        fields={fields}
+        order={order}
+        handleChangeOrder={handleChangeOrder}
+      />
       <tbody>
         {rooms.map((room, index) => (
           <RoomsTableRow
