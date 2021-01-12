@@ -1,0 +1,13 @@
+.pagination li button {
+    margin: 5px;
+}
+
+.pagination {
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+.last-button {
+    margin-right: 50px;
+}
