@@ -20,6 +20,103 @@ function Rooms() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(25);
   const [totalPages, setTotalPages] = useState([]);
+  const titleColumns = [
+    "Room Type",
+    "Hotel",
+    "Qty",
+    "Price",
+    "Prices",
+    "Availability",
+    "Gallery",
+  ];
+
+  const [filterIsActive, setFilterIsActive] = useState({
+    field: "",
+    active: false,
+    order: true,
+  });
+  // true -> desc
+  // false -> asc
+  const [isClicked, setIsClicked] = useState(false);
+
+  function handleToggleActive(field) {
+    if (!isClicked) {
+      setFilterIsActive((state) => {
+        return { ...state, field, active: true };
+      });
+      setIsClicked(true);
+    } else {
+      setFilterIsActive((state) => {
+        return { ...state, field, order: !state.order };
+      });
+    }
+  }
+
+  function handleFilter(array, field, order) {
+    let arrayCopy = array.slice("");
+
+    switch (field) {
+      case "Room Type":
+        arrayCopy = array.sort((room1, room2) => {
+          if (order) {
+            return room1.roomType - room2.roomType;
+          } else {
+            return room2.roomType - room1.roomType;
+          }
+        });
+
+        break;
+
+      case "Qty":
+        arrayCopy = array.sort((room1, room2) => {
+          if (order) {
+            return room1.qty - room2.qty;
+          } else {
+            return room2.qty - room1.qty;
+          }
+        });
+
+        break;
+
+      case "Price":
+        arrayCopy = array.sort((room1, room2) => {
+          if (order) {
+            return room1.price - room2.price;
+          } else {
+            return room2.price - room1.price;
+          }
+        });
+
+        break;
+
+      case "Availability":
+        arrayCopy = array.sort((room1, room2) => {
+          if (order) {
+            return room1.availability.length - room2.availability.length;
+          } else {
+            return room2.availability.length - room1.availability.length;
+          }
+        });
+
+        break;
+
+      case "Gallery":
+        arrayCopy = array.sort((room1, room2) => {
+          if (order) {
+            return room1.uploads - room2.uploads;
+          } else {
+            return room2.uploads - room1.uploads;
+          }
+        });
+
+        break;
+
+      default:
+        console.log("ata");
+    }
+
+    return arrayCopy;
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -46,12 +143,30 @@ function Rooms() {
           }
 
           if (response.status === 200 || response.status || 201)
-            setRooms(response.data);
+            if (filterIsActive.active) {
+              const data = handleFilter(
+                response.data,
+                filterIsActive.field,
+                filterIsActive.order
+              );
+              setRooms(data);
+            } else {
+              setRooms(response.data);
+            }
         } else {
           response2 = await RoomsService.getRooms();
 
           if (response2.status === 200 || response2.status || 201) {
-            setRooms(response2.data);
+            if (filterIsActive.active) {
+              const data = handleFilter(
+                response2.data,
+                filterIsActive.field,
+                filterIsActive.order
+              );
+              setRooms(data);
+            } else {
+              setRooms(response2.data);
+            }
           }
         }
       } catch (error) {
@@ -59,7 +174,7 @@ function Rooms() {
       }
     }
     fetchData();
-  }, [deleted, page, limit]);
+  }, [deleted, page, limit, filterIsActive]);
 
   async function handleDelete(id) {
     const confirmDelete = window.confirm("Are you sure?");
@@ -96,7 +211,13 @@ function Rooms() {
             <RoomsButton variant="delete" title="DELETE SELECTED" />
           </div>
         </RoomsListTopToolBar>
-        <RoomsTable rooms={rooms} handleDeleteRoom={handleDelete} />
+        <RoomsTable
+          rooms={rooms}
+          handleDeleteRoom={handleDelete}
+          fields={titleColumns}
+          order={filterIsActive}
+          handleChangeOrder={handleToggleActive}
+        />
       </div>
     </div>
   );
