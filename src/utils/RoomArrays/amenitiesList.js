@@ -33,6 +33,5 @@ export const amenitiesList = [
   "In-room childcare (surcharge)",
   "LCD TV",
   "Private bathroom",
-  "Bathrobes",
   "Wake-up calls",
 ];
