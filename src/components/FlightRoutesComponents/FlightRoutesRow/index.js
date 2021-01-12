@@ -19,8 +19,6 @@ function FlightRoutesRow(props) {
     return size;
   }
 
-  console.log(props.flight);
-
   return (
     <tr>
       <th scope="row">{props.flight.id}</th>
