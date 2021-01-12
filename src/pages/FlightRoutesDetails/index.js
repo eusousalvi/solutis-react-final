@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import FlightRoutesDetailsTableRow from "../../components/FlightRoutesComponents/FlightRouteDetailsTableRow";
+import FlightsHeader from "../../components/FlightsHeader";
 
 function Visualization() {
   const id = useParams();
@@ -23,6 +24,7 @@ function Visualization() {
 
   return (
     <>
+      <FlightsHeader/>
       <div className="container">
         <div className="row">
           <div className="col-md-12">

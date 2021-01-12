@@ -1,9 +1,11 @@
 import CreateFlightRoutesButton from "../../components/FlightRoutesComponents/FlightRoutesCreateButton";
 import FlightRoutesTable from "../../components/FlightRoutesComponents/FlightRoutesTable";
+import FlightsHeader from "../../components/FlightsHeader";
 
 function FlightRoutes() {
   return (
     <>
+      <FlightsHeader/>
       <div className="container">
         <div className="row">
           <div className="col-md-12">
