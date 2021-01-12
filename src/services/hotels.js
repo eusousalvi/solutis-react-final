@@ -10,6 +10,14 @@ function getHotels() {
   return response;
 }
 
+function createHotel(hotel) {
+  try {
+    api.post("/hotels", hotel);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 function getHotelsPaginate(page, limit) {
   const response = api.get(`/hotels?page=${page}&limit=${limit}`);
 
@@ -25,6 +33,7 @@ const exportData = {
   getHotels,
   getHotelsPaginate,
   deleteHotel,
+  createHotel,
 };
 
 export default exportData;
