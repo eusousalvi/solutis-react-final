@@ -1,13 +1,13 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import AirportEdit from "./pages/AirportEdit";
 
 //Page
-import Landing from "./pages/Landing";
 
 function Routes() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact component={Landing} />
+        <Route path="/airport/edit/:id" exact component={AirportEdit} />
       </Switch>
     </BrowserRouter>
   );
