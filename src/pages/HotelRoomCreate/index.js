@@ -3,6 +3,7 @@ import { hotelsList } from "../../utils/RoomArrays/hotelsList";
 import { amenitiesList } from "../../utils/RoomArrays/amenitiesList";
 import { useState } from "react";
 import ReactQuill from "react-quill";
+import "./styles.css";
 import "react-quill/dist/quill.snow.css";
 
 import RoomCreateService from "../../services/roomCreate";
@@ -46,20 +47,18 @@ function HotelRoomCreate() {
         setForm(aux);
       }
     }
-    console.log(category, "-", value, "-", mainForm);
   }
 
   function handleLanguage(category, value) {
     const auxDesc = descriptions;
     auxDesc[category] = value;
     setDescription(auxDesc);
-    console.log(descriptions);
 
     const auxForm = mainForm;
     auxForm["descriptions"] = descriptions;
     setForm(auxForm);
-    console.log(mainForm);
   }
+
   async function handleSubmit(e) {
     e.preventDefault();
     try {
@@ -70,31 +69,80 @@ function HotelRoomCreate() {
       console.log(error);
     }
   }
+
+  const modules = {
+    toolbar: [
+      [{ direction: "rtl" }],
+      [{ header: [1, 2, false] }],
+      ["bold", "italic", "underline", "strike"],
+      ["blockquote", "code-block"],
+      [{ script: "sub" }, { script: "super" }],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      [{ color: [] }, { background: [] }],
+      [{ font: [] }],
+      [{ align: [] }],
+      ["link", "image"],
+      ["clean"],
+    ],
+  };
+
+  //TO-DO: Divide the form in multiple components using Redux for state management.
   return (
-    <div className="mx-auto">
+    <div className="mx-auto col-6">
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="form-row">
-          <ReactQuill
-            id="english"
-            onChange={(e) => handleLanguage("english", e)}
-          />
-          <ReactQuill
-            id="portuguese"
-            onChange={(e) => handleLanguage("portuguese", e)}
-          />
-          <ReactQuill
-            id="japanese"
-            onChange={(e) => handleLanguage("japanese", e)}
-          />
-          <ReactQuill
-            id="russian"
-            onChange={(e) => handleLanguage("russian", e)}
-          />
-          <ReactQuill
-            id="arabic"
-            onChange={(e) => handleLanguage("arabic", e)}
-          />
-          <div className="form-group col-6">
+          <div>
+            <p>Room Description</p>
+            <ReactQuill //To do: Pass language as a prop once it's a component.
+              id="english"
+              className="rich-text-field"
+              modules={modules}
+              onChange={(e) => handleLanguage("english", e)}
+              required
+            />
+          </div>
+          <div>
+            <p>Portuguese</p>
+            <ReactQuill
+              id="portuguese"
+              className="rich-text-field"
+              modules={modules}
+              onChange={(e) => handleLanguage("portuguese", e)}
+            />
+          </div>
+          <div>
+            <p>Japanese</p>
+            <ReactQuill
+              id="japanese"
+              className="rich-text-field"
+              modules={modules}
+              onChange={(e) => handleLanguage("japanese", e)}
+            />
+          </div>
+          <div>
+            <p>Russian</p>
+            <ReactQuill
+              id="russian"
+              className="rich-text-field"
+              modules={modules}
+              onChange={(e) => handleLanguage("russian", e)}
+            />
+          </div>
+          <div>
+            <p>Arabic</p>
+            <ReactQuill
+              id="arabic"
+              className="rich-text-field"
+              modules={modules}
+              onChange={(e) => handleLanguage("arabic", e)}
+            />
+          </div>
+          <div className="form-group">
             <label for="Status">Status</label>
             <select
               className="form-select"
