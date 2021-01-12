@@ -33,7 +33,7 @@ const AirportsTableEntry = ({ airport, checked, num, setSelectedForRemoval, setD
 
             <td>{num}</td>
             <td id={`airportCode-${airport.id}`}>{airport.code}</td>
-            <td id={`airportName-${airport.id}`}>{airport.id}</td>
+            <td id={`airportName-${airport.id}`}>{airport.name}</td>
             <td id={`airportCitycode-${airport.id}`}>{airport.citycode}</td>
             <td id={`airportCityname-${airport.id}`}>{airport.cityname}</td>
             <td id={`airportCountryname-${airport.id}`}>{airport.countryname}</td>

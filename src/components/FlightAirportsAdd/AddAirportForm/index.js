@@ -1,9 +1,14 @@
 import React from 'react'
+import airportsService from "../../../services/airports";
+
+function handleSubmit() {
+    //airportsService.addAirport(data)
+}
 
 export default function AddAirportForm({onSubmit}) {
     return (
         <div className="AddAirportForm">
-            <form onSubmit={onSubmit}>
+            <form onSubmit={handleSubmit}>
                 <h1>Inisira os dados do Aeroporto</h1>
                 <div className="row">
                     <div className="form-group col-md-2">

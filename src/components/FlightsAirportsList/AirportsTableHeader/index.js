@@ -11,7 +11,7 @@ function AirportsTableHeader({ fields, prefix }) {
                     fields.map(field => {
                         const fieldName = checkFieldType(field);
                         return (
-                            <th scope="col" key={prefix+fieldName}>
+                            <th scope="col" className={fieldName === "Actions" ? "col-md-2" : ""} key={prefix+fieldName}>
                                 {field}
                             </th>
                         )
