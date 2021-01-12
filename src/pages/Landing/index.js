@@ -1,4 +1,4 @@
-import FlightEditForm from "../../components/FlightEditForm/FlightEditForm";
+import FlightEditForm from "../../components/FlightEditForm";
 import Header from "../../components/Header";
 import "./styles.css";
 
