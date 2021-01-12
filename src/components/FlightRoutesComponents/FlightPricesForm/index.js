@@ -1,7 +1,14 @@
 import React from "react";
 import InputMask from "react-input-mask";
 
-export default function FlightPricesForm({ handler }) {
+export default function FlightPricesForm() {
+  function onChange(e) {
+    const { name, value } = e.target;
+    console.log(`${name} changed to ${value} on FlightPricesForm`);
+  }
+
+  const { adultsPrice, childPrice, infantPrice } = [0, 0, 0]; // TODO: useSelector to catch store data.
+
   return (
     <table className="table table-hover text-center">
       <thead>
@@ -16,15 +23,15 @@ export default function FlightPricesForm({ handler }) {
         <tr>
           <th className="align-middle">Price</th>
           <th>
-            <InputMask 
+            <InputMask
               type="text"
               className="form-control"
               id="adultsPrice"
               name="adultsPrice"
               required
               placeholder="R$"
-              value={handler.values.adultsPrice}
-              onChange={handler.onChange}
+              value={adultsPrice}
+              onChange={onChange}
               mask="R$999,99"
             />
           </th>
@@ -36,8 +43,8 @@ export default function FlightPricesForm({ handler }) {
               name="childPrice"
               required
               placeholder="R$"
-              value={handler.values.childPrice}
-              onChange={handler.onChange}
+              value={childPrice}
+              onChange={onChange}
               mask="R$999,99"
             />
           </th>
@@ -49,8 +56,8 @@ export default function FlightPricesForm({ handler }) {
               name="infantPrice"
               required
               placeholder="R$"
-              value={handler.values.infantPrice}
-              onChange={handler.onChange}
+              value={infantPrice}
+              onChange={onChange}
               mask="R$999,99"
             />
           </th>

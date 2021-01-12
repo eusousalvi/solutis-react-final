@@ -2,8 +2,22 @@ import React from "react";
 import "./styles.css";
 import InputMask from "react-input-mask";
 
+export default function MainSettingsForm() {
+  const {
+    status,
+    totalHours,
+    vatTax,
+    deposite,
+    flightType,
+    refundable,
+    direction,
+  } = []; // TODO: useSelector
 
-export default function MainSettingsForm({ handler }) {
+  function onChange(e) {
+    const { name, value } = e.target;
+    console.log(`(MainSettingsForm) ${name} changed to ${value}`);
+  }
+
   return (
     <div id="main-settings-form-wrapper" className="col-4">
       <div
@@ -21,8 +35,8 @@ export default function MainSettingsForm({ handler }) {
               name="status"
               className="form-select"
               aria-label="Flight Status"
-              value={handler.values.status}
-              onChange={handler.onChange}
+              value={status}
+              onChange={onChange}
             >
               <option value="enabled">Enabled</option>
               <option value="disabled">Disabled</option>
@@ -38,32 +52,32 @@ export default function MainSettingsForm({ handler }) {
               className="form-control"
               id="totalHours"
               name="totalHours"
-              value={handler.values.totalHours}
-              onChange={handler.onChange}
+              value={totalHours}
+              onChange={onChange}
             />
             <label htmlFor="totalHours">Total Hours</label>
           </div>
           <div className="form-floating main-settings-item">
-            <InputMask 
+            <InputMask
               type="text"
               className="form-control"
               id="vatTax"
               name="vatTax"
-              value={handler.values.vatTax}
-              onChange={handler.onChange}
+              value={vatTax}
+              onChange={onChange}
               mask="99%"
               placeholder="%"
             />
             <label htmlFor="vatTax">Vat Tax</label>
           </div>
           <div className="form-floating main-settings-item">
-            <InputMask 
+            <InputMask
               type="text"
               className="form-control"
               id="deposite"
               name="deposite"
-              value={handler.values.deposite}
-              onChange={handler.onChange}
+              value={deposite}
+              onChange={onChange}
               mask="R$9999,99"
               placeholder="R$"
             />
@@ -75,8 +89,8 @@ export default function MainSettingsForm({ handler }) {
               name="flightType"
               className="form-select"
               aria-label="Flight Type"
-              value={handler.values.flightType}
-              onChange={handler.onChange}
+              value={flightType}
+              onChange={onChange}
             >
               <option value="business">Business</option>
               <option value="economic">Economic</option>
@@ -91,8 +105,8 @@ export default function MainSettingsForm({ handler }) {
               name="refundable"
               className="form-select"
               aria-label="Refundable"
-              value={handler.values.refundable}
-              onChange={handler.onChange}
+              value={refundable}
+              onChange={onChange}
             >
               <option value="refundable">Refundable</option>
               <option value="non-refundable">Non Refundable</option>
@@ -107,8 +121,8 @@ export default function MainSettingsForm({ handler }) {
               name="direction"
               className="form-select"
               aria-label="Flight Direction"
-              value={handler.values.direction}
-              onChange={handler.onChange}
+              value={direction}
+              onChange={onChange}
             >
               <option value="one-way">One Way</option>
               <option value="return">Return</option>

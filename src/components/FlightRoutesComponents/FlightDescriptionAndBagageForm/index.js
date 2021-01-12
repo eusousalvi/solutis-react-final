@@ -1,6 +1,10 @@
 import React from "react";
 
-export default function DescriptionAndBagageForm({ handler }) {
+export default function DescriptionAndBagageForm() {
+  const { description } = [
+    "TODO: CREATE STORE AND CATCH DATA WITH USESELECTOR",
+  ];
+
   return (
     <div id="description-bagage-form">
       <div className="card">
@@ -13,8 +17,10 @@ export default function DescriptionAndBagageForm({ handler }) {
             id="description-textarea"
             name="description"
             rows="8"
-            value={handler.values.description}
-            onChange={handler.onChange}
+            value={description}
+            onChange={() => {
+              console.log("DESCRIPTION AND BAGAGE - SEND DATA TO STORE");
+            }}
             required
           />
         </div>
