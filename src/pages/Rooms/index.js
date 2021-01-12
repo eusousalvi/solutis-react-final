@@ -1,9 +1,5 @@
 import { useState, useEffect } from "react";
-import { FiEdit, FiPlusCircle, FiFile, FiPrinter } from "react-icons/fi";
-
 import HotelsHeader from "../../components/HotelsHeader";
-import { FaCheck, FaTimes } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import "./style.css";
 
 import RoomsService from "../../services/rooms";
@@ -14,8 +10,16 @@ import RoomsTable from "../../components/HotelsRoomList/RoomsTable/index";
 import RoomsFooter from "../../components/HotelsRoomList/RoomsFooter/index";
 import Pagination from "../../components/Pagination/index";
 
+import { useSelector, useDispatch } from "react-redux";
+import roomsActions from "../../redux/actions/rooms";
+
 function Rooms() {
-  const [rooms, setRooms] = useState([]);
+  //TODO
+  //! ADICIONAR FUNÇÃO DE DELETAR NO REDUX
+  //! ADICIONAR PAGINAÇÃO NO REDUX
+  //! ADICIONAR CUSTOM HOOKS
+
+  //const [rooms, setRooms] = useState([]);
   const [deleted, setDeleted] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(25);
@@ -30,29 +34,15 @@ function Rooms() {
     "Gallery",
   ];
 
-  const [filterIsActive, setFilterIsActive] = useState({
-    field: "",
-    active: false,
-    order: true,
-  });
-  // true -> desc
-  // false -> asc
-  const [isClicked, setIsClicked] = useState(false);
+  const { rooms, filter } = useSelector((state) => state.rooms);
+  const dispatch = useDispatch();
 
   function handleToggleActive(field) {
-    if (!isClicked) {
-      setFilterIsActive((state) => {
-        return { ...state, field, active: true };
-      });
-      setIsClicked(true);
-    } else {
-      setFilterIsActive((state) => {
-        return { ...state, field, order: !state.order };
-      });
-    }
+    dispatch(roomsActions.changeRoomsFilterActive(field));
+    dispatch(roomsActions.filterRooms(field));
   }
 
-  function handleFilter(array, field, order) {
+  /*  function handleFilter(array, field, order) {
     let arrayCopy = array.slice("");
 
     switch (field) {
@@ -116,8 +106,8 @@ function Rooms() {
     }
 
     return arrayCopy;
-  }
-
+  } */
+  /* 
   useEffect(() => {
     async function fetchData() {
       try {
@@ -175,6 +165,15 @@ function Rooms() {
     }
     fetchData();
   }, [deleted, page, limit, filterIsActive]);
+ */
+
+  useEffect(() => {
+    async function fetchData() {
+      await RoomsService.getRooms(dispatch);
+    }
+
+    fetchData();
+  }, [dispatch]);
 
   async function handleDelete(id) {
     const confirmDelete = window.confirm("Are you sure?");
@@ -215,7 +214,7 @@ function Rooms() {
           rooms={rooms}
           handleDeleteRoom={handleDelete}
           fields={titleColumns}
-          order={filterIsActive}
+          order={filter}
           handleChangeOrder={handleToggleActive}
         />
       </div>
