@@ -2,15 +2,17 @@ import { FaTimes } from "react-icons/fa";
 import airportServices from "../../../services/airports";
 
 
-function AirportsDeleteButton({ id }) {
+function AirportsDeleteButton({ id, setDeleted }) {
 
-    async function deleteAirport() {
+    function deleteAirport() {
 
         const confirmDelete = window.confirm("Are you sure you want to remove this airport?")
 
         if(confirmDelete)
         {
-            let data = await airportServices.deleteAirport(id)
+            airportServices.deleteAirport(id)
+            .then(() => setDeleted(true))
+            .catch(err => console.error(err))
         }
     }
 
