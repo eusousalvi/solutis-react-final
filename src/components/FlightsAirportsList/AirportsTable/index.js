@@ -3,7 +3,7 @@ import AirportsTableHeader from '../AirportsTableHeader';
 import "./styles.css";
 import { useState } from "react";
 
-function AirportsTable({ airports, idxStart, setSelectedForRemoval, currentPage }) {
+function AirportsTable({ airports, idxStart, setSelectedForRemoval, setDeleted }) {
 
     const [checkAll, setCheckAll] = useState(false)
 
@@ -13,6 +13,7 @@ function AirportsTable({ airports, idxStart, setSelectedForRemoval, currentPage 
 
     const tableFields = [
         <input type="checkbox"
+            className="form-check-input"
             id="selectAirports" 
             onChange={toggleCheck}    
         />,
@@ -42,6 +43,7 @@ function AirportsTable({ airports, idxStart, setSelectedForRemoval, currentPage 
                                 key={airport.id} 
                                 airport={airport} 
                                 setSelectedForRemoval={setSelectedForRemoval}
+                                setDeleted={setDeleted}
                             />)
                     }
                 </tbody>

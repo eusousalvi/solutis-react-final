@@ -44,7 +44,7 @@ function AirportsSearchBar({ searchAirports }) {
             { isClicked ?
                 <Link to="/flights/airports">
                     <button className="btn btn-warning airport-button" onClick={refreshPage}>
-                        Return
+                        Reset
                     </button>
                 </Link>
                 :

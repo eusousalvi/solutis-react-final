@@ -1,6 +1,7 @@
 import React from 'react'
 //import Header from '../../components/Header'
 import AddAirportForm from '../../components/FlightAirportsAdd/AddAirportForm'
+import FlightsHeader from '../../components/FlightsHeader'
 import './styles.css'
 
 function handleFormSubmit() {
@@ -10,6 +11,7 @@ function handleFormSubmit() {
 function AddAirport() {
     return (
         <div>
+            <FlightsHeader/>
             <AddAirportForm onSubmit={handleFormSubmit}/>
         </div>
     )
