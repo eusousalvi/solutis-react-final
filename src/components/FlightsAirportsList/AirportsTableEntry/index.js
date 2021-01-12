@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import AirportsDeleteButton from "../AirportsDeleteButton";
 import "./styles.css";
 
-const AirportsTableEntry = ({ airport, checked, num, setSelectedForRemoval }) => {
+const AirportsTableEntry = ({ airport, checked, num, setSelectedForRemoval, setDeleted }) => {
     
     const [isChecked, setIsChecked] = useState(checked)
     
@@ -44,23 +44,20 @@ const AirportsTableEntry = ({ airport, checked, num, setSelectedForRemoval }) =>
 
             <td id={`airportActions-${airport.id}`}>
                 <span className="airportSpan">
-                    <Link to={{
-                        pathname: "airports/view",
-                        airport: airport
-                    }}
+                    <Link to={`airports/details/${airport.id}`}
                     >
                         <button id={`airportButtonView-${airport.id}`} className="btn btn-info airport-button">
                             <BiSearch />
                         </button>
                     </Link>
 
-                    <Link to={"airports/" + airport.id} >
+                    <Link to={"airports/edit/" + airport.id} >
                         <button id={`airportButtonEdit-${airport.id}`} className="btn btn-warning airport-button">
                             <FiEdit />
                         </button>
                     </Link>
 
-                    <AirportsDeleteButton id={airport.id} />
+                    <AirportsDeleteButton id={airport.id} setDeleted={setDeleted}/>
                 </span>
             </td>
         </tr>

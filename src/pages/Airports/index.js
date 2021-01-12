@@ -21,14 +21,16 @@ function Airports() {
     const [selectedForRemoval, setSelectedForRemoval] = useState([])
     const [deleted, setDeleted] = useState(false)
 
-    async function getAirportsPaginated() {
-        let data = await airportServices.getAirportsPaginated(currentPage, itemsPerPage)
-        if (data) setAirports(data)
+    function getAirportsPaginated() {
+        airportServices.getAirportsPaginated(currentPage, itemsPerPage)
+            .then(res => setAirports(res.data))
+            .catch(err => console.error(err))
     }
 
-    async function fetchAllAirports() {
-        const data = await airportServices.getAirports()
-        if (data) setTotalAirports(data.length)
+    function fetchAllAirports() {
+        airportServices.getAirports()
+            .then(res => setTotalAirports(res.data.length))
+            .catch(err => console.error(err))
     }
 
     function updateItemsPerPage(quantity) {
@@ -38,10 +40,12 @@ function Airports() {
 
     async function searchAirports(query) {
 
-        let data = await airportServices.searchAirports(query)
-
-        if (data) setAirports(data)
-        setTotalAirports(data.length)
+        airportServices.searchAirports(query)
+        .then(res => {
+            setAirports(res.data)
+            setTotalAirports(res.data.length)
+        })
+        .catch(err => console.error(err))
 
         setCurrentPage(1)
     }
@@ -91,7 +95,7 @@ function Airports() {
                         airports={airports}
                         idxStart={currentPage * itemsPerPage - itemsPerPage}
                         setSelectedForRemoval={setSelectedForRemoval}
-                        currentPage={currentPage}
+                        setDeleted={setDeleted}
                     />
                 </div>
             </div>
@@ -107,7 +111,7 @@ function Airports() {
                                 pages={pages}
                                 setPages={setPages}
                                 limit={itemsPerPage}
-                                handleChangeLimit={updateItemsPerPage} 
+                                handleChangeLimit={updateItemsPerPage}
                             />
                             <AirportsSearchBar searchAirports={searchAirports} />
                         </div>
