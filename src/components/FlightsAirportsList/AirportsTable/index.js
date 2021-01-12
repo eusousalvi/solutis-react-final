@@ -13,6 +13,7 @@ function AirportsTable({ airports, idxStart, setSelectedForRemoval, setDeleted }
 
     const tableFields = [
         <input type="checkbox"
+            className="form-check-input"
             id="selectAirports" 
             onChange={toggleCheck}    
         />,

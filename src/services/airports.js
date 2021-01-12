@@ -5,28 +5,23 @@ const api = axios.create({
 })
 
 function getAirports() {
-  const res = api.get("/airports")
-  return res
+  return api.get("/airports")
 }
 
 function getAirportById(id) {
-  const res = api.get(`/airports/${id}`)
-  return res
+  return api.get(`/airports/${id}`)
 }
 
 function deleteAirport(id) {
-  const res = api.delete(`/airports/${id}`)  
-  return res
+  return api.delete(`/airports/${id}`)  
 }
 
 async function searchAirports(query) {
-  const res = api.get(`/airports/?cityname=${query}`)
-  return res
+  return api.get(`/airports/?cityname=${query}`)
 }
 
 async function getAirportsPaginated(page, limit) {
-  const res = api.get(`/airports/?page=${page}&limit=${limit}`)
-  return res
+  return api.get(`/airports/?page=${page}&limit=${limit}`)
 }
 
 export default {

@@ -25,6 +25,7 @@ const AirportsTableEntry = ({ airport, checked, num, setSelectedForRemoval, setD
             <td id="airportSelected">
                 <input type="checkbox" 
                     id={`airportCheckbox-${airport.id}`} 
+                    className="form-check-input"
                     checked={isChecked} 
                     onChange={() => setIsChecked(check => !check)}
                 />

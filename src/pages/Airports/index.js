@@ -3,7 +3,6 @@ import AirportsTable from "../../components/FlightsAirportsList/AirportsTable";
 import AirportsPagination from "../../components/FlightsAirportsList/AirportsPagination";
 import AirportsSearchBar from "../../components/FlightsAirportsList/AirportsSearchBar";
 import FlightsHeader from "../../components/FlightsHeader";
-// import Pagination from "../../components/Pagination";
 
 import { useEffect, useState } from "react";
 import { FiX } from "react-icons/fi";
@@ -38,7 +37,7 @@ function Airports() {
         setCurrentPage(1)
     }
 
-    async function searchAirports(query) {
+    function searchAirports(query) {
 
         airportServices.searchAirports(query)
         .then(res => {
@@ -105,7 +104,7 @@ function Airports() {
                     <div className="row">
                         <div className="col-sm-12 footer-container">
                             <AirportsPagination
-                                totalPages={totalAiports}
+                                totalItems={totalAiports}
                                 currentPage={currentPage}
                                 handleChangePage={setCurrentPage}
                                 pages={pages}

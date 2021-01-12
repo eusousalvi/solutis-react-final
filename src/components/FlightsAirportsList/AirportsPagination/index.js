@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import "./styles.css"
 
 function AirportsPagination({
-    totalPages,
+    totalItems,
     currentPage,
     pages,
     setPages,
@@ -11,7 +11,7 @@ function AirportsPagination({
     handleChangePage
 }) {
 
-    const numOfPages = Math.ceil(totalPages / limit);
+    const numOfPages = Math.ceil(totalItems / limit);
 
     function updatePages() {
         setPages(numOfPages <= 10 ? [...Array(numOfPages).keys()].map(x => x + 1) : reducePages());
@@ -40,7 +40,7 @@ function AirportsPagination({
 
     useEffect(() => {
         updatePages();
-    }, [currentPage, totalPages, limit])
+    }, [currentPage, totalItems, limit])
 
     return (
         <div className="btn-toolbar airportsPagination">
@@ -80,7 +80,7 @@ function AirportsPagination({
                         ? "btn btn-primary"
                         : "btn btn-light btn-outline-dark "
                         }`}
-                    onClick={() => handleChangeLimit(totalPages)}
+                    onClick={() => handleChangeLimit(totalItems)}
                 >
                     All
         </button>
