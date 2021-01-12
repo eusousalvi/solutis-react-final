@@ -29,7 +29,7 @@ function RoomsTableRow({ room, index, onDelete }) {
       <td>
         <Link
           className="btn btn-link"
-          to={`/hotels/rooms/availabilty/${room.id}`}
+          to={`/hotels/rooms/availability/${room.id}`}
         >
           Availability
         </Link>

@@ -16,18 +16,30 @@ function deleteAirport(id) {
   return api.delete(`/airports/${id}`)  
 }
 
-async function searchAirports(query) {
+function searchAirports(query) {
   return api.get(`/airports/?cityname=${query}`)
 }
 
-async function getAirportsPaginated(page, limit) {
+function getAirportsPaginated(page, limit) {
   return api.get(`/airports/?page=${page}&limit=${limit}`)
 }
 
-export default {
+function updateAirport(id, data) {
+  return api.put(`/airports/${id}`, data)
+};
+
+function addAirport(data) {
+  return api.post(`/airports`, data)
+}
+
+const exportData = {
   getAirports,
   deleteAirport,
   searchAirports,
   getAirportsPaginated,
-  getAirportById
+  getAirportById,
+  updateAirport,
+  addAirport
 }
+
+export default exportData

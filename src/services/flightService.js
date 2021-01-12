@@ -12,5 +12,5 @@ export const getAirport = id => {
 };
 
 export const updateAirport = (id, data) => {
-    return http.put(`/airport/${id}`, data);
-  };
+  return http.put(`/airport/${id}`, data);
+};
