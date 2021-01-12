@@ -3,7 +3,7 @@ import ReactQuill from "react-quill";
 function RoomFormLanguage({ handleChange: handleLanguage, language, ...data }) {
   const modules = {
     toolbar: [
-      [{ direction: "rtl" }],
+      [{ direction: "ltr" }],
       [{ header: [1, 2, false] }],
       ["bold", "italic", "underline", "strike"],
       ["blockquote", "code-block"],
