@@ -3,10 +3,20 @@ import RoomsTableHeader from "../RoomsTableHeader/index";
 
 import "./style.css";
 
-function RoomsTable({ rooms, handleDeleteRoom, fields }) {
+function RoomsTable({
+  rooms,
+  handleDeleteRoom,
+  fields,
+  order,
+  handleChangeOrder,
+}) {
   return (
     <table className="table table-striped table-hover">
-      <RoomsTableHeader fields={fields} />
+      <RoomsTableHeader
+        fields={fields}
+        order={order}
+        handleChangeOrder={handleChangeOrder}
+      />
       <tbody>
         {rooms.map((room, index) => (
           <RoomsTableRow
