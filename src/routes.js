@@ -1,6 +1,7 @@
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 //Page
+import AirportEdit from "./pages/AirportEdit";
 import RoomsAvailability from './pages/RoomsAvailability';
 import Landing from './pages/Landing';
 import Hotels from './pages/Hotels';
@@ -22,6 +23,7 @@ function Routes() {
     <BrowserRouter>
       <Header />
       <Switch>
+        <Route path="/airport/edit/:id" exact component={AirportEdit} />
         <Route path="/" exact component={Landing} />
         <Route path="/hotels" exact component={Hotels} />
         <Route
