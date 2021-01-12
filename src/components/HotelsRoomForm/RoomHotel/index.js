@@ -1,6 +1,5 @@
 import { hotelsList } from "../../../utils/RoomArrays/hotelsList";
 function RoomHotel({ handleForm, ...data }) {
-  console.log(handleForm);
   return (
     <select
       id="hotel"
