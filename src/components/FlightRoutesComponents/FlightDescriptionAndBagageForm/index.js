@@ -1,9 +1,15 @@
 import React from "react";
 
+import { useSelector, useDispatch } from "react-redux";
+import { update } from "../../../redux/actions/formFlightRoutes";
+
 export default function DescriptionAndBagageForm() {
-  const { description } = [
-    "TODO: CREATE STORE AND CATCH DATA WITH USESELECTOR",
-  ];
+  const { description } = useSelector((state) => state.formFlightRoutesReducer);
+  const dispatch = useDispatch();
+
+  function handleTextareaChange(e) {
+    dispatch(update("description", e.target.value));
+  }
 
   return (
     <div id="description-bagage-form">
@@ -18,9 +24,7 @@ export default function DescriptionAndBagageForm() {
             name="description"
             rows="8"
             value={description}
-            onChange={() => {
-              console.log("DESCRIPTION AND BAGAGE - SEND DATA TO STORE");
-            }}
+            onChange={handleTextareaChange}
             required
           />
         </div>
