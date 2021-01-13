@@ -1,9 +1,10 @@
 import { hotelsList } from "../../utils/RoomArrays/hotelsList";
 import { roomsList } from "../../utils/RoomArrays/roomsList";
 import { languagesList } from "../../utils/RoomArrays/languagesList";
+import { amenitiesList } from "../../utils/RoomArrays/amenitiesList";
 import { useState } from "react";
 import RoomFormDescriptions from "./RoomFormDescriptions";
-import RoomAmenities from "./RoomAmenities";
+import RoomAmenitiesList from "./RoomAmenitiesList";
 import RoomInputList from "./RoomInputList";
 import RoomStatus from "./RoomStatus";
 import RoomHotel from "./RoomHotel";
@@ -16,7 +17,17 @@ export default function HotelsRoomForm({ onSubmit: handleSubmit, ...data }) {
     languagesList.reduce(
       (obj, item) =>
         Object.assign(obj, {
-          [item.toLowerCase().toLowerCase().replace(/ /g, "-")]: "",
+          [item.toLowerCase().replace(/ /g, "-")]: "",
+        }),
+      {}
+    )
+  );
+
+  const [amenities, setAmenity] = useState(
+    amenitiesList.reduce(
+      (obj, item) =>
+        Object.assign(obj, {
+          [item]: false,
         }),
       {}
     )
@@ -34,27 +45,25 @@ export default function HotelsRoomForm({ onSubmit: handleSubmit, ...data }) {
     bed: 0,
     charge: 0,
     descriptions: descriptions,
-    amenities: [],
+    amenities: amenities,
   });
 
   const handleForm = (category, value) => {
-    const aux = mainForm;
+    const auxForm = mainForm;
     if (category !== "room-amenity") {
       if (value) {
-        aux[category] = value;
+        auxForm[category] = value;
       } else {
-        aux[category] = 0;
+        auxForm[category] = 0;
       }
-      setForm(aux);
+      setForm(auxForm);
     } else {
-      let index = aux["amenities"].indexOf(value);
-      if (index === -1) {
-        aux["amenities"].push(value);
-        setForm(aux);
-      } else {
-        aux["amenities"].splice(index, 1);
-        setForm(aux);
-      }
+      const auxAmenity = amenities;
+      auxAmenity[value.value] = value.checked;
+      setAmenity(auxAmenity);
+      auxForm["amenities"] = amenities;
+      setForm(auxForm);
+      console.log(mainForm);
     }
   };
 
@@ -84,7 +93,7 @@ export default function HotelsRoomForm({ onSubmit: handleSubmit, ...data }) {
 
         <RoomInputList handleForm={handleForm} />
 
-        <RoomAmenities id="room-languages" handleForm={handleForm} />
+        <RoomAmenitiesList id="room-languages" handleForm={handleForm} />
 
         <button type="submit" className="btn btn-primary">
           SUBMIT
