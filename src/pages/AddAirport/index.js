@@ -5,15 +5,19 @@ import FlightsHeader from '../../components/FlightsHeader'
 import airportsService from "../../services/airports"
 import './styles.css'
 
-function handleFormSubmit() {
-    alert("Nada foi enviado ainda pois não conexão com a API")
+/*
+function handleSubmit() {
+    //airportsService.addAirport(data)
+    alert("vai ter coisa aqui cuzao")
 }
+*/
+
 
 function AddAirport() {
     return (
         <div>
             <FlightsHeader/>
-            <AddAirportForm onSubmit={handleFormSubmit}/>
+            <AddAirportForm/>
         </div>
     )
 }
