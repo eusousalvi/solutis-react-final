@@ -63,7 +63,6 @@ export default function HotelsRoomForm({ onSubmit: handleSubmit, ...data }) {
       setAmenity(auxAmenity);
       auxForm["amenities"] = amenities;
       setForm(auxForm);
-      console.log(mainForm);
     }
   };
 
