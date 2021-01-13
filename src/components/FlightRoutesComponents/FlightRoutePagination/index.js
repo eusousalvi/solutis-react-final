@@ -7,6 +7,8 @@ function FlightRoutePagination(props) {
   const [thirdButton, setThirdButton] = useState(3);
   const [pagesLimit, setPagesLimit] = useState();
 
+  console.log(pagesLimit);
+
   useEffect(() => {
     setPagesLimit(props.totalRoutes / props.numberPerPage);
   });
@@ -69,7 +71,7 @@ function FlightRoutePagination(props) {
             {firstButton}
           </button>
         </li>
-        <li className="page-item">
+        {pagesLimit > 1 && <li className="page-item">
           <button
             className={
               secondButton === props.page
@@ -80,8 +82,8 @@ function FlightRoutePagination(props) {
           >
             {secondButton}
           </button>
-        </li>
-        <li className="page-item">
+        </li>}
+        {pagesLimit > 2 && <li className="page-item">
           <button
             className={
               thirdButton === props.page
@@ -92,7 +94,7 @@ function FlightRoutePagination(props) {
           >
             {thirdButton}
           </button>
-        </li>
+        </li>}
         <li className="page-item">
           <button className="page-link" onClick={next}>
             Next
