@@ -21,8 +21,9 @@ import TableRow from "../../components/HotelsReviews/TableRow";
  * Services, styles, etc
  */
 import api from "../../services/reviews";
-import {handleDate} from '../../helpers/ReviewsFunctions';
+import { handleDate } from "../../helpers/ReviewsFunctions";
 import "./styles.css";
+import Pagination from "../../components/Pagination";
 
 function Reviews() {
   const [reviews, setReviews] = useState([]);
@@ -30,12 +31,49 @@ function Reviews() {
   const [order, setOrder] = useState("");
   const [allChecked, setAllChecked] = useState(false);
 
-  const fetchReviews = useCallback(
+  // pagination
+  const [page, setPage] = useState(1);
+  const [limitPerPage, setLimitPerPage] = useState(25);
+  const [totalPages, setTotalPages] = useState([]);
+
+  const handleLimitPerPage = (data) => {
+    const pages = Math.ceil(data.length / limitPerPage);
+    const totalP = new Array(pages).fill(pages).map((data, index) => index + 1);
+    setTotalPages(totalP);
+  };
+
+  const fetchPaginatedReviews = useCallback(
     async function () {
       const params = {
         sortBy,
-        order: order,
+        order,
+        page,
+        limit: limitPerPage,
       };
+
+      let itemNumber = 0;
+      const data = await api.getReviews(params);
+      const allData = await api.getAllReviews();
+      const fetchedReviews =
+        data &&
+        data.map((item) => {
+          itemNumber++;
+          return { itemNumber, ...item, isChecked: false };
+        });
+      allData && handleLimitPerPage(allData);
+      data && setReviews(fetchedReviews);
+      setAllChecked(false);
+    },
+    [order, sortBy, limitPerPage, page]
+  );
+
+  const fetchAllReviews = useCallback(
+    async function () {
+      const params = {
+        sortBy,
+        order,
+      };
+
       let itemNumber = 0;
       const data = await api.getReviews(params);
       const fetchedReviews =
@@ -44,6 +82,7 @@ function Reviews() {
           itemNumber++;
           return { itemNumber, ...item, isChecked: false };
         });
+      data && handleLimitPerPage(fetchedReviews);
       data && setReviews(fetchedReviews);
       setAllChecked(false);
     },
@@ -62,8 +101,12 @@ function Reviews() {
   };
 
   useEffect(() => {
-    fetchReviews();
-  }, [fetchReviews]);
+    fetchPaginatedReviews();
+  }, [fetchPaginatedReviews]);
+
+  useEffect(() => {
+    fetchAllReviews();
+  }, [fetchAllReviews]);
 
   const handleDeleteSelected = () => {
     let manyChecked = 0;
@@ -71,7 +114,7 @@ function Reviews() {
       if (review.isChecked) {
         manyChecked++;
         const deleted = await api.deteleReviews(review.id);
-        if (deleted) fetchReviews();
+        if (deleted) fetchPaginatedReviews();
       }
     });
     if (!manyChecked) {
@@ -82,7 +125,7 @@ function Reviews() {
     setSortBy("");
   };
 
-  function handleAllChecked() {
+  const handleAllChecked = () => {
     if (!allChecked) {
       setAllChecked(!allChecked);
       setReviews(
@@ -100,7 +143,15 @@ function Reviews() {
         })
       );
     }
-  }
+  };
+  const handleChangePageOrLimit = (field, value) => {
+    if (field === "limit") {
+      setLimitPerPage(value);
+    }
+    if (field === "page") {
+      setPage(value);
+    }
+  };
 
   return (
     <>
@@ -253,6 +304,12 @@ function Reviews() {
                 </TableBody>
               </Table>
             )}
+            <Pagination
+              page={page}
+              limit={limitPerPage}
+              totalPages={totalPages}
+              handleChangePageOrLimit={handleChangePageOrLimit}
+            />
           </CardBody>
         </Card>
       </section>

@@ -32,19 +32,14 @@ function Routes() {
           component={AirportEdit}
         />
         <Route path="/" exact component={Landing} />
-<<<<<<< HEAD
-        <Route path="/hotels" exact component={Hotels} />
-        <Route path="/hotels/reviews" exact component={Reviews} />
-        <Route path="/rooms/availability" exact component={RoomsAvailability} />
-=======
         <Route path="/hotels" exact component={Hotels} />~
+        <Route path="/hotels/reviews" exact component={Reviews} />
         <Route path="/hotels/create" exact component={AddHotel} />
         <Route
           path="/hotels/rooms/availability/:id"
           exact
           component={RoomsAvailability}
         />
->>>>>>> f9fb8d4b46c1561b5bbb4632736098196fc90cc4
         <Route path="/hotels/rooms" exact component={Rooms} />
         <Route path="/hotels/rooms/create" exact component={HotelRoomCreate} />
         <Route path="/flights/routes" exact component={FlightRoutes} />
