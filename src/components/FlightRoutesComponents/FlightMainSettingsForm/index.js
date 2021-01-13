@@ -1,10 +1,16 @@
 import React from "react";
 import "./styles.css";
 
+import { useDispatch } from "react-redux";
+
+import { update } from "../../../redux/actions/formFlightRoutes";
+
 export default function MainSettingsForm() {
+  const dispatch = useDispatch();
+
   function onChange(e) {
     const { name, value } = e.target;
-    console.log(`(MainSettingsForm) ${name} changed to ${value}`);
+    dispatch(update(name, value));
   }
 
   return (
