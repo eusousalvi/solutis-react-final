@@ -1,18 +1,27 @@
 import {
   GET_ALL_ROOMS,
   GET_ROOMS_PAGINATE,
+  GET_ROOMS_SIZE,
   FILTER_ROOMS,
   CHANGE_ROOMS_FILTER_ACTIVE,
+  DELETE_ROOM,
+  SET_ROOMS_PAGE_OR_LIMIT,
+  SET_ROOMS_TOTAL_PAGES,
 } from "../../constants/rooms";
 
 const INITIAL_STATE = {
   rooms: [],
+  size: 0,
   filter: {
     field: "",
     active: false,
     order: true,
   },
   isClicked: false,
+  deleted: false,
+  page: 1,
+  limit: 25,
+  totalPages: [],
 };
 
 export default function reducer(state = INITIAL_STATE, action = null) {
@@ -110,6 +119,23 @@ export default function reducer(state = INITIAL_STATE, action = null) {
       }
 
       return { ...state, rooms };
+
+    case DELETE_ROOM:
+      return { ...state, deleted: !state.deleted };
+
+    case SET_ROOMS_PAGE_OR_LIMIT:
+      return { ...state, [action.payload.field]: action.payload.data };
+
+    case SET_ROOMS_TOTAL_PAGES:
+      const pages = Math.ceil(action.payload / state.limit);
+      const totalPages = new Array(pages)
+        .fill(pages)
+        .map((data, index) => index + 1);
+
+      return { ...state, totalPages };
+
+    case GET_ROOMS_SIZE:
+      return { ...state, size: action.payload };
 
     default:
       return state;

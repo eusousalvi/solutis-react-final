@@ -29,10 +29,29 @@ function getRoomsPaginate(page, limit, dispatch) {
     .catch((error) => console.log(error));
 }
 
-function deleteRoom(id) {
-  const response = api.delete(`/rooms/${id}`);
+function deleteRoom(id, dispatch) {
+  return api
+    .delete(`/rooms/${id}`)
+    .then((response) => {
+      if (response.status === 200 || response.status === 201) {
+        dispatch(roomsAction.deleteRoom());
+        window.alert("Room successfully deleted");
+      }
+    })
+    .catch((error) => console.log(error));
+}
 
-  return response;
+function getRoomsSize(dispatch) {
+  return api
+    .get("/rooms")
+    .then((response) => {
+      if (response) {
+        dispatch(roomsAction.getRoomsSize(response.data.length));
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
 const exportData = {
@@ -40,6 +59,7 @@ const exportData = {
   getRooms,
   getRoomsPaginate,
   deleteRoom,
+  getRoomsSize,
 };
 
 export default exportData;

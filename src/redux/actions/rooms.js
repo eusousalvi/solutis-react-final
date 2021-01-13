@@ -3,6 +3,10 @@ import {
   GET_ROOMS_PAGINATE,
   FILTER_ROOMS,
   CHANGE_ROOMS_FILTER_ACTIVE,
+  DELETE_ROOM,
+  SET_ROOMS_PAGE_OR_LIMIT,
+  SET_ROOMS_TOTAL_PAGES,
+  GET_ROOMS_SIZE,
 } from "../constants/rooms";
 
 export const getAllRooms = (rooms) => (dispatch) => {
@@ -33,11 +37,43 @@ export const filterRooms = (field) => (dispatch) => {
   });
 };
 
+export const deleteRoom = () => (dispatch) => {
+  return dispatch({
+    type: DELETE_ROOM,
+    payload: null,
+  });
+};
+
+export const setPageOrLimit = (field, data) => (dispatch) => {
+  return dispatch({
+    type: SET_ROOMS_PAGE_OR_LIMIT,
+    payload: { field, data },
+  });
+};
+
+export const setTotalPages = (data) => (dispatch) => {
+  return dispatch({
+    type: SET_ROOMS_TOTAL_PAGES,
+    payload: data,
+  });
+};
+
+export const getRoomsSize = (size) => (dispatch) => {
+  return dispatch({
+    type: GET_ROOMS_SIZE,
+    payload: size,
+  });
+};
+
 const exportData = {
   getAllRooms,
   getAllRoomsPaginate,
   changeRoomsFilterActive,
   filterRooms,
+  deleteRoom,
+  setPageOrLimit,
+  setTotalPages,
+  getRoomsSize,
 };
 
 export default exportData;
