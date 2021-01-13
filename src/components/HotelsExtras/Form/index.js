@@ -1,9 +1,4 @@
-function Form({ children, handleSubmit, item, setItem, refForm }) {
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setItem({ ...item, [name]: value });
-  }
-
+function Form({ children, handleSubmit, item, handleChange, refForm }) {
   return (
     <form className="row g-3" onSubmit={handleSubmit} ref={refForm} noValidate>
       {children}

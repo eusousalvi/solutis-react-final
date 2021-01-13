@@ -1,26 +1,13 @@
-import { useState, useEffect } from "react";
-import Extras from "../ExtraItems";
-import ExtraServices from "../../../services/extras";
+import Extras from "../TableItem";
 import "./styles.css";
 
-function ExtrasList() {
-  const [extras, setExtras] = useState([]);
-  const [isRemovingItem, setIsRemovingItem] = useState(false);
-
-  async function fetchData() {
-    try {
-      const res = await ExtraServices.getExtras();
-      if (res.status || res.status === 200) setExtras(res.data);
-    } catch (error) {
-      window.alert("Não foi possível resgatar os itens");
-      console.log(error.message);
-    }
-  }
-
-  useEffect(() => {
-    if (!isRemovingItem) fetchData();
-  }, [isRemovingItem]);
-
+function Table({
+  extras,
+  handleSingleDelete,
+  isAllSelect,
+  handleChangeSelectAll,
+  handleSelect,
+}) {
   return (
     <>
       <table className="table table-striped table-hover">
@@ -30,10 +17,12 @@ function ExtrasList() {
               <div className="form-check mb-0">
                 <input
                   className="form-check-input"
-                  style={{width: '1.2rem', height:'1.2rem'}}
+                  style={{ width: "1.2rem", height: "1.2rem" }}
                   type="checkbox"
-                  name=""
-                  id=""
+                  name="selectAll"
+                  id="selectAll"
+                  onChange={handleChangeSelectAll}
+                  checked={isAllSelect}
                 />
               </div>
             </th>
@@ -53,7 +42,9 @@ function ExtrasList() {
             <Extras
               key={item.id}
               item={{ ...item, tableId: idx + 1 }}
-              setIsRemovingItem={setIsRemovingItem}
+              handleSingleDelete={handleSingleDelete}
+              isAllSelect={isAllSelect}
+              handleSelect={handleSelect}
             />
           ))}
         </tbody>
@@ -62,4 +53,4 @@ function ExtrasList() {
   );
 }
 
-export default ExtrasList;
+export default Table;

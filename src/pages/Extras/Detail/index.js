@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ExtraServices from "../../../services/extras";
+import TopOptionsBar from "../../../components/HotelsExtras/TopOptionsBar";
 import HotelsHeader from "../../../components/HotelsHeader";
 
 function Detail(props) {
@@ -10,14 +11,12 @@ function Detail(props) {
   useEffect(() => {
     if (id) {
       async function getById() {
-        if (id) {
-          try {
-            const res = await ExtraServices.getById(id);
-            if (res.status || res.status === 200) setItem(res.data);
-          } catch (error) {
-            window.alert("Não foi possível localizar o item");
-            props.history.push("/hotels/extras");
-          }
+        try {
+          const res = await ExtraServices.getById(id);
+          if (res.status || res.status === 200) setItem(res.data);
+        } catch (error) {
+          window.alert("Não foi possível localizar o item");
+          props.history.push("/hotels/extras");
         }
       }
 
@@ -31,13 +30,13 @@ function Detail(props) {
 
       <div className="container mt-5">
         <div className="row">
-          <div className="border border-muted rounded d-flex justify-content-between mb-4 bg-light p-3 ">
+          <TopOptionsBar>
             <Link
               className="btn btn-warning me-1 text-white"
               to="/hotels/extras">
               Return
             </Link>
-          </div>
+          </TopOptionsBar>
           <div className="col-md-6">
             <img
               src={item.img}

@@ -29,6 +29,29 @@ function deleteExtra(id) {
   return res;
 }
 
-const exportDate = { getExtras, getById, deleteExtra, create, update };
+async function deleteAll(itens) {
+  let isAllDeleted = false;
+
+  try {
+    for (let item of itens) {
+      const res = await api.delete(`/extras/${item.id}`);
+      if (!res.status || res.status !== 200) return isAllDeleted;
+      setTimeout(() => {}, 500);
+    }
+  } catch (err) {
+    return isAllDeleted;
+  }
+
+  return !isAllDeleted;
+}
+
+const exportDate = {
+  getExtras,
+  getById,
+  deleteExtra,
+  create,
+  update,
+  deleteAll,
+};
 
 export default exportDate;

@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import HotelsHeader from "../../../components/HotelsHeader";
 import ExtraServices from "../../../services/extras";
 import Form from "../../../components/HotelsExtras/Form";
+import TopOptionsBar from "../../../components/HotelsExtras/TopOptionsBar";
 import FormButtons from "../../../components/HotelsExtras/FormButtons";
 
 const initialState = {
@@ -9,6 +10,7 @@ const initialState = {
   price: 0,
   name: "",
   status: "true",
+  translations: "",
 };
 
 function ModifyExtras({ history, match }) {
@@ -41,6 +43,11 @@ function ModifyExtras({ history, match }) {
     }
   }
 
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setItem({ ...item, [name]: value });
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -50,7 +57,7 @@ function ModifyExtras({ history, match }) {
           ? await ExtraServices.update(id, item)
           : await ExtraServices.create(item);
 
-        if (res.status || res.status === 201 || res.status === 200) {
+        if (res.status === 201 || res.status === 200) {
           submitButton === "saveAndNew"
             ? control()
             : history.push("/hotels/extras");
@@ -74,8 +81,10 @@ function ModifyExtras({ history, match }) {
               handleSubmit={handleSubmit}
               initialState={initialState}
               item={item}
-              setItem={setItem}>
-              <FormButtons setSubmitButton={setSubmitButton} />
+              handleChange={handleChange}>
+              <TopOptionsBar>
+                <FormButtons setSubmitButton={setSubmitButton} />
+              </TopOptionsBar>
             </Form>
           </div>
         </div>
