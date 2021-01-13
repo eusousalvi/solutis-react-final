@@ -17,6 +17,8 @@ function AvailabilityCalendarDay({
     return () => setValue(currentTotalAvailability);
   }, [currentTotalAvailability]);
 
+  console.log(value);
+
   return (
     <td
       className={`d-flex flex-column text-center ${
@@ -26,9 +28,9 @@ function AvailabilityCalendarDay({
       <label>{dayIndex}</label>
       <input
         className={`availabilityInput ${
-          value <= 0
+          Number(value) <= 0
             ? 'input__not'
-            : value === 10
+            : Number(value) === 10
             ? 'input__available'
             : 'input__partial'
         }`}

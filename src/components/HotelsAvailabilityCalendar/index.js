@@ -38,6 +38,15 @@ function HotelAvailabilityCalendar() {
 
   return (
     <form onSubmit={handleSubmit} className="container pt-3 pb-3">
+      <div>
+        <h1 className="mt-5 fs-2"> ROOM AVAILABILITY</h1>
+        <p className="fs-7">
+          Define a maximum number of rooms available for booking for a specified
+          day or date range (maximum availability 10 rooms) To edit room
+          availability simply change the value in a day cell and then click
+          'Submit' button
+        </p>
+      </div>
       <table className="table availabilityTable table-hover table-borderless">
         <tbody>
           <tr className="d-flex flex-row">
