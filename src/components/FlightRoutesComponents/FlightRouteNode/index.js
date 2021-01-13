@@ -15,7 +15,7 @@ export default function FlightNode({
 
   React.useEffect(() => {
     airportsService.getAirports().then((response) => {
-      setAirports(response);
+      setAirports(response.data);
       setLoadingAirports(false);
 
       if (response.length)
