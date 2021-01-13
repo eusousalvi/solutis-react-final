@@ -1,16 +1,29 @@
-import RoomsButton from "../RoomsButton/index";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaCheck } from "react-icons/fa";
+
+import RoomsButton from "../RoomsButton/index";
 import "./style.css";
 
-function RoomsTableRow({ room, index, onDelete }) {
+function RoomsTableRow({ room, index, onDelete, selectAll }) {
+  const [selected, setSelected] = useState(selectAll);
+
+  useEffect(() => {
+    setSelected(selectAll);
+  }, [selectAll]);
+
+  function handleChange() {
+    setSelected(!selected);
+  }
   return (
     <tr>
       <th scope="row">
         <div className="form-check">
           <input
             type="checkbox"
-            value=""
+            value={selected}
+            checked={selected}
+            onChange={handleChange}
             id="selectRoom"
             className="form-check-input"
           />
@@ -29,7 +42,7 @@ function RoomsTableRow({ room, index, onDelete }) {
       <td>
         <Link
           className="btn btn-link"
-          to={`/hotels/rooms/availabilty/${room.id}`}
+          to={`/hotels/rooms/availability/${room.id}`}
         >
           Availability
         </Link>
