@@ -1,6 +1,7 @@
 import HotelsHeader from "../../components/HotelsHeader";
 import { withRouter } from "react-router-dom";
 import hotelServices from "../../services/hotels";
+import hotelsAction from "../../redux/actions/hotelsAction";
 
 import "./styles.css";
 
@@ -15,21 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 function Hotels() {
   const [deleted, setDeleted] = useState(false);
   const [selectAll, setSelectAll] = useState(false);
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(25);
-  const [totalPages, setTotalPages] = useState([]);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        await hotelServices.getHotels(dispatch);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    fetchData();
-  }, [dispatch, deleted, page, limit]);
   const tableHeader = [
     "#",
     "Image",
@@ -44,22 +32,31 @@ function Hotels() {
     "",
   ];
 
-  const { hotels } = useSelector((state) => state.hotelsReducer);
-  console.log(hotels);
+  const { hotels, page, limit, totalPages, size } = useSelector(
+    (state) => state.hotelsReducer
+  );
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const response = await hotelServices.getHotels();
-  //       if (response.status === 200 || response.status || 201)
-  //         await setHotels(response.data);
-  //     } catch (error) {
-  //       window.alert("ocorreu um erro");
-  //       console.log(error);
-  //     }
-  //   }
-  //   fetchData();
-  // }, [deleted]);
+  useEffect(() => {
+    async function fetchData() {
+      if (limit !== "all") {
+        let pageNumber = page;
+
+        await hotelServices.getHotelsSize(dispatch);
+
+        if (limit === 100 && size <= 100) pageNumber = 1; // eslint-disable-line no-unused-vars
+
+        await hotelServices.getHotelsPaginate(page, limit, dispatch);
+        dispatch(hotelsAction.setTotalPages(size));
+      } else {
+        await hotelServices.getHotels(dispatch);
+      }
+    }
+    fetchData();
+  }, [dispatch, deleted, page, limit]);
+
+  function handleChangePageOrLimit(field, data) {
+    dispatch(hotelsAction.setPageOrLimit(field, data));
+  }
 
   async function handleDelete(id) {
     const confirmDelete = window.confirm("Are you sure?");
@@ -117,8 +114,7 @@ function Hotels() {
           page={page}
           limit={limit}
           totalPages={totalPages}
-          handleChangePage={setPage}
-          handleChangeLimit={setLimit}
+          handleChangePageOrLimit={handleChangePageOrLimit}
         />
       </RoomsFooter>
     </>

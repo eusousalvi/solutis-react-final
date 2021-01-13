@@ -33,15 +33,33 @@ function editHotel(hotel) {
   }
 }
 
-function getHotelsPaginate(page, limit) {
-  const response = api.get(`/hotels?page=${page}&limit=${limit}`);
-
-  return response;
+function getHotelsPaginate(page, limit, dispatch) {
+  return api
+    .get(`/hotels?page=${page}&limit=${limit}`)
+    .then((response) => {
+      if (response) {
+        dispatch(hotelsAction.getAllHotelsPaginate(response.data));
+      }
+    })
+    .catch((error) => console.log(error));
 }
 
 function deleteHotel(id) {
   const response = api.delete(`/hotels/${id}`);
   return response;
+}
+
+function getHotelsSize(dispatch) {
+  return api
+    .get("/hotels")
+    .then((response) => {
+      if (response) {
+        dispatch(hotelsAction.getHotelsSize(response.data.length));
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
 const exportData = {
@@ -51,6 +69,7 @@ const exportData = {
   createHotel,
   getHotel,
   editHotel,
+  getHotelsSize,
 };
 
 export default exportData;
