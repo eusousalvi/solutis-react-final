@@ -7,9 +7,9 @@ import FlightRouteNode from "../FlightRouteNode";
 
 const DEFAULT_NODE = {
   flightNumber: 0,
+  city: undefined,
   checkout: "",
   airline: "",
-  city: "",
   date: "",
   time: "",
 };
@@ -17,6 +17,8 @@ const DEFAULT_NODE = {
 export default function FlightRouteManagerForm() {
   const { route } = useSelector((state) => state.formFlightRoutesReducer);
   const dispatch = useDispatch();
+
+  console.log(route.length);
 
   function handleAddTransitClick() {
     dispatch(
@@ -34,6 +36,7 @@ export default function FlightRouteManagerForm() {
 
   function onChange(id) {
     return (data) => {
+      console.log(`UPDATING ${id}`);
       dispatch(updateNode(id, data));
     };
   }
@@ -71,7 +74,7 @@ export default function FlightRouteManagerForm() {
               key={node.id}
               node={node}
               onClickDelete={handleDeleteNodeClick(node.id)}
-              onChange={onChange(i)}
+              onChange={onChange(node.id)}
               removable={i > 0 && i < route.length - 1}
             />
           ))}
