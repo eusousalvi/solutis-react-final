@@ -1,55 +1,51 @@
 import React from "react";
 
+import { useSelector, useDispatch } from "react-redux";
+import { update, updateNode } from "../../../redux/actions/formFlightRoutes";
+
 import FlightRouteNode from "../FlightRouteNode";
 
-// const DEFAULT_NODE = {
-//   flightNumber: 0,
-//   checkout: "",
-//   airline: "",
-//   city: "",
-//   date: "",
-//   time: "",
-// };
+const DEFAULT_NODE = {
+  flightNumber: 0,
+  checkout: "",
+  airline: "",
+  city: "",
+  date: "",
+  time: "",
+};
 
 export default function FlightRouteManagerForm() {
-  const connections = {}; // TODO: Move this data to store. (And catch with useSelector)
+  const { route } = useSelector((state) => state.formFlightRoutesReducer);
+  const dispatch = useDispatch();
 
   function handleAddTransitClick() {
-    console.log("ADD TRANSIT CLICK BEHAVIOUR");
-    // setConnections([
-    //   ...connections.slice(0, connections.length - 1),
-    //   {
-    //     id: connections.length,
-    //     type: "Transit",
-    //     ...DEFAULT_NODE,
-    //   },
-    //   ...connections.slice(connections.length - 1),
-    // ]);
+    dispatch(
+      update("route", [
+        ...route.slice(0, route.length - 1),
+        {
+          id: route.length,
+          type: "Transit",
+          ...DEFAULT_NODE,
+        },
+        ...route.slice(route.length - 1),
+      ])
+    );
   }
 
   function onChange(id) {
-    return (e) => {
-      const { name, value } = e.target;
-      console.log(
-        `Attribute ${name} changed to ${value} on ${id} row of FlightRouteManagerForm`
-      );
-      // setConnections((connections) =>
-      //   connections.map((item, i) =>
-      //     i === id ? { ...item, [name]: value } : item
-      //   )
-      // );
+    return (data) => {
+      dispatch(updateNode(id, data));
     };
   }
 
-  // React.useEffect(() => {
-  //   handler.onChange({ target: { name: "route", value: connections } });
-  //   return () => {};
-  // }, [connections]);
-
   function handleDeleteNodeClick(id) {
     return () => {
-      console.log(`REMOVE NODE WITH ID = ${id}`);
-      // setConnections(connections.filter((connection) => connection.id !== id));
+      dispatch(
+        update(
+          "route",
+          route.filter((node) => node.id !== id)
+        )
+      );
     };
   }
 
@@ -68,16 +64,15 @@ export default function FlightRouteManagerForm() {
           </tr>
         </thead>
         <tbody>
-          {/* TODO: REDUX ON CONNECTIONS */}
-          {/* {connections.map((node, i) => (
+          {route.map((node, i) => (
             <FlightRouteNode
               key={node.id}
               node={node}
               onClickDelete={handleDeleteNodeClick(node.id)}
               onChange={onChange(i)}
-              removable={i > 0 && i < connections.length - 1}
+              removable={i > 0 && i < route.length - 1}
             />
-          ))} */}
+          ))}
         </tbody>
       </table>
       <button

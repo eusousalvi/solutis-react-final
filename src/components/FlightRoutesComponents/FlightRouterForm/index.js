@@ -3,12 +3,16 @@ import React from "react";
 import FlightManagementForm from "../FlightManagementForm";
 import MainSettingsForm from "../FlightMainSettingsForm";
 
+import store from "../../../redux/store";
+
 import "./styles.css";
 
 export default function EditFlightForm({ onSubmit: customOnSubmit, data }) {
   function onSubmit(e) {
     e.preventDefault();
-    customOnSubmit({}); // TODO: useSelector to catch store data.
+
+    const { formFlightRoutesReducer } = store.getState();
+    customOnSubmit(formFlightRoutesReducer); 
   }
 
   return (
