@@ -55,7 +55,7 @@ export default function MainSettingsForm() {
                 type="text"
                 id="vatTax"
                 name="vatTax"
-                pattern="[\d]{1,2}(,\d{2})?"
+                pattern="[\d]{1,3}(,\d{2})?" //TODO: Validar este campo (100 <= % <= 999)
                 placeholder="vatTax"
                 onChange={onChange}
               />
