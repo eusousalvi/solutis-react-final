@@ -14,11 +14,6 @@ import { useSelector, useDispatch } from "react-redux";
 import roomsActions from "../../redux/actions/rooms";
 
 function Rooms() {
-  //TODO
-
-  //! ADICIONAR CUSTOM HOOKS
-  //! ADICIONAR CHECKBOX
-
   const titleColumns = [
     "Room Type",
     "Hotel",
