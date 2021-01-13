@@ -10,54 +10,26 @@ import HotelsTableRow from "../../components/Hotels/HotelsTableRow";
 import HotelsTopBar from "../../components/Hotels/HotelsTopBar";
 import Pagination from "../../components/Pagination";
 import RoomsFooter from "../../components/HotelsRoomList/RoomsFooter";
+import { useDispatch, useSelector } from "react-redux";
 
 function Hotels() {
-  const [hotels, setHotels] = useState([]);
   const [deleted, setDeleted] = useState(false);
   const [selectAll, setSelectAll] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(25);
   const [totalPages, setTotalPages] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        let response;
-        let response2;
-
-        if (limit !== "all") {
-          let pageNumber = page;
-
-          response2 = await hotelServices.getHotels();
-
-          if (limit === 100 && response2.data.length <= 100) pageNumber = 1;
-
-          response = await hotelServices.getHotelsPaginate(pageNumber, limit);
-
-          if (response2.status === 200 || response2.status || 201) {
-            const pages = Math.ceil(response2.data.length / limit);
-            const array = new Array(pages)
-              .fill(pages)
-              .map((data, index) => index + 1);
-
-            setTotalPages(array);
-          }
-
-          if (response.status === 200 || response.status || 201)
-            setHotels(response.data);
-        } else {
-          response2 = await hotelServices.getHotels();
-
-          if (response2.status === 200 || response2.status || 201) {
-            setHotels(response2.data);
-          }
-        }
-      } catch (error) {
-        console.log(error);
+        await hotelServices.getHotels(dispatch);
+      } catch (e) {
+        console.log(e);
       }
     }
     fetchData();
-  }, [deleted, page, limit]);
+  }, [dispatch, deleted, page, limit]);
   const tableHeader = [
     "#",
     "Image",
@@ -72,19 +44,22 @@ function Hotels() {
     "",
   ];
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await hotelServices.getHotels();
-        if (response.status === 200 || response.status || 201)
-          await setHotels(response.data);
-      } catch (error) {
-        window.alert("ocorreu um erro");
-        console.log(error);
-      }
-    }
-    fetchData();
-  }, [deleted]);
+  const { hotels } = useSelector((state) => state.hotelsReducer);
+  console.log(hotels);
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const response = await hotelServices.getHotels();
+  //       if (response.status === 200 || response.status || 201)
+  //         await setHotels(response.data);
+  //     } catch (error) {
+  //       window.alert("ocorreu um erro");
+  //       console.log(error);
+  //     }
+  //   }
+  //   fetchData();
+  // }, [deleted]);
 
   async function handleDelete(id) {
     const confirmDelete = window.confirm("Are you sure?");
@@ -133,19 +108,19 @@ function Hotels() {
                 })}
               </tbody>
             </table>
-            <RoomsFooter>
-              <Pagination
-                className="py-5"
-                page={page}
-                limit={limit}
-                totalPages={totalPages}
-                handleChangePage={setPage}
-                handleChangeLimit={setLimit}
-              />
-            </RoomsFooter>
           </div>
         </div>
       </div>
+      <RoomsFooter>
+        <Pagination
+          className="py-5"
+          page={page}
+          limit={limit}
+          totalPages={totalPages}
+          handleChangePage={setPage}
+          handleChangeLimit={setLimit}
+        />
+      </RoomsFooter>
     </>
   );
 }

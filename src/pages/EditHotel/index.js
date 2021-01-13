@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import hotelServices from "../../services/hotels";
 
-function AddHotel(props) {
-  const [addHotel, setAddHotel] = useState({
-    url: "",
+function EditHotel(props) {
+  const [hotelInfo, setHotelInfo] = useState({
+    image: "",
     name: "",
     star: 1,
     owned_by: "",
@@ -12,123 +13,134 @@ function AddHotel(props) {
     discount: 0,
     status: false,
   });
+  const params = useParams();
+
+  useEffect(() => {
+    async function fetchData() {
+      const res = await hotelServices.getHotel(params.id);
+      setHotelInfo(res.data);
+    }
+
+    fetchData();
+    console.log(hotelInfo);
+  }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
-    hotelServices.createHotel(addHotel);
+    hotelServices.editHotel(hotelInfo);
     props.history.push("/hotels");
   }
 
   return (
     <main className="container pt-5">
       <header className="mb-5">
-        <h1>Add Hotel</h1>
+        <h1>Edit Hotel</h1>
       </header>
       <form onSubmit={handleSubmit} className="row g-3">
         <div className="col-md-6">
-          <label for="urlAddHotel" className="form-label">
+          <label for="urlhotelInfo" className="form-label">
             Image url
           </label>
           <input
             onChange={(e) => {
-              setAddHotel((prev) => ({ ...prev, url: e.target.value }));
+              setHotelInfo((prev) => ({ ...prev, image: e.target.value }));
             }}
-            value={addHotel.url}
+            value={hotelInfo.image}
             type="text"
             placeholder="Image Url"
             className="form-control"
-            id="urlAddHotel"
+            id="urlhotelInfo"
           />
         </div>
         <div className="col-md-6">
-          <label for="nameAddHotel" className="form-label">
+          <label for="namehotelInfo" className="form-label">
             Name
           </label>
           <input
             onChange={(e) => {
-              setAddHotel((prev) => ({ ...prev, name: e.target.value }));
+              setHotelInfo((prev) => ({ ...prev, name: e.target.value }));
             }}
-            value={addHotel.name}
+            value={hotelInfo.name}
             type="text"
             placeholder="Name"
             className="form-control"
-            id="nameAddHotel"
+            id="namehotelInfo"
           />
         </div>
         <div className="col-12">
-          <label for="starAddHotel" className="form-label">
+          <label for="starhotelInfo" className="form-label">
             Star
           </label>
           <input
             onChange={(e) => {
-              setAddHotel((prev) => ({ ...prev, star: e.target.value }));
+              setHotelInfo((prev) => ({ ...prev, star: e.target.value }));
             }}
-            value={addHotel.star}
+            value={hotelInfo.star}
             type="number"
             min="1"
             max="5"
             className="form-control"
-            id="starAddHotel"
+            id="starhotelInfo"
             placeholder="Star"
           />
         </div>
         <div className="col-12">
-          <label for="ownedByAddHotel" className="form-label">
+          <label for="ownedByhotelInfo" className="form-label">
             Owned By
           </label>
           <input
             onChange={(e) => {
-              setAddHotel((prev) => ({ ...prev, owned_by: e.target.value }));
+              setHotelInfo((prev) => ({ ...prev, owned_by: e.target.value }));
             }}
-            value={addHotel.owned_by}
+            value={hotelInfo.owned_by}
             type="text"
             className="form-control"
-            id="ownedByAddHotel"
+            id="ownedByhotelInfo"
             placeholder="Owned By"
           />
         </div>
         <div className="col-md-6">
-          <label for="locationAddHotel" className="form-label">
+          <label for="locationhotelInfo" className="form-label">
             Location
           </label>
           <input
             onChange={(e) => {
-              setAddHotel((prev) => ({ ...prev, location: e.target.value }));
+              setHotelInfo((prev) => ({ ...prev, location: e.target.value }));
             }}
-            value={addHotel.location}
+            value={hotelInfo.location}
             type="text"
             className="form-control"
             placeholder="Location"
-            id="locationAddHotel"
+            id="locationhotelInfo"
           />
         </div>
         <div className="col-md-4">
-          <label for="orderAddHotel" className="form-label">
+          <label for="orderhotelInfo" className="form-label">
             Order
           </label>
           <input
             onChange={(e) => {
-              setAddHotel((prev) => ({ ...prev, order: e.target.value }));
+              setHotelInfo((prev) => ({ ...prev, order: e.target.value }));
             }}
-            value={addHotel.order}
+            value={hotelInfo.order}
             type="number"
             className="form-control"
-            id="orderAddHotel"
+            id="orderhotelInfo"
             placeholder="Order"
           />
         </div>
         <div className="col-md-2">
-          <label for="discountAddHotel" className="form-label">
+          <label for="discounthotelInfo" className="form-label">
             Discount
           </label>
           <input
             onChange={(e) => {
-              setAddHotel((prev) => ({ ...prev, discount: e.target.value }));
+              setHotelInfo((prev) => ({ ...prev, discount: e.target.value }));
             }}
-            value={addHotel.discount}
+            value={hotelInfo.discount}
             type="number"
             className="form-control"
-            id="discountAddHotel"
+            id="discounthotelInfo"
             placeholder="Discount"
           />
         </div>
@@ -136,9 +148,9 @@ function AddHotel(props) {
           <div className="form-check">
             <input
               onChange={(e) => {
-                setAddHotel((prev) => ({ ...prev, status: !prev.status }));
+                setHotelInfo((prev) => ({ ...prev, status: !prev.status }));
               }}
-              checked={addHotel.status}
+              checked={hotelInfo.status}
               className="form-check-input"
               type="checkbox"
               id="gridCheck"
@@ -158,4 +170,4 @@ function AddHotel(props) {
   );
 }
 
-export default AddHotel;
+export default EditHotel;

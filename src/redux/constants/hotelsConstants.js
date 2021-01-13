@@ -1,0 +1,2 @@
+export const LIST_HOTELS = "LIST_HOTELS";
+export const DELETE_CHECKED = "DELETE_CHECKED";
