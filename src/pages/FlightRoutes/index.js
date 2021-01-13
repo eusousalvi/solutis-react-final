@@ -1,8 +1,12 @@
 import CreateFlightRoutesButton from "../../components/FlightRoutesComponents/FlightRoutesCreateButton";
 import FlightRoutesTable from "../../components/FlightRoutesComponents/FlightRoutesTable";
+<<<<<<< HEAD
 import FlightsHeader from "../../components/FlightsHeader";
 import FlightRoutePagination from "../../components/FlightRoutesComponents/FlightRoutePagination";
 import { useState } from "react";
+=======
+import FlightsHeader from "../../components/FlightsHeader"
+>>>>>>> feature/feature/Flights-54
 
 function FlightRoutes() {
 
@@ -12,7 +16,11 @@ function FlightRoutes() {
 
   return (
     <>
+<<<<<<< HEAD
       <FlightsHeader/>
+=======
+      <FlightsHeader /> 
+>>>>>>> feature/feature/Flights-54
       <div className="container">
         <div className="row">
           <div className="col-md-12">
