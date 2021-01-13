@@ -1,21 +1,11 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 //Page
-<<<<<<< HEAD
-
-import Reviews from "./pages/Reviews";
-import RoomsAvailability from './pages/RoomsAvailability';
-import Landing from './pages/Landing';
-import Hotels from './pages/Hotels';
-import Rooms from './pages/Rooms';
-import Header from './components/Header';
-import AddFlightRoutes from './pages/AddFlightRoutes';
-=======
 import AirportEdit from "./pages/AirportEdit";
 import RoomsAvailability from "./pages/RoomsAvailability";
 import Landing from "./pages/Landing";
 import Hotels from "./pages/Hotels";
-
+import Reviews from './pages/Reviews';
 import EditFlightRoutes from "./pages/FlightEditRoutes";
 import AddFlightRoutes from "./pages/FlightAddRoutes";
 import Rooms from "./pages/Rooms";
@@ -23,7 +13,6 @@ import HotelRoomCreate from "./pages/HotelRoomCreate";
 import Header from "./components/Header";
 import FlightRoutes from "./pages/FlightRoutes";
 import FlightRoutesDetails from "./pages/FlightRoutesDetails";
->>>>>>> f9fb8d4b46c1561b5bbb4632736098196fc90cc4
 import Airports from "./pages/Airports";
 import AddAirport from "./pages/AddAirport";
 import AirportsDetails from "./pages/AirportsDetails";
