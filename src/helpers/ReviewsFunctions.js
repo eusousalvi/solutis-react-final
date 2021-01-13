@@ -1,4 +1,6 @@
-import zeroLeft from "./zeroLeft";
+export function zeroLeft(number) {
+  return String(number).padStart(2,'0');
+}
 
 export function handleDate(date) {
   const d = new Date(date);
@@ -9,7 +11,8 @@ export function handleDate(date) {
 }
 
 const ReviewsFunctions =  {
-  handleDate
+  handleDate,
+  zeroLeft
 }
 
 export default ReviewsFunctions;
