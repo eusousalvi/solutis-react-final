@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import InputMask from "react-input-mask";
 
 import airportsService from "../../../services/airports";
 
@@ -83,15 +82,15 @@ export default function FlightNode({
             </select>
           </td>
           <td>
-            <InputMask
+            <input
               className="form-control"
-              type="text"
               name="flightNumber"
-              defaultValue={flightNumber}
+              type="text"
               onChange={handleChange}
+              value={flightNumber}
+              pattern="[\d]{4}"
+              title="O número do voo deve conter 4 dígitos numéricos."
               required
-              mask="999999"
-              maskPlaceholder={null}
             />
           </td>
           <td>
