@@ -1,6 +1,7 @@
 import {
   ROUTES_UPDATE_GENERAL,
   ROUTES_UPDATE_NODE,
+  ROUTES_OVERRIDE,
   ROUTES_RESET,
 } from "../../constants/formFlightRoutes";
 
@@ -53,6 +54,8 @@ export default function reducer(state = INITIAL_STATE, action = null) {
           node.id !== id ? node : { ...node, ...data }
         ),
       };
+    case ROUTES_OVERRIDE:
+      return action.payload.data;
     case ROUTES_UPDATE_GENERAL:
       return { ...state, [action.payload.key]: action.payload.value };
     case ROUTES_RESET:

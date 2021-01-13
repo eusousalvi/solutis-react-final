@@ -16,19 +16,18 @@ export default function FlightNode({
   const { type, city, airline, flightNumber, date, time, checkout } = node;
 
   React.useEffect(() => {
-    if (city === undefined) {
-      airportsService.getAirports().then((response) => {
-        setAirports(response.data);
-        setLoadingAirports(false);
+    airportsService.getAirports().then((response) => {
+      setAirports(response.data);
+      setLoadingAirports(false);
 
-        if (response.data.length > 0) {
-          onChange({
-            city: response.data[0].id,
-            airline: airlines[0],
-          });
-        }
-      });
-    }
+      if (response.data.length > 0 && city === undefined) {
+        onChange({
+          city: response.data[0].id,
+          airline: airlines[0],
+        });
+      }
+    });
+
     return () => {};
   }, []);
 

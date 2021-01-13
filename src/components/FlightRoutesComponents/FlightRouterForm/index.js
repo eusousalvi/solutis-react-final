@@ -7,12 +7,12 @@ import store from "../../../redux/store";
 
 import "./styles.css";
 
-export default function EditFlightForm({ onSubmit: customOnSubmit, data }) {
+export default function EditFlightForm({ onSubmit: customOnSubmit }) {
   function onSubmit(e) {
     e.preventDefault();
 
     const { formFlightRoutesReducer } = store.getState();
-    customOnSubmit(formFlightRoutesReducer); 
+    customOnSubmit(formFlightRoutesReducer);
   }
 
   return (

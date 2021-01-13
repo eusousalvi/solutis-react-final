@@ -1,6 +1,7 @@
 import {
   ROUTES_UPDATE_GENERAL,
   ROUTES_UPDATE_NODE,
+  ROUTES_OVERRIDE,
   ROUTES_RESET,
 } from "../constants/formFlightRoutes";
 
@@ -15,6 +16,13 @@ export const updateNode = (id, data) => (dispatch) => {
   return dispatch({
     type: ROUTES_UPDATE_NODE,
     payload: { id, data },
+  });
+};
+
+export const override = (data) => (dispatch) => {
+  return dispatch({
+    type: ROUTES_OVERRIDE,
+    payload: { data },
   });
 };
 

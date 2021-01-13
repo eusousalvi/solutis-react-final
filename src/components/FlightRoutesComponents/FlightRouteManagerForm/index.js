@@ -49,6 +49,8 @@ export default function FlightRouteManagerForm() {
     };
   }
 
+  console.log(route);
+
   return (
     <div id="connection-manager-form">
       <table className="table text-center">
