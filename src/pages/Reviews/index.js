@@ -114,7 +114,7 @@ function Reviews() {
       if (review.isChecked) {
         manyChecked++;
         const deleted = await api.deteleReviews(review.id);
-        if (deleted) fetchPaginatedReviews();
+        if (deleted) fetchAllReviews();
       }
     });
     if (!manyChecked) {
