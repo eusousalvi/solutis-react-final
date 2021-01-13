@@ -1,107 +1,260 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { FiEdit } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
-import Header from "../../components/Header";
+
+/**
+ * Componentes
+ */
 import HotelsHeader from "../../components/HotelsHeader";
-import zeroLeft from "../../helpers/zeroLeft";
-import api from '../../services/reviews';
+import Button from "../../components/HotelsReviews/Button";
+import Card from "../../components/HotelsReviews/Card";
+import CardBody from "../../components/HotelsReviews/CardBody";
+import CardHeader from "../../components/HotelsReviews/CardHeader";
+import Table from "../../components/HotelsReviews/Table";
+import TableBody from "../../components/HotelsReviews/TableBody";
+import TableCell from "../../components/HotelsReviews/TableCell";
+import TableHead from "../../components/HotelsReviews/TableHead";
+import TableHeader from "../../components/HotelsReviews/TableHeader";
+import TableRow from "../../components/HotelsReviews/TableRow";
+
+/**
+ * Services, styles, etc
+ */
+import api from "../../services/reviews";
+import {handleDate} from '../../helpers/ReviewsFunctions';
 import "./styles.css";
 
 function Reviews() {
   const [reviews, setReviews] = useState([]);
+  const [sortBy, setSortBy] = useState("");
+  const [order, setOrder] = useState("");
+  const [allChecked, setAllChecked] = useState(false);
+
+  const fetchReviews = useCallback(
+    async function () {
+      const params = {
+        sortBy,
+        order: order,
+      };
+      let itemNumber = 0;
+      const data = await api.getReviews(params);
+      const fetchedReviews =
+        data &&
+        data.map((item) => {
+          itemNumber++;
+          return { itemNumber, ...item, isChecked: false };
+        });
+      data && setReviews(fetchedReviews);
+      setAllChecked(false);
+    },
+    [order, sortBy]
+  );
+
+  const handleOrder = (e) => {
+    if (!e.target.id) {
+      setSortBy("");
+      setOrder("");
+      return;
+    }
+
+    setSortBy(e.target.id);
+    return setOrder(order === "asc" ? "desc" : "asc");
+  };
 
   useEffect(() => {
-    (async function fetchReviews(){
-      const data = await api.getReviews();
-      data && setReviews([...data]);
-    })()
-  }, []);
+    fetchReviews();
+  }, [fetchReviews]);
 
-  const handleDate = (date) => {
-    const d = new Date(date);
-    const day = zeroLeft(d.getDate());
-    const month = zeroLeft(d.getMonth() + 1);
-    const year = d.getFullYear();
-    return `${day}/${month}/${year}`;
+  const handleDeleteSelected = () => {
+    let manyChecked = 0;
+    reviews.map(async function (review) {
+      if (review.isChecked) {
+        manyChecked++;
+        const deleted = await api.deteleReviews(review.id);
+        if (deleted) fetchReviews();
+      }
+    });
+    if (!manyChecked) {
+      alert("Nenhum item selecionado!");
+      return;
+    }
+    setOrder("");
+    setSortBy("");
   };
+
+  function handleAllChecked() {
+    if (!allChecked) {
+      setAllChecked(!allChecked);
+      setReviews(
+        reviews.map((review) => {
+          review.isChecked = true;
+          return review;
+        })
+      );
+    } else {
+      setAllChecked(!allChecked);
+      setReviews(
+        reviews.map((review) => {
+          review.isChecked = false;
+          return review;
+        })
+      );
+    }
+  }
 
   return (
     <>
-      <Header />
       <HotelsHeader />
       <section className="container">
-        <div className="row col-md-12 mt-5 card">
-          <div className="card-header bg-light d-flex justify-content-between align-items-center">
+        <Card className="row col-md-12 mt-5 card">
+          <CardHeader className="card-header bg-light d-flex justify-content-between align-items-center">
             <h5 className="card-title">Gerenciamento de Avaliações</h5>
-            <button 
+            <Button
               className="btn btn-lg btn-danger d-flex align-items-center justify-content-between"
+              onClick={handleDeleteSelected}
+              disabled={!reviews.length}
             >
               <IoMdClose /> Deletar selecionados
-            </button>
-          </div>
-          <div className="card-body">
-            <table className="table table-striped table-hover">
-              <thead className="thead-light table-secondary">
-                <tr>
-                  <th scope="col">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      name="select_all"
-                      id="select_all"
-                      value=""
-                    />
-                  </th>
-                  <th scope="col">#</th>
-                  <th scope="col">Hotel</th>
-                  <th scope="col">Nome</th>
-                  <th scope="col">E-mail</th>
-                  <th scope="col">Data</th>
-                  <th scope="col">Média</th>
-                  <th scope="col" colSpan="2">
-                    Status
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {reviews &&
-                  reviews.map((review) => {
-                    return (
-                      <tr key={review.id}>
-                        <td>
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            name={`review_${review.id}`}
-                            id={review.id}
-                          />
-                        </td>
-                        <td>{review.id}</td>
-                        <td>{review.hotel}</td>
-                        <td>{review.name}</td>
-                        <td>
-                          <a
-                            className="btn btn-light btn-email"
-                            href={`mailto:${review.email}`}
-                          >
-                            {review.email}
-                          </a>
-                        </td>
-                        <td>{handleDate(review.date)}</td>
-                        <td>{(+review.overall / 10).toFixed(1)}</td>
-                        <td>{review.status ? "Yes" : "No"}</td>
-                        <td>
-                          <button className="btn btn-warning mx-auto edit-hover">
-                            <FiEdit />
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-              </tbody>
-            </table>
-          </div>
-        </div>
+            </Button>
+          </CardHeader>
+          <CardBody className="card-body">
+            {reviews && (
+              <Table className="table table-striped table-hover">
+                <TableHead className="thead-light table-secondary">
+                  <TableRow>
+                    <TableHeader scope="col">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        name="select_all"
+                        id="select_all"
+                        checked={allChecked}
+                        onChange={handleAllChecked}
+                      />
+                    </TableHeader>
+
+                    <TableHeader
+                      scope="col"
+                      id=""
+                      onClick={handleOrder}
+                      className="menu-filter"
+                    >
+                      #
+                    </TableHeader>
+
+                    <TableHeader
+                      scope="col"
+                      id="hotel"
+                      className="menu-filter"
+                      onClick={handleOrder}
+                    >
+                      Hotel
+                    </TableHeader>
+
+                    <TableHeader
+                      scope="col"
+                      id="name"
+                      className="menu-filter"
+                      onClick={handleOrder}
+                    >
+                      Nome
+                    </TableHeader>
+
+                    <TableHeader
+                      scope="col"
+                      id="email"
+                      className="menu-filter"
+                      onClick={handleOrder}
+                    >
+                      E-mail
+                    </TableHeader>
+
+                    <TableHeader
+                      scope="col"
+                      id="date"
+                      className="menu-filter"
+                      onClick={handleOrder}
+                    >
+                      Data
+                    </TableHeader>
+
+                    <TableHeader
+                      scope="col"
+                      id="overall"
+                      className="menu-filter"
+                      onClick={handleOrder}
+                    >
+                      Média
+                    </TableHeader>
+
+                    <TableHeader
+                      scope="col"
+                      colSpan="2"
+                      id="status"
+                      className="menu-filter"
+                      onClick={handleOrder}
+                      value="Status"
+                    >
+                      Status
+                    </TableHeader>
+                  </TableRow>
+                </TableHead>
+                <TableBody content={reviews}>
+                  {reviews &&
+                    reviews.map((review) => {
+                      return (
+                        <TableRow key={review.id}>
+                          <TableCell>
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              onChange={(event) => {
+                                const checked = event.target.checked;
+                                setReviews(
+                                  reviews.map((item) => {
+                                    if (review.id === item.id) {
+                                      review.isChecked = checked;
+                                    }
+                                    return item;
+                                  })
+                                );
+
+                                if (!checked) setAllChecked(false);
+                              }}
+                              name={`review_${review.id}`}
+                              id={review.id}
+                              checked={review.isChecked}
+                            />
+                          </TableCell>
+                          <TableCell>{review.itemNumber}</TableCell>
+                          <TableCell>{review.hotel}</TableCell>
+                          <TableCell>{review.name}</TableCell>
+                          <TableCell>
+                            <a
+                              className="btn btn-light btn-email"
+                              href={`mailto:${review.email}`}
+                            >
+                              {review.email}
+                            </a>
+                          </TableCell>
+                          <TableCell>{handleDate(review.date)}</TableCell>
+                          <TableCell>
+                            {(+review.overall / 10).toFixed(1)}
+                          </TableCell>
+                          <TableCell>{review.status ? "Yes" : "No"}</TableCell>
+                          <TableCell>
+                            <Button className="btn btn-warning mx-auto edit-hover">
+                              <FiEdit />
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            )}
+          </CardBody>
+        </Card>
       </section>
     </>
   );

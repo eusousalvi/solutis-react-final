@@ -26,3 +26,11 @@
   color: #77729E;
   text-decoration: underline;
 }
+
+.menu-filter {
+  font-weight: 500;
+}
+.menu-filter:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
