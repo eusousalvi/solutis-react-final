@@ -51,6 +51,12 @@ function FlightRoutePagination(props) {
     props.setPage(thirdButton);
   }
 
+  function resetButtons() {
+    setFirstButton(1);
+    setSecondButton(2);
+    setThirdButton(3);
+  }
+
   return (
     <nav aria-label="Navegação de página exemplo" className={"d-flex"}>
       <ul className="pagination">
@@ -105,7 +111,11 @@ function FlightRoutePagination(props) {
         <li className={"page-item"}>
           <button
             className={"page-link"}
-            onClick={() => props.setNumberPerPage(10)}
+            onClick={() => {
+              props.setNumberPerPage(10)
+              props.setPage(1);
+              resetButtons();
+              }}
           >
             10
           </button>
@@ -113,7 +123,11 @@ function FlightRoutePagination(props) {
         <li className={"page-item"}>
           <button
             className={"page-link"}
-            onClick={() => props.setNumberPerPage(25)}
+            onClick={() => {
+              props.setNumberPerPage(25);
+              props.setPage(1);
+              resetButtons();
+              }}
           >
             25
           </button>
@@ -121,7 +135,11 @@ function FlightRoutePagination(props) {
         <li className={"page-item"}>
           <button
             className={"page-link"}
-            onClick={() => props.setNumberPerPage(50)}
+            onClick={() => {
+              props.setNumberPerPage(50);
+              props.setPage(1);
+              resetButtons();
+              }}
           >
             50
           </button>
