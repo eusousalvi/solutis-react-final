@@ -3,7 +3,7 @@ import AirportsTableHeader from '../AirportsTableHeader';
 import "./styles.css";
 import { useState } from "react";
 
-function AirportsTable({ airports, idxStart, setSelectedForRemoval, setDeleted }) {
+function AirportsTable({ airports, idxStart }) {
 
     const [checkAll, setCheckAll] = useState(false)
 
@@ -42,8 +42,6 @@ function AirportsTable({ airports, idxStart, setSelectedForRemoval, setDeleted }
                                 num={idxStart + idx +1} 
                                 key={airport.id} 
                                 airport={airport} 
-                                setSelectedForRemoval={setSelectedForRemoval}
-                                setDeleted={setDeleted}
                             />)
                     }
                 </tbody>
