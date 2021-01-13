@@ -18,8 +18,6 @@ export default function FlightRouteManagerForm() {
   const { route } = useSelector((state) => state.formFlightRoutesReducer);
   const dispatch = useDispatch();
 
-  console.log(route.length);
-
   function handleAddTransitClick() {
     dispatch(
       update("route", [
@@ -36,7 +34,6 @@ export default function FlightRouteManagerForm() {
 
   function onChange(id) {
     return (data) => {
-      console.log(`UPDATING ${id}`);
       dispatch(updateNode(id, data));
     };
   }
@@ -51,8 +48,6 @@ export default function FlightRouteManagerForm() {
       );
     };
   }
-
-  console.log(route);
 
   return (
     <div id="connection-manager-form">

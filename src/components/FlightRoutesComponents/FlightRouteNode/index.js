@@ -77,7 +77,7 @@ export default function FlightNode({
               required
             >
               {airlines.map((airline) => (
-                <option>{airline}</option>
+                <option key={airline}>{airline}</option>
               ))}
             </select>
           </td>
