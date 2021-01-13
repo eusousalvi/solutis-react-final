@@ -30,6 +30,11 @@ function Header() {
                 Hotels
               </Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link active" aria-current="page" to="/flights/routes">
+                Flights
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

@@ -16,7 +16,7 @@ function FlightRoutes() {
       <div className="container">
         <div className="row">
           <div className="col-md-12">
-            <h1 className="d-flex justify-content-center mt-5">Flights Routes</h1>
+            <h1 className="d-flex justify-content-center mt-5">Flights List</h1>
           </div>
         </div>
       </div>
