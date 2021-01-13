@@ -1,9 +1,12 @@
 import React from "react";
 import "./styles.css";
-import InputMask from "react-input-mask";
 
+export default function MainSettingsForm() {
+  function onChange(e) {
+    const { name, value } = e.target;
+    console.log(`(MainSettingsForm) ${name} changed to ${value}`);
+  }
 
-export default function MainSettingsForm({ handler }) {
   return (
     <div id="main-settings-form-wrapper" className="col-4">
       <div
@@ -21,8 +24,7 @@ export default function MainSettingsForm({ handler }) {
               name="status"
               className="form-select"
               aria-label="Flight Status"
-              value={handler.values.status}
-              onChange={handler.onChange}
+              onChange={onChange}
             >
               <option value="enabled">Enabled</option>
               <option value="disabled">Disabled</option>
@@ -38,45 +40,58 @@ export default function MainSettingsForm({ handler }) {
               className="form-control"
               id="totalHours"
               name="totalHours"
-              value={handler.values.totalHours}
-              onChange={handler.onChange}
+              onChange={onChange}
             />
             <label htmlFor="totalHours">Total Hours</label>
           </div>
-          <div className="form-floating main-settings-item">
-            <InputMask 
-              type="text"
-              className="form-control"
-              id="vatTax"
-              name="vatTax"
-              value={handler.values.vatTax}
-              onChange={handler.onChange}
-              mask="99%"
-              placeholder="%"
-            />
-            <label htmlFor="vatTax">Vat Tax</label>
+          <div className="input-group main-settings-item">
+            <div
+              className="form-floating"
+              style={{ display: "flex", flexGrow: 1 }}
+            >
+              <input
+                style={{ borderBottomRightRadius: 0, borderTopRightRadius: 0 }}
+                className="form-control"
+                type="text"
+                id="vatTax"
+                name="vatTax"
+                pattern="[\d]{1,3}(,\d{2})?" //TODO: Validar este campo (100 <= % <= 999)
+                placeholder="vatTax"
+                onChange={onChange}
+              />
+              <label htmlFor="vatTax">Vat Tax</label>
+            </div>
+            <span className=" input-group-text input-group-append">%</span>
           </div>
-          <div className="form-floating main-settings-item">
-            <InputMask 
-              type="text"
-              className="form-control"
-              id="deposite"
-              name="deposite"
-              value={handler.values.deposite}
-              onChange={handler.onChange}
-              mask="R$9999,99"
-              placeholder="R$"
-            />
-            <label htmlFor="deposite">Deposite</label>
+
+          <div className="input-group main-settings-item">
+            <span className="input-group-text" id="basic-addon1">
+              R$
+            </span>
+            <div
+              className="form-floating"
+              style={{ display: "flex", flexGrow: 1 }}
+            >
+              <input
+                style={{ borderBottomLeftRadius: 0, borderTopLeftRadius: 0 }}
+                className="form-control"
+                type="text"
+                id="deposite"
+                name="deposite"
+                placeholder="deposite"
+                onChange={onChange}
+              />
+              <label htmlFor="deposite">Deposite</label>
+            </div>
           </div>
+
           <div className="form-floating main-settings-item">
             <select
               id="flightType"
               name="flightType"
               className="form-select"
               aria-label="Flight Type"
-              value={handler.values.flightType}
-              onChange={handler.onChange}
+              onChange={onChange}
             >
               <option value="business">Business</option>
               <option value="economic">Economic</option>
@@ -91,8 +106,7 @@ export default function MainSettingsForm({ handler }) {
               name="refundable"
               className="form-select"
               aria-label="Refundable"
-              value={handler.values.refundable}
-              onChange={handler.onChange}
+              onChange={onChange}
             >
               <option value="refundable">Refundable</option>
               <option value="non-refundable">Non Refundable</option>
@@ -107,8 +121,7 @@ export default function MainSettingsForm({ handler }) {
               name="direction"
               className="form-select"
               aria-label="Flight Direction"
-              value={handler.values.direction}
-              onChange={handler.onChange}
+              onChange={onChange}
             >
               <option value="one-way">One Way</option>
               <option value="return">Return</option>

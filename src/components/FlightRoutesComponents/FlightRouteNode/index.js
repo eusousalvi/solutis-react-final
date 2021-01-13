@@ -9,22 +9,24 @@ export default function FlightNode({
   onClickDelete,
   onChange,
 }) {
-  const [airports, setAirports] = React.useState([]);
+  const [airlines, setAirlines] = React.useState(["GOL", "Azul", "Passaredo"]);
   const [loadingAirports, setLoadingAirports] = React.useState(true);
-
-  const airlineList = ["GOL", "Azul", "Passaredo"];
+  const [airports, setAirports] = React.useState([]);
 
   React.useEffect(() => {
     airportsService.getAirports().then((response) => {
       setAirports(response);
       setLoadingAirports(false);
 
-      onChange({ target: { name: "city", value: response[0].id } });
+      if (response.length)
+        onChange({ target: { name: "city", value: response[0].id } });
     });
 
-    onChange({ target: { name: "airline", value: airlineList[0] } });
+    if (airlines.length)
+      onChange({ target: { name: "airline", value: airlines[0] } });
+
     return () => {};
-  }, []);
+  }, [onChange, airlines]);
 
   const { type, airport, airline, flightNumber, date, time, checkout } = node;
 
@@ -65,8 +67,8 @@ export default function FlightNode({
           onChange={onChange}
           required
         >
-          {airlineList.map((airline) => (
-            <option key={airline}>{airline}</option>
+          {airlines.map((airline) => (
+            <option>{airline}</option>
           ))}
         </select>
       </td>
