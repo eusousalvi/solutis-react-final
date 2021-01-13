@@ -1,9 +1,14 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+
+import { update } from "../../../redux/actions/formFlightRoutes";
 
 function PriceField({ id }) {
+  const dispatch = useDispatch();
+
   function onChange(e) {
     const { name, value } = e.target;
-    console.log(`${name} changed to ${value} on FlightPricesForm`);
+    dispatch(update(name, value));
   }
 
   return (
