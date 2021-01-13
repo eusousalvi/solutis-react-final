@@ -1,8 +1,11 @@
 import { FaTimes } from "react-icons/fa";
 import airportServices from "../../../services/airports";
+import { useDispatch } from "react-redux";
+import { refreshPage } from "../../../redux/actions/airports";
 
+function AirportsDeleteButton({ id }) {
 
-function AirportsDeleteButton({ id, setDeleted }) {
+    const dispatch = useDispatch()
 
     function deleteAirport() {
 
@@ -11,7 +14,7 @@ function AirportsDeleteButton({ id, setDeleted }) {
         if(confirmDelete)
         {
             airportServices.deleteAirport(id)
-            .then(() => setDeleted(true))
+            .then(() => dispatch(refreshPage(true)))
             .catch(err => console.error(err))
         }
     }
