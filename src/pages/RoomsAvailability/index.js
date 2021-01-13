@@ -1,11 +1,9 @@
-import Header from '../../components/Header';
 import HotelAvailabilityCalendar from '../../components/HotelsAvailabilityCalendar';
 import HotelsHeader from '../../components/HotelsHeader';
 
 function RoomsAvailability() {
   return (
     <>
-      <Header />
       <HotelsHeader />
       <div className="container">
         <div className="row">
