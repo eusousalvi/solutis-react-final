@@ -21,8 +21,10 @@ function AvailabilityCalendarRow({ month, getDay, monthIndex, currentYear }) {
       <AvailabilityCalendarDay
         key={`filled${i}`}
         month={month}
+        monthIndex={monthIndex}
         dayIndex={i}
         currentTotalAvailability={currentTotalAvailability}
+        currentYear={currentYear}
       />,
     );
   }
