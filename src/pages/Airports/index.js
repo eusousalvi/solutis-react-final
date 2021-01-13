@@ -2,7 +2,7 @@ import AirportsHeader from "../../components/FlightsAirportsList/AirportsHeader"
 import AirportsTable from "../../components/FlightsAirportsList/AirportsTable";
 import AirportsPagination from "../../components/FlightsAirportsList/AirportsPagination";
 import AirportsSearchBar from "../../components/FlightsAirportsList/AirportsSearchBar";
-//import Pagination from "../../components/Pagination";
+import FlightsHeader from "../../components/FlightsHeader";
 
 import { useEffect, useState } from "react";
 import { FiX } from "react-icons/fi";
@@ -20,27 +20,31 @@ function Airports() {
     const [selectedForRemoval, setSelectedForRemoval] = useState([])
     const [deleted, setDeleted] = useState(false)
 
-    async function getAirportsPaginated() {
-        let data = await airportServices.getAirportsPaginated(currentPage, itemsPerPage)
-        if (data) setAirports(data)
+    function getAirportsPaginated() {
+        airportServices.getAirportsPaginated(currentPage, itemsPerPage)
+            .then(res => setAirports(res.data))
+            .catch(err => console.error(err))
     }
 
-    async function fetchAllAirports() {
-        const data = await airportServices.getAirports()
-        if (data) setTotalAirports(data.length)
+    function fetchAllAirports() {
+        airportServices.getAirports()
+            .then(res => setTotalAirports(res.data.length))
+            .catch(err => console.error(err))
     }
-    
+
     function updateItemsPerPage(quantity) {
         setItemsPerPage(quantity)
         setCurrentPage(1)
     }
 
-    async function searchAirports(query) {
+    function searchAirports(query) {
 
-        let data = await airportServices.searchAirports(query)
-
-        if (data) setAirports(data)
-        setTotalAirports(data.length)
+        airportServices.searchAirports(query)
+        .then(res => {
+            setAirports(res.data)
+            setTotalAirports(res.data.length)
+        })
+        .catch(err => console.error(err))
 
         setCurrentPage(1)
     }
@@ -74,6 +78,7 @@ function Airports() {
 
     return (
         <>
+            <FlightsHeader /> 
             <div className="container">
                 <AirportsHeader>
                     <Link to="airports/add">
@@ -89,7 +94,7 @@ function Airports() {
                         airports={airports}
                         idxStart={currentPage * itemsPerPage - itemsPerPage}
                         setSelectedForRemoval={setSelectedForRemoval}
-                        currentPage={currentPage}
+                        setDeleted={setDeleted}
                     />
                 </div>
             </div>
@@ -98,14 +103,14 @@ function Airports() {
                 <div className="footer">
                     <div className="row">
                         <div className="col-sm-12 footer-container">
-                            <AirportsPagination 
-                                total={totalAiports}
+                            <AirportsPagination
+                                totalItems={totalAiports}
                                 currentPage={currentPage}
-                                setCurrentPage={setCurrentPage}
+                                handleChangePage={setCurrentPage}
                                 pages={pages}
                                 setPages={setPages}
-                                itemsPerPage={itemsPerPage}
-                                setItemsPerPage={updateItemsPerPage}
+                                limit={itemsPerPage}
+                                handleChangeLimit={updateItemsPerPage}
                             />
                             <AirportsSearchBar searchAirports={searchAirports} />
                         </div>

@@ -1,11 +1,8 @@
-.pagination li button {
-    margin: 5px;
-}
-
-.pagination {
-    margin-bottom: 5px;
+.airportsPagination {
+    margin: 15px 5px 10px 20px;
     display: flex;
     flex-direction: row;
+    list-style-type: none;
 }
 
 .last-button {

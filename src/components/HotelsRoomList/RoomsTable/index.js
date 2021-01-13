@@ -1,33 +1,32 @@
+import { useState } from "react";
+
 import RoomsTableRow from "../RoomsTableRow/index";
+import RoomsTableHeader from "../RoomsTableHeader/index";
 
 import "./style.css";
 
-function RoomsTable({ rooms, handleDeleteRoom }) {
+function RoomsTable({
+  rooms,
+  handleDeleteRoom,
+  fields,
+  order,
+  handleChangeOrder,
+}) {
+  const [selectAll, setSelectAll] = useState(false);
+
+  function toggleSelectAll() {
+    setSelectAll(!selectAll);
+  }
+
   return (
     <table className="table table-striped table-hover">
-      <thead className="bg-light">
-        <tr>
-          <th scrop="col">
-            <div className="form-check">
-              <input
-                type="checkbox"
-                value=""
-                id="selectAll"
-                className="form-check-input"
-              />
-            </div>
-          </th>
-          <th scope="col">#</th>
-          <th scope="col">Room Type</th>
-          <th scope="col">Hotel</th>
-          <th scope="col">Qty</th>
-          <th scope="col">Price</th>
-          <th scope="col">Prices</th>
-          <th scope="col">Availability</th>
-          <th scope="col">Gallery</th>
-          <th scope="col">Status</th>
-        </tr>
-      </thead>
+      <RoomsTableHeader
+        fields={fields}
+        order={order}
+        handleChangeOrder={handleChangeOrder}
+        selectAll={selectAll}
+        toggleSelectAll={toggleSelectAll}
+      />
       <tbody>
         {rooms.map((room, index) => (
           <RoomsTableRow
@@ -35,6 +34,7 @@ function RoomsTable({ rooms, handleDeleteRoom }) {
             index={index + 1}
             key={room.id}
             onDelete={() => handleDeleteRoom(room.id)}
+            selectAll={selectAll}
           />
         ))}
       </tbody>
