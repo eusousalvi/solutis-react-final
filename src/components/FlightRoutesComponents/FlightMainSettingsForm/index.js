@@ -1,10 +1,25 @@
 import React from "react";
 import "./styles.css";
 
+import { useDispatch, useSelector } from "react-redux";
+
+import { update } from "../../../redux/actions/formFlightRoutes";
+
 export default function MainSettingsForm() {
+  const {
+    status,
+    totalHours,
+    vatTax,
+    deposite,
+    flightType,
+    refundable,
+    direction,
+  } = useSelector((state) => state.formFlightRoutesReducer);
+  const dispatch = useDispatch();
+
   function onChange(e) {
     const { name, value } = e.target;
-    console.log(`(MainSettingsForm) ${name} changed to ${value}`);
+    dispatch(update(name, value));
   }
 
   return (
@@ -25,6 +40,7 @@ export default function MainSettingsForm() {
               className="form-select"
               aria-label="Flight Status"
               onChange={onChange}
+              value={status}
             >
               <option value="enabled">Enabled</option>
               <option value="disabled">Disabled</option>
@@ -41,6 +57,7 @@ export default function MainSettingsForm() {
               id="totalHours"
               name="totalHours"
               onChange={onChange}
+              value={totalHours}
             />
             <label htmlFor="totalHours">Total Hours</label>
           </div>
@@ -58,6 +75,7 @@ export default function MainSettingsForm() {
                 pattern="[\d]{1,3}(,\d{2})?" //TODO: Validar este campo (100 <= % <= 999)
                 placeholder="vatTax"
                 onChange={onChange}
+                value={vatTax}
               />
               <label htmlFor="vatTax">Vat Tax</label>
             </div>
@@ -80,6 +98,7 @@ export default function MainSettingsForm() {
                 name="deposite"
                 placeholder="deposite"
                 onChange={onChange}
+                value={deposite}
               />
               <label htmlFor="deposite">Deposite</label>
             </div>
@@ -92,6 +111,7 @@ export default function MainSettingsForm() {
               className="form-select"
               aria-label="Flight Type"
               onChange={onChange}
+              value={flightType}
             >
               <option value="business">Business</option>
               <option value="economic">Economic</option>
@@ -107,6 +127,7 @@ export default function MainSettingsForm() {
               className="form-select"
               aria-label="Refundable"
               onChange={onChange}
+              value={refundable}
             >
               <option value="refundable">Refundable</option>
               <option value="non-refundable">Non Refundable</option>
@@ -122,6 +143,7 @@ export default function MainSettingsForm() {
               className="form-select"
               aria-label="Flight Direction"
               onChange={onChange}
+              value={direction}
             >
               <option value="one-way">One Way</option>
               <option value="return">Return</option>

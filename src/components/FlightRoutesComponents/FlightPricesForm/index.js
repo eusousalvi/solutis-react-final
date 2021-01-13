@@ -1,9 +1,15 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { update } from "../../../redux/actions/formFlightRoutes";
 
 function PriceField({ id }) {
+  const dispatch = useDispatch();
+  const prices = useSelector((state) => state.formFlightRoutesReducer);
+
   function onChange(e) {
     const { name, value } = e.target;
-    console.log(`${name} changed to ${value} on FlightPricesForm`);
+    dispatch(update(name, value));
   }
 
   return (
@@ -20,6 +26,7 @@ function PriceField({ id }) {
           title="Informe um valor numérico. Ex: 150,00 ou 1500,10"
           pattern="[\d]+(,\d{2})?"
           onChange={onChange}
+          value={prices[id]}
           required
         />
       </div>
