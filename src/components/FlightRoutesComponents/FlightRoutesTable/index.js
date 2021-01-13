@@ -2,26 +2,42 @@ import { useState, useEffect } from "react";
 import FlightRoutesRow from "../FlightRoutesRow";
 import axios from "axios";
 
-function FlightRoutesTable() {
+function FlightRoutesTable(props) {
   const [flights, setFlights] = useState([]);
   const [refresh, setRefresh] = useState(0);
 
-  useEffect(setFlightsList, [refresh]);
+  useEffect(setFlightsList, [refresh, props]);
 
   function setFlightsList() {
     axios
       .get("https://5ff83d6510778b0017042ff3.mockapi.io/routes/")
       .then((res) => {
-        setFlights(res.data);
+        props.setTotalRoutes(res.data.length);
+        let array = pageExhibition(props.page, props.numberPerPage, res.data)
+        setFlights(array);
       })
       .catch((erro) => console.log(erro));
+  }
+
+  function pageExhibition(page, numberPerPage, array) {
+    let routesInPage = [];
+    
+    let startArray = (numberPerPage * (page -1));
+    let finishArray = startArray + numberPerPage;
+
+    if(finishArray > array.length){
+      finishArray = array.length;
+    }
+    for (let i = startArray; i < finishArray; i++) {
+      routesInPage.push(array[i]);
+    }
+
+    return routesInPage;
   }
 
   function refreshChange() {
     setRefresh(refresh + 1);
   }
-
-  console.log(flights);
 
   return (
     <table className="table table-striped table-bordered mt-2">
