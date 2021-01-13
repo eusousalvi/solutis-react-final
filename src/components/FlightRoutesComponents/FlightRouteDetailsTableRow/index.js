@@ -1,5 +1,5 @@
 export default function FlightRoutesDetailsTableRow(props) {
-  console.log(props);
+  
   return (
     <tr>
       <td>{props.route.type}</td>
