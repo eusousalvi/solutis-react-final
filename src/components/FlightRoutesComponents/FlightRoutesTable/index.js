@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import FlightRoutesRow from "../FlightRoutesRow";
-import axios from "axios";
+import routes from "../../../services/routes";
 
 function FlightRoutesTable(props) {
   const [flights, setFlights] = useState([]);
@@ -9,8 +9,8 @@ function FlightRoutesTable(props) {
   useEffect(setFlightsList, [refresh, props]);
 
   function setFlightsList() {
-    axios
-      .get("https://5ff83d6510778b0017042ff3.mockapi.io/routes/")
+    routes
+      .getRoutes()
       .then((res) => {
         props.setTotalRoutes(res.data.length);
         let array = pageExhibition(props.page, props.numberPerPage, res.data)

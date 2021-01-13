@@ -1,6 +1,6 @@
 import ReturnFlightRoutesButton from "../../components/FlightRoutesComponents/FlightRoutesReturnButton";
 import { useParams } from "react-router";
-import axios from "axios";
+import routes from "../../services/routes"
 import { useEffect, useState } from "react";
 import FlightRoutesDetailsTableRow from "../../components/FlightRoutesComponents/FlightRouteDetailsTableRow";
 import FlightsHeader from "../../components/FlightsHeader";
@@ -12,15 +12,13 @@ function Visualization() {
   useEffect(getAPIdata, []);
 
   function getAPIdata() {
-    axios
-      .get(`https://5ff83d6510778b0017042ff3.mockapi.io/routes/${id.id}`)
+    routes
+      .getRoute(id.id)
       .then((res) => {
         setRouteData(res.data);
       })
       .catch((erro) => console.log(erro));
   }
-
-  console.log(routeData.route);
 
   return (
     <>

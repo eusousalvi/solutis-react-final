@@ -1,15 +1,13 @@
 import { BiWorld } from "react-icons/bi";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
-import axios from "axios";
+import routes from "../../../services/routes";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function FlightRoutesRow(props) {
   function deleteRow() {
-    axios
-      .delete(
-        `https://5ff83d6510778b0017042ff3.mockapi.io/routes/${props.flight.id}`
-      )
+    routes
+      .deleteRoute(props.flight.id)
       .then(() => props.refresh(1))
       .catch((erro) => console.log(erro));
   }
