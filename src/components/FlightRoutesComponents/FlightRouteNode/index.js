@@ -87,7 +87,7 @@ export default function FlightNode({
               name="flightNumber"
               type="text"
               onChange={handleChange}
-              value={flightNumber}
+              defaultValue={flightNumber}
               pattern="[\d]{4}"
               title="O número do voo deve conter 4 dígitos numéricos."
               required
