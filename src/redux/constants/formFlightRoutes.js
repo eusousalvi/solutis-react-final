@@ -1,0 +1,2 @@
+export const ROUTES_UPDATE = "ROUTES_UPDATE";
+export const ROUTES_RESET = "ROUTES_RESET";
