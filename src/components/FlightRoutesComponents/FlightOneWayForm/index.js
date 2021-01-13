@@ -5,7 +5,7 @@ import FlightPricesForm from "../FlightPricesForm";
 
 import "./styles.css";
 
-export default function OneWayForm({ handler }) {
+export default function OneWayForm() {
   return (
     <div id="one-way-edit" className="one-way-form">
       <div className="card">
@@ -13,8 +13,8 @@ export default function OneWayForm({ handler }) {
           <h3 className="card-title">One Way</h3>
         </div>
         <div className="card-body">
-          <FlightPricesForm handler={handler} />
-          <FlightRouteManagerForm handler={handler} />
+          <FlightPricesForm />
+          <FlightRouteManagerForm />
         </div>
       </div>
     </div>

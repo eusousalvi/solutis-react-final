@@ -1,6 +1,16 @@
 import React from "react";
 
-export default function DescriptionAndBagageForm({ handler }) {
+import { useSelector, useDispatch } from "react-redux";
+import { update } from "../../../redux/actions/formFlightRoutes";
+
+export default function DescriptionAndBagageForm() {
+  const { description } = useSelector((state) => state.formFlightRoutesReducer);
+  const dispatch = useDispatch();
+
+  function handleTextareaChange(e) {
+    dispatch(update("description", e.target.value));
+  }
+
   return (
     <div id="description-bagage-form">
       <div className="card">
@@ -13,8 +23,8 @@ export default function DescriptionAndBagageForm({ handler }) {
             id="description-textarea"
             name="description"
             rows="8"
-            value={handler.values.description}
-            onChange={handler.onChange}
+            value={description}
+            onChange={handleTextareaChange}
             required
           />
         </div>

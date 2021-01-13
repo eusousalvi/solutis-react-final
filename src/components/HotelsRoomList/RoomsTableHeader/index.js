@@ -1,7 +1,13 @@
 import { GoArrowDown, GoArrowUp } from "react-icons/go";
 import "./style.css";
 
-function RoomsTableHeader({ fields, order, handleChangeOrder }) {
+function RoomsTableHeader({
+  fields,
+  order,
+  handleChangeOrder,
+  selectAll,
+  toggleSelectAll,
+}) {
   return (
     <thead className="bg-light">
       <tr>
@@ -9,7 +15,8 @@ function RoomsTableHeader({ fields, order, handleChangeOrder }) {
           <div className="form-check">
             <input
               type="checkbox"
-              value=""
+              value={selectAll}
+              onChange={toggleSelectAll}
               id="selectAll"
               className="form-check-input"
             />

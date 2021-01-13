@@ -2,90 +2,44 @@ import React from "react";
 
 import FlightManagementForm from "../FlightManagementForm";
 import MainSettingsForm from "../FlightMainSettingsForm";
+import { Link } from "react-router-dom";
+
+import store from "../../../redux/store";
 
 import "./styles.css";
 
-// Custom hook to mimic formik behaviour. Push this to hooks folder ASAP.
-function useForm(initialValues) {
-  const [values, setValues] = React.useState(initialValues);
+export default function EditFlightForm({ onSubmit: customOnSubmit }) {
+  function onSubmit(e) {
+    e.preventDefault();
 
-  function onChange(e) {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: value });
+    const { formFlightRoutesReducer } = store.getState();
+    customOnSubmit(formFlightRoutesReducer);
   }
-
-  return {
-    values,
-    onChange,
-  };
-}
-
-export default function EditFlightForm({ onSubmit: customOnSubmit, data }) {
-  const handler = useForm(
-    data || {
-      refundable: "refundable",
-      flightType: "business",
-      direction: "one-way",
-      status: "enabled",
-      totalHours: "",
-      deposite: "",
-      vatTax: "",
-
-      route: [
-        {
-          id: 0,
-          type: "Departure",
-          city: "",
-          airline: "",
-          flightNumber: 0,
-          date: "",
-          time: "",
-          checkout: "",
-        },
-        {
-          id: 1,
-          type: "Arrival",
-          city: "",
-          airline: "",
-          flightNumber: 0,
-          date: "",
-          time: "",
-          checkout: "",
-        },
-      ],
-
-      adultsPrice: "",
-      infantPrice: "",
-      childPrice: "",
-
-      description: "",
-    }
-  );
 
   return (
     <div
       id="edit-flight-form-wrapper"
       className="container-fluid edit-flight-form "
     >
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          customOnSubmit(handler.values);
-        }}
-        id="edit-flight-form"
-      >
+      <form onSubmit={onSubmit} id="edit-flight-form">
         <div className="d-flex justify-content-between">
-          <FlightManagementForm handler={handler} />
-          <MainSettingsForm handler={handler} />
+          <FlightManagementForm />
+          <MainSettingsForm />
         </div>
         <div className="col-8">
           <button
             type="submit"
             form="edit-flight-form"
-            className="btn btn-primary w-100 edit-submit-button"
+            className="btn btn-primary w-100 edit-submit-button m-1"
           >
             Submit
           </button>
+          <Link 
+            to="/flights/routes/"
+            className="btn btn-danger w-100 m-1"
+          >
+            Return
+          </Link>
         </div>
       </form>
     </div>

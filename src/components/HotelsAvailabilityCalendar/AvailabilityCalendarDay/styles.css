@@ -3,4 +3,24 @@
   height: 19px;
   margin-top: 5px;
   text-align: center;
+  border: none;
+}
+
+.input__available {
+  background-color: #bbfdbb;
+  border: 1px solid #a6e8a6;
+}
+
+.input__partial {
+  background-color: #efef76;
+  border: 1px solid #d8d863;
+}
+
+.input__not {
+  background-color: #ef7676;
+  border: 1px solid #df6666;
+}
+
+td.weekendDay {
+  background-color: #ffbe5c;
 }

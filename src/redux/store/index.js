@@ -1,8 +1,14 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import exampleReducer from './reducers/exampleReducer';
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import exampleReducer from "./reducers/exampleReducer";
+import formFlightRoutesReducer from "./reducers/formFlightRoutesReducer";
+import rooms from "./reducers/rooms";
 
-const reducer = combineReducers({ exampleReducer });
+const reducer = combineReducers({
+  formFlightRoutesReducer,
+  exampleReducer,
+  rooms,
+});
 
 const middleware = applyMiddleware(thunk);
 

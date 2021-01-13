@@ -1,10 +1,4 @@
-function Pagination({
-  limit,
-  totalPages,
-  page,
-  handleChangeLimit,
-  handleChangePage,
-}) {
+function Pagination({ limit, totalPages, page, handleChangePageOrLimit }) {
   return (
     <div className="btn-toolbar">
       <div className="btn-group me-2" role="group">
@@ -12,7 +6,7 @@ function Pagination({
           className={`${
             limit === 25 ? "btn btn-primary" : "btn btn-light btn-outline-dark "
           }`}
-          onClick={() => handleChangeLimit(25)}
+          onClick={() => handleChangePageOrLimit("limit", 25)}
         >
           25
         </button>
@@ -20,7 +14,7 @@ function Pagination({
           className={`${
             limit === 50 ? "btn btn-primary" : "btn btn-light btn-outline-dark "
           }`}
-          onClick={() => handleChangeLimit(50)}
+          onClick={() => handleChangePageOrLimit("limit", 50)}
         >
           50
         </button>
@@ -30,7 +24,7 @@ function Pagination({
               ? "btn btn-primary"
               : "btn btn-light btn-outline-dark "
           }`}
-          onClick={() => handleChangeLimit(100)}
+          onClick={() => handleChangePageOrLimit("limit", 100)}
         >
           100
         </button>
@@ -40,7 +34,7 @@ function Pagination({
               ? "btn btn-primary"
               : "btn btn-light btn-outline-dark "
           }`}
-          onClick={() => handleChangeLimit("all")}
+          onClick={() => handleChangePageOrLimit("limit", "all")}
         >
           All
         </button>
@@ -56,7 +50,7 @@ function Pagination({
                     : "btn btn-light btn-outline-dark "
                 }`}
                 key={item}
-                onClick={() => handleChangePage(item)}
+                onClick={() => handleChangePageOrLimit("page", item)}
               >
                 {item}
               </button>

@@ -10,8 +10,22 @@
   min-width: 39px;
 }
 
+td.availabilityCalendar__weekend {
+  background-color: #ffbe5c;
+}
+
+td.availabilityCalendar__empty {
+  background-color: #fff;
+}
+
 .availabilityTable tr:first-child {
   text-align: center;
+  background-color: #ccc;
+}
+
+.availabilityTable tr:nth-child(2) {
+  text-align: center;
+  background-color: #ffdf7f;
 }
 
 .availabilityTable tr:not(:first-child) {
@@ -28,4 +42,29 @@
   background-color: #fff;
   border: 0.5px solid #ccc;
   border-radius: 3px;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+}
+
+.legend__available,
+.legend__partial,
+.legend__not {
+  width: 19px;
+  height: 19px;
+  margin-right: 5px;
+}
+
+.legend__available {
+  background-color: #bbfdbb;
+}
+
+.legend__partial {
+  background-color: #efef76;
+}
+
+.legend__not {
+  background-color: #ef7676;
 }
