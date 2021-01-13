@@ -9,6 +9,7 @@ import Hotels from "./pages/Hotels";
 import EditFlightRoutes from "./pages/FlightEditRoutes";
 import AddFlightRoutes from "./pages/FlightAddRoutes";
 import Rooms from "./pages/Rooms";
+import HotelRoomCreate from "./pages/HotelRoomCreate";
 import Header from "./components/Header";
 import FlightRoutes from "./pages/FlightRoutes";
 import FlightRoutesDetails from "./pages/FlightRoutesDetails";
@@ -39,6 +40,7 @@ function Routes() {
           component={RoomsAvailability}
         />
         <Route path="/hotels/rooms" exact component={Rooms} />
+        <Route path="/hotels/rooms/create" exact component={HotelRoomCreate} />
         <Route path="/flights/routes" exact component={FlightRoutes} />
         <Route
           path="/flights/routes/details/:id"
