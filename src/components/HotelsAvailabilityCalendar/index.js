@@ -37,8 +37,8 @@ function HotelAvailabilityCalendar() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <table className="table availabilityTable">
+    <form onSubmit={handleSubmit} className="container pt-3 pb-3">
+      <table className="table availabilityTable table-hover table-borderless">
         <tbody>
           <tr className="d-flex flex-row">
             <td className="d-flex text-center monthName">
@@ -49,46 +49,68 @@ function HotelAvailabilityCalendar() {
                 <option value="2024">2024</option>
               </select>
             </td>
-            <td></td>
-            <td>Su</td>
+            <td className="availabilityCalendar__empty"></td>
+            <td className="availabilityCalendar__weekend">Su</td>
             <td>Mo</td>
             <td>Tu</td>
             <td>We</td>
             <td>Th</td>
             <td>Fr</td>
-            <td>Sa</td>
-            <td>Su</td>
+            <td className="availabilityCalendar__weekend">Sa</td>
+            <td className="availabilityCalendar__weekend">Su</td>
             <td>Mo</td>
             <td>Tu</td>
             <td>We</td>
             <td>Th</td>
             <td>Fr</td>
-            <td>Sa</td>
-            <td>Su</td>
+            <td className="availabilityCalendar__weekend">Sa</td>
+            <td className="availabilityCalendar__weekend">Su</td>
             <td>Mo</td>
             <td>Tu</td>
             <td>We</td>
             <td>Th</td>
             <td>Fr</td>
-            <td>Sa</td>
-            <td>Su</td>
+            <td className="availabilityCalendar__weekend">Sa</td>
+            <td className="availabilityCalendar__weekend">Su</td>
             <td>Mo</td>
             <td>Tu</td>
             <td>We</td>
             <td>Th</td>
             <td>Fr</td>
-            <td>Sa</td>
-            <td>Su</td>
+            <td className="availabilityCalendar__weekend">Sa</td>
+            <td className="availabilityCalendar__weekend">Su</td>
             <td>Mo</td>
             <td>Tu</td>
             <td>We</td>
             <td>Th</td>
             <td>Fr</td>
-            <td>Sa</td>
-            <td>Su</td>
+            <td className="availabilityCalendar__weekend">Sa</td>
+            <td className="availabilityCalendar__weekend">Su</td>
             <td>Mo</td>
           </tr>
           <AvailabilityCalendarRows currentYear={currentYear} roomId={id} />
+          <tr>
+            <td>
+              <div className="legend">
+                <div className="legend__available"></div>
+                <div> - Available</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div className="legend">
+                <div className="legend__partial"></div> - Partially Available
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div className="legend">
+                <div className="legend__not"></div> - Not Available
+              </div>
+            </td>
+          </tr>
         </tbody>
       </table>
       <button type="submit" className="btn btn-primary">

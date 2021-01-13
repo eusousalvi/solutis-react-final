@@ -1,0 +1,36 @@
+:root {
+  --primary-color: #C2DBFF;
+  --warning-hover-color: #BD7100;
+  --light-button-color: #ECF0F6;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: var(--primary-color);
+}
+.edit-hover {
+  transition: background-color 0.2s ease-in-out;
+}
+
+.edit-hover:hover {
+  background-color: var(--warning-hover-color);
+}
+
+.btn-email {
+  background-color: var(--light-button-color);
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out;
+  color: #1E249A;
+}
+.btn-email:hover {
+  background-color: #fff;
+  color: #77729E;
+  text-decoration: underline;
+}
+
+.menu-filter {
+  font-weight: 500;
+}
+.menu-filter:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -5,7 +5,7 @@ import AirportEdit from "./pages/AirportEdit";
 import RoomsAvailability from "./pages/RoomsAvailability";
 import Landing from "./pages/Landing";
 import Hotels from "./pages/Hotels";
-
+import Reviews from './pages/Reviews';
 import EditFlightRoutes from "./pages/FlightEditRoutes";
 import AddFlightRoutes from "./pages/FlightAddRoutes";
 import Rooms from "./pages/Rooms";
@@ -33,6 +33,7 @@ function Routes() {
         />
         <Route path="/" exact component={Landing} />
         <Route path="/hotels" exact component={Hotels} />~
+        <Route path="/hotels/reviews" exact component={Reviews} />
         <Route path="/hotels/create" exact component={AddHotel} />
         <Route
           path="/hotels/rooms/availability/:id"

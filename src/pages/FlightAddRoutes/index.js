@@ -3,6 +3,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 
 import FlightRouteForm from "../../components/FlightRoutesComponents/FlightRouterForm";
+import FlightsHeader from "../../components/FlightsHeader"
 
 import routes from "../../services/routes";
 
@@ -18,7 +19,7 @@ export default function AddFlightRoutes() {
 
   return (
     <div id="edit-flight">
-      {/* <Header /> */}
+      <FlightsHeader />
       <FlightRouteForm onSubmit={handleFormSubmit} />
     </div>
   );
