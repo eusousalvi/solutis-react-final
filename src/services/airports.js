@@ -16,12 +16,12 @@ function deleteAirport(id) {
   return api.delete(`/airports/${id}`)  
 }
 
-function searchAirports(query) {
-  return api.get(`/airports/?cityname=${query}`)
+function searchAirports(searchFilter, query) {
+  return api.get(`/airports/?${searchFilter}=${query}`)
 }
 
-function getAirportsPaginated(page, limit) {
-  return api.get(`/airports/?page=${page}&limit=${limit}`)
+function getAirportsPaginated(searchFilter, query, page, limit) {
+  return api.get(`/airports/?${searchFilter}=${query}&page=${page}&limit=${limit}`)
 }
 
 function updateAirport(id, data) {

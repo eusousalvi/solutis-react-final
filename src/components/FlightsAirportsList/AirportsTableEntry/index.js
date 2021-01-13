@@ -4,9 +4,12 @@ import { FiEdit } from "react-icons/fi";
 import { useState, useEffect } from 'react';
 import AirportsDeleteButton from "../AirportsDeleteButton";
 import "./styles.css";
+import { useDispatch } from "react-redux";
+import {selectForRemoval, removeFromRemovalList} from "../../../redux/actions/airports";
 
-const AirportsTableEntry = ({ airport, checked, num, setSelectedForRemoval, setDeleted }) => {
+const AirportsTableEntry = ({ airport, checked, num }) => {
     
+    const dispatch = useDispatch()
     const [isChecked, setIsChecked] = useState(checked)
     
     useEffect(() => {
@@ -15,9 +18,9 @@ const AirportsTableEntry = ({ airport, checked, num, setSelectedForRemoval, setD
 
     useEffect(() => {
         if(isChecked)
-            setSelectedForRemoval(state => [...state, airport.id])
+            dispatch(selectForRemoval(airport.id))
         else
-            setSelectedForRemoval(state => state.filter(id => id !== airport.id))
+            dispatch(removeFromRemovalList(airport.id))
     }, [isChecked])
 
     return (
@@ -45,7 +48,10 @@ const AirportsTableEntry = ({ airport, checked, num, setSelectedForRemoval, setD
 
             <td id={`airportActions-${airport.id}`}>
                 <span className="airportSpan">
-                    <Link to={`airports/details/${airport.id}`}
+                    <Link to={{
+                        pathname:`airports/details/${airport.id}`,
+                        airport: airport
+                    }}
                     >
                         <button id={`airportButtonView-${airport.id}`} className="btn btn-info airport-button">
                             <BiSearch />
@@ -58,7 +64,7 @@ const AirportsTableEntry = ({ airport, checked, num, setSelectedForRemoval, setD
                         </button>
                     </Link>
 
-                    <AirportsDeleteButton id={airport.id} setDeleted={setDeleted}/>
+                    <AirportsDeleteButton id={airport.id} />
                 </span>
             </td>
         </tr>
