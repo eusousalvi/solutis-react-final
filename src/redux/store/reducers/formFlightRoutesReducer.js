@@ -1,4 +1,8 @@
-import { ROUTES_UPDATE, ROUTES_RESET } from "../../constants/formFlightRoutes";
+import {
+  ROUTES_UPDATE_GENERAL,
+  ROUTES_UPDATE_NODE,
+  ROUTES_RESET,
+} from "../../constants/formFlightRoutes";
 
 const INITIAL_STATE = {
   refundable: "refundable",
@@ -13,7 +17,7 @@ const INITIAL_STATE = {
     {
       id: 0,
       type: "Departure",
-      city: "",
+      city: undefined,
       airline: "",
       flightNumber: 0,
       date: "",
@@ -23,7 +27,7 @@ const INITIAL_STATE = {
     {
       id: 1,
       type: "Arrival",
-      city: "",
+      city: undefined,
       airline: "",
       flightNumber: 0,
       date: "",
@@ -41,7 +45,15 @@ const INITIAL_STATE = {
 
 export default function reducer(state = INITIAL_STATE, action = null) {
   switch (action.type) {
-    case ROUTES_UPDATE:
+    case ROUTES_UPDATE_NODE:
+      const { id, data } = action.payload;
+      return {
+        ...state,
+        route: state.route.map((node) =>
+          node.id !== id ? node : { ...node, ...data }
+        ),
+      };
+    case ROUTES_UPDATE_GENERAL:
       return { ...state, [action.payload.key]: action.payload.value };
     case ROUTES_RESET:
     default:
