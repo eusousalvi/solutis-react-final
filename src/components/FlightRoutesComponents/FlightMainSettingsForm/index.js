@@ -5,12 +5,29 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { update } from "../../../redux/actions/formFlightRoutes";
 
+function parseNodeDate(node) {
+  const date = node.date.split("-");
+  const time = node.time.split(":");
+  return new Date(date[0], date[1] - 1, date[2], time[0], time[1]);
+}
+
+function minutesToString(minutes) {
+  return `${Math.floor(minutes / 60)}:${minutes % 60 <= 9 ? "0" : ""}${
+    minutes % 60
+  }`;
+}
+
+function getNodeDifference(initial, final) {
+  return (parseNodeDate(final) - parseNodeDate(initial)) / (1000 * 60);
+}
+
 export default function MainSettingsForm() {
   const {
+    route,
     status,
-    totalHours,
     vatTax,
     deposite,
+    totalHours,
     flightType,
     refundable,
     direction,
@@ -21,6 +38,12 @@ export default function MainSettingsForm() {
     const { name, value } = e.target;
     dispatch(update(name, value));
   }
+
+  React.useEffect(() => {
+    const flightTime = getNodeDifference(route[0], route[route.length - 1]);
+    dispatch(update("totalHours", minutesToString(flightTime)));
+    return () => {};
+  }, [route, dispatch]);
 
   return (
     <div id="main-settings-form-wrapper" className="col-4">
@@ -51,13 +74,12 @@ export default function MainSettingsForm() {
           </div>
           <div className="form-floating main-settings-item">
             <input
-              required
-              type="time"
               className="form-control"
               id="totalHours"
               name="totalHours"
               onChange={onChange}
               value={totalHours}
+              readOnly
             />
             <label htmlFor="totalHours">Total Hours</label>
           </div>

@@ -13,10 +13,18 @@ export default function EditFlightForm({ onSubmit: customOnSubmit }) {
     e.preventDefault();
 
     const { formFlightRoutesReducer } = store.getState();
-    const { vatTax } = formFlightRoutesReducer;
-    if (vatTax > 100) {
-      console.log("vatTax > 100");
-    } else customOnSubmit(formFlightRoutesReducer);
+    const { route } = formFlightRoutesReducer;
+
+    // console.log();
+    // const flightDays = getDateDifference(
+    //   route[0].date,
+    //   route[route.length - 1].date
+    // );
+    // const flightTime = getNodeDifference(route[0], route[route.length - 1]);
+    // console.log(flightTime);
+    // console.log(minutesToString(flightTime));
+
+    // customOnSubmit(formFlightRoutesReducer);
   }
 
   return (
