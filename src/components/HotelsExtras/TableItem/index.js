@@ -1,31 +1,36 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { BiSearch } from "react-icons/bi";
 import { FiEdit, FiX } from "react-icons/fi";
-import ExtraServices from "../../../services/extras";
 import "./styles.css";
 
-function ExtraItems({ item, setIsRemovingItem }) {
+function TableItem({ item, handleSingleDelete, isAllSelect, handleSelect }) {
   const { id, tableId, img, name, status, price } = item;
+  const [isSelected, setIsSelected] = useState(false);
 
-  async function handleDelete() {
-    if (window.confirm("Realmente deseja deletar esse item ?")) {
-      try {
-        setIsRemovingItem(true);
-        const res = await ExtraServices.deleteExtra(id);
-        if (res.status || res.status === 200)
-          window.alert("Item excluido com sucesso");
-      } finally {
-        setIsRemovingItem(false);
-      }
-    }
+  function handleChange() {
+    isSelected ? handleSelect(item, false) : handleSelect(item, true);
+    setIsSelected(!isSelected);
   }
+
+  useEffect(() => {
+    setIsSelected(isAllSelect);
+  }, [isAllSelect]);
 
   return (
     <>
       <tr>
         <td>
           <div className="form-check mb-0">
-            <input className="form-check-input" style={{width: '1.2rem', height:'1.2rem'}} type="checkbox" name="" id="" />
+            <input
+              className="form-check-input"
+              style={{ width: "1.2rem", height: "1.2rem" }}
+              type="checkbox"
+              name={`option${id}`}
+              id={`option${id}`}
+              onChange={handleChange}
+              checked={isSelected}
+            />
           </div>
         </td>
         <td className="item-num">{tableId}</td>
@@ -38,8 +43,10 @@ function ExtraItems({ item, setIsRemovingItem }) {
         <td>
           <button
             type="button"
-            className="btn btn-link mt-0">
-            Tradução
+            className="btn btn-link mt-0"
+            data-bs-toggle="modal"
+            data-bs-target={`#extra${id}`}>
+            Translate
           </button>
         </td>
         <td className="modify-buttons">
@@ -57,7 +64,7 @@ function ExtraItems({ item, setIsRemovingItem }) {
             <button
               type="button"
               className="btn btn-danger btn-sm mx-1 mt-0"
-              onClick={handleDelete}>
+              onClick={() => handleSingleDelete(id)}>
               <FiX color="white" />
             </button>
           </div>
@@ -67,4 +74,4 @@ function ExtraItems({ item, setIsRemovingItem }) {
   );
 }
 
-export default ExtraItems;
+export default TableItem;
