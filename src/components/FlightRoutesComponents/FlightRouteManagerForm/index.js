@@ -6,12 +6,12 @@ import { update, updateNode } from "../../../redux/actions/formFlightRoutes";
 import FlightRouteNode from "../FlightRouteNode";
 
 const DEFAULT_NODE = {
-  flightNumber: 0,
+  flightNumber: "",
   city: undefined,
   checkout: "",
+  checkin: "",
   airline: "",
   date: "",
-  time: "",
 };
 
 export default function FlightRouteManagerForm() {
@@ -59,8 +59,8 @@ export default function FlightRouteManagerForm() {
             <th className="col">Airline</th>
             <th className="col">Flight NO.</th>
             <th className="col">Date</th>
-            <th className="col">Time</th>
-            <th className="col">Checkout</th>
+            <th className="col">Check In</th>
+            <th className="col">Check Out</th>
           </tr>
         </thead>
         <tbody>

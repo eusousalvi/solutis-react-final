@@ -12,7 +12,7 @@ export default function FlightNode({
   const [loadingAirports, setLoadingAirports] = React.useState(true);
   const [airports, setAirports] = React.useState([]);
 
-  const { type, city, airline, flightNumber, date, time, checkout } = node;
+  const { type, city, airline, flightNumber, date, checkin, checkout } = node;
 
   React.useEffect(() => {
     airportsService.getAirports().then((response) => {
@@ -108,10 +108,10 @@ export default function FlightNode({
             <input
               className="form-control"
               type="time"
-              id="flight-time"
-              name="time"
+              id="flight-checkin"
+              name="checkin"
               onChange={handleChange}
-              defaultValue={time}
+              defaultValue={checkin}
               required
             />
           </td>

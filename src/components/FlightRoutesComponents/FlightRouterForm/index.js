@@ -15,6 +15,8 @@ export default function EditFlightForm({ onSubmit: customOnSubmit }) {
     const { formFlightRoutesReducer } = store.getState();
     const { route } = formFlightRoutesReducer;
 
+    console.log(formFlightRoutesReducer);
+
     // console.log();
     // const flightDays = getDateDifference(
     //   route[0].date,
