@@ -20,7 +20,8 @@ export default function AddAirportForm() {
     }
     const [form, setForm] = useState(airport)
 
-    function handleSubmit() {
+    const handleSubmit = (e) => {
+        e.preventDefault()
         airportsService.addAirport(form)
     }
 
