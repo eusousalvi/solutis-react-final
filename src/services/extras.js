@@ -1,48 +1,85 @@
 import axios from "axios";
+import extrasAction from "../redux/actions/extras";
 
 const api = axios.create({
   baseURL: "https://5ff71a40e7164b0017e1a256.mockapi.io",
 });
 
-function getExtras() {
-  const res = api.get("/extras");
-  return res;
+async function getExtras(dispatch) {
+  return api
+    .get("/extras")
+    .then(res => {
+      if (res) dispatch(extrasAction.getAllExtras(res.data));
+    })
+    .catch(error => console.log("An error has occurred:", error));
 }
 
-function getById(id) {
-  const res = api.get(`/extras/${id}`);
-  return res;
+function getExtrasPaginate(page, limit, dispatch) {
+  return api
+    .get(`/extras?page=${page}&limit=${limit}`)
+    .then(res => {
+      if (res) dispatch(extrasAction.getAllExtrasPaginate(res.data));
+    })
+    .catch(error => console.log("An error has occurred:", error));
 }
 
-function create(data) {
-  const res = api.post("/extras", data);
-  return res;
+async function getById(id) {
+  return api
+    .get(`/extras/${id}`)
+    .then(res => {
+      if (res.status === 200 || res.status === 201) return res.data;
+    })
+    .catch(error => {
+      console.log("An error has occurred:", error);
+      return false;
+    });
 }
 
-function update(id, data) {
-  const res = api.put(`extras/${id}`, data);
-  return res;
+async function create(data) {
+  return api
+    .post("/extras", data)
+    .then(res => {
+      if (res.status === 200 || res.status === 201) return true;
+    })
+    .catch(error => {
+      console.log("An error has occurred:", error);
+      return false;
+    });
 }
 
-function deleteExtra(id) {
-  const res = api.delete(`/extras/${id}`);
-  return res;
+async function update(id, data) {
+  return api
+    .put(`/extras/${id}`, data)
+    .then(res => {
+      if (res.status === 200 || res.status === 201) return true;
+    })
+    .catch(error => {
+      console.log("An error has occurred:", error);
+      return false;
+    });
 }
 
-async function deleteAll(itens) {
-  let isAllDeleted = false;
+async function deleteExtra(id) {
+  return api
+    .delete(`/extras/${id}`)
+    .then(res => {
+      if (res.status === 200 || res.status === 201) return true;
+    })
+    .catch(error => {
+      console.log("An error has occurred:", error);
+      return false;
+    });
+}
 
-  try {
-    for (let item of itens) {
-      const res = await api.delete(`/extras/${item.id}`);
-      if (!res.status || res.status !== 200) return isAllDeleted;
-      setTimeout(() => {}, 500);
-    }
-  } catch (err) {
-    return isAllDeleted;
-  }
-
-  return !isAllDeleted;
+function getExtrasSize(dispatch) {
+  return api
+    .get("/extras")
+    .then(response => {
+      if (response) {
+        dispatch(extrasAction.getExtrasSize(response.data.length));
+      }
+    })
+    .catch(error => console.log("An error has occurred:", error));
 }
 
 const exportDate = {
@@ -51,7 +88,8 @@ const exportDate = {
   deleteExtra,
   create,
   update,
-  deleteAll,
+  getExtrasPaginate,
+  getExtrasSize,
 };
 
 export default exportDate;

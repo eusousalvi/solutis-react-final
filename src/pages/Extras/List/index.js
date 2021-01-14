@@ -1,26 +1,30 @@
+/*React and Redux */
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import extrasAction from "../../../redux/actions/extras";
+/*Icon and Components */
 import { Link } from "react-router-dom";
 import { FiX, FiPlus } from "react-icons/fi";
 import Table from "../../../components/HotelsExtras/Table";
 import HotelsHeader from "../../../components/HotelsHeader";
 import Translations from "../../../components/HotelsExtras/ModalForm";
 import TopOptionsBar from "../../../components/HotelsExtras/TopOptionsBar";
-import ExtraServices from "../../../services/extras";
+import Pagination from "../../../components/Pagination";
+import Card from "../../../components/HotelsRoomList/RoomsCard";
+/*Api and Styles*/
+import Api from "../../../services/extras";
 
 function Extras() {
-  const [extras, setExtras] = useState([]);
+  const dispatch = useDispatch();
   const [isAllSelect, setIsAllSelect] = useState(false);
   const [selected, setSelected] = useState([]);
   const [isRemovingItem, setIsRemovingItem] = useState(false);
+  const { extras, page, limit, totalPages, size } = useSelector(
+    state => state.extraReducer
+  );
 
-  async function fetchData() {
-    try {
-      const res = await ExtraServices.getExtras();
-      if (res.status || res.status === 200) setExtras(res.data);
-    } catch (error) {
-      window.alert("Não foi possível resgatar os itens");
-      console.log(error.message);
-    }
+  function handleChangePageOrLimit(field, data) {
+    dispatch(extrasAction.setPageOrLimit(field, data));
   }
 
   function handleChangeSelectAll() {
@@ -40,58 +44,74 @@ function Extras() {
   }
 
   async function handleSingleDelete(id) {
-    if (window.confirm("Realmente deseja deletar esse item ?")) {
-      try {
-        setIsRemovingItem(true);
-        const res = await ExtraServices.deleteExtra(id);
-        if (res.status || res.status === 200)
-          window.alert("Item excluido com sucesso");
-      } finally {
-        setIsRemovingItem(false);
-      }
+    if (window.confirm("Do you really want to delete this item ?")) {
+      setIsRemovingItem(true);
+      const res = await Api.deleteExtra(id);
+      res && window.alert("Item removed with success");
+      setIsRemovingItem(false);
     }
   }
 
-  async function handleDeleteSelected() {
-    if (window.confirm("Realmente deseja deletar os itens selecionados ?")) {
-      setIsRemovingItem(true);
-      const rest = await ExtraServices.deleteAll(selected);
-      const message = rest
-        ? "Itens removidos com sucesso"
-        : "Não foi possível remover todos os itens selecionados";
-      window.alert(message);
-      setIsRemovingItem(false);
-      isAllSelect && setIsAllSelect(false);
+  function handleDeleteSelected() {
+    if (window.confirm("Do you really want to delete all selected items ?")) {
+      selected.map(async item => {
+        setIsRemovingItem(true);
+        await Api.deleteExtra(item.id);
+        setIsRemovingItem(false);
+      });
     }
   }
 
   useEffect(() => {
+    async function fetchData() {
+      if (limit !== "all") {
+        let pageNumber = page;
+        await Api.getExtrasSize(dispatch);
+
+        if (limit === 100 && size <= 100) pageNumber = 1; // eslint-disable-line no-unused-vars
+
+        await Api.getExtrasPaginate(page, limit, dispatch);
+        dispatch(extrasAction.setTotalPages(size));
+      } else {
+        await Api.getExtras(dispatch);
+      }
+    }
+
     if (!isRemovingItem) fetchData();
-  }, [isRemovingItem]);
+  }, [isRemovingItem, dispatch, limit, page, size]);
+
+  const body = (
+    <div className="row">
+      <div className="col-md-12">
+        <TopOptionsBar type={"content-between"}>
+          <Link className="btn btn-success" to="/hotels/extras/create">
+            <FiPlus /> ADD
+          </Link>
+          <button className="btn btn-danger" onClick={handleDeleteSelected}>
+            <FiX /> Delete Selected
+          </button>
+        </TopOptionsBar>
+        <Table
+          handleSingleDelete={handleSingleDelete}
+          handleChangeSelectAll={handleChangeSelectAll}
+          isAllSelect={isAllSelect}
+          handleSelect={handleSelect}
+        />
+        <Pagination
+          page={page}
+          limit={limit}
+          totalPages={totalPages}
+          handleChangePageOrLimit={handleChangePageOrLimit}
+        />
+      </div>
+    </div>
+  );
 
   return (
     <>
       <HotelsHeader />
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12 mt-5">
-            <TopOptionsBar type={"content-between"}>
-              <Link className="btn btn-success" to="/hotels/extras/create">
-                <FiPlus /> Add
-              </Link>
-              <button className="btn btn-danger" onClick={handleDeleteSelected}>
-                <FiX /> Deletar Selecionados
-              </button>
-            </TopOptionsBar>
-            <Table
-              extras={extras}
-              handleSingleDelete={handleSingleDelete}
-              handleChangeSelectAll={handleChangeSelectAll}
-              isAllSelect={isAllSelect}
-              handleSelect={handleSelect}
-            />
-          </div>
-        </div>
+      <div className="container mt-5">
+        <Card title="EXTRAS MANAGEMENT" content={body} />
       </div>
       {extras?.map(extra => (
         <Translations
