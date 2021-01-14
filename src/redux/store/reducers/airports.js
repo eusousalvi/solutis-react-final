@@ -3,14 +3,19 @@ import {
     REMOVE_FROM_REMOVAL_LIST,
     REFRESH_PAGE,
     UPDATE_QUERY,
-    UPDATE_SEARCH_FILTER
+    UPDATE_SEARCH_FILTER,
+    SORT_AIRPORTS,
+    UPDATE_AIRPORTS
 } from "../../constants/airports"
 
 const INITIAL_STATE = {
+    airports: [],
     selectedForRemoval: [],
     refresh: false,
     query: "",
-    searchFilter: "code"
+    searchFilter: "code",
+    sortBy: "", 
+    order: true
 }
 
 export default function reducer(state = INITIAL_STATE, action = null) {
@@ -50,6 +55,19 @@ export default function reducer(state = INITIAL_STATE, action = null) {
             return (
                 {...state,
                     searchFilter: action.payload
+                }
+            )
+        case UPDATE_AIRPORTS:
+            return (
+                {...state,
+                    airports: action.payload
+                }
+            )
+        case SORT_AIRPORTS:
+            return (
+                {...state,
+                    sortBy: action.payload,
+                    order: !state.order
                 }
             )
         default:

@@ -9,25 +9,24 @@ import FlightsHeader from "../../components/FlightsHeader";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { refreshPage } from "../../redux/actions/airports";
+import { refreshPage, updateAirports } from "../../redux/actions/airports";
 import airportServices from "../../services/airports";
 
 import "./styles.css";
 
 function Airports() {
 
-    const { refresh, query, searchFilter } = useSelector(state => state.airports)
+    const { refresh, query, searchFilter, order, sortBy } = useSelector(state => state.airports)
     const dispatch = useDispatch()
 
     const [currentPage, setCurrentPage] = useState(1)
     const [pages, setPages] = useState([])
     const [itemsPerPage, setItemsPerPage] = useState(10)
-    const [airports, setAirports] = useState([])
     const [totalAiports, setTotalAirports] = useState(0)
 
     function getAirportsPaginated() {
-        airportServices.getAirportsPaginated(searchFilter, query, currentPage, itemsPerPage)
-            .then(res => setAirports(res.data))
+        airportServices.getAirportsPaginated(searchFilter, query, currentPage, itemsPerPage, sortBy, order)
+            .then(res => dispatch(updateAirports(res.data)))
             .catch(err => console.error(err))
     }
 
@@ -60,26 +59,25 @@ function Airports() {
 
     useEffect(() => {
         getAirportsPaginated()
-    }, [currentPage, itemsPerPage])
+    }, [currentPage, itemsPerPage, sortBy, order])
 
 
     return (
         <>
             <FlightsHeader />
             <div className="container">
-                <AirportsHeader>
-                    <Link to="airports/add">
-                        <button className="btn btn-success airport-button">ADD</button>
-                    </Link>
-                    <AirportsDeleteSelectedButton />
-                </AirportsHeader>
-
                 <div className="row">
-                    <AirportsTable
-                        airports={airports}
-                        idxStart={currentPage * itemsPerPage - itemsPerPage}
-                    />
+                    <AirportsHeader>
+                        <Link to="airports/add">
+                            <button className="btn btn-success airport-button">ADD</button>
+                        </Link>
+                        <AirportsDeleteSelectedButton />
+                    </AirportsHeader>
                 </div>
+
+                <AirportsTable
+                    idxStart={currentPage * itemsPerPage - itemsPerPage}
+                />
             </div>
 
             <AirportsFooter>

@@ -1,5 +1,6 @@
 import { 
     UPDATE_AIRPORTS,
+    SORT_AIRPORTS,
     SELECT_FOR_REMOVAL,
     REMOVE_FROM_REMOVAL_LIST,
     REFRESH_PAGE,
@@ -46,5 +47,12 @@ export const updateSearchFilter = (filter) => {
     return {
         type: UPDATE_SEARCH_FILTER,
         payload: filter
+    }
+}
+
+export const sortAirports = (field) => {
+    return {
+        type: SORT_AIRPORTS,
+        payload: field
     }
 }
