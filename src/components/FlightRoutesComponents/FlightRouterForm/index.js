@@ -13,7 +13,10 @@ export default function EditFlightForm({ onSubmit: customOnSubmit }) {
     e.preventDefault();
 
     const { formFlightRoutesReducer } = store.getState();
-    customOnSubmit(formFlightRoutesReducer);
+    const { vatTax } = formFlightRoutesReducer;
+    if (vatTax > 100) {
+      console.log("vatTax > 100");
+    } else customOnSubmit(formFlightRoutesReducer);
   }
 
   return (
@@ -34,10 +37,7 @@ export default function EditFlightForm({ onSubmit: customOnSubmit }) {
           >
             Submit
           </button>
-          <Link 
-            to="/flights/routes/"
-            className="btn btn-danger w-100 m-1"
-          >
+          <Link to="/flights/routes/" className="btn btn-danger w-100 m-1">
             Return
           </Link>
         </div>

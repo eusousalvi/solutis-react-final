@@ -72,10 +72,12 @@ export default function MainSettingsForm() {
                 type="text"
                 id="vatTax"
                 name="vatTax"
-                pattern="[\d]{1,3}(,\d{2})?" //TODO: Validar este campo (100 <= % <= 999)
+                pattern="100|\d{1,2}(,\d{2})?"
                 placeholder="vatTax"
+                title="Seu percentual deve ser maior que 0 e menor ou igual a 100."
                 onChange={onChange}
                 value={vatTax}
+                required
               />
               <label htmlFor="vatTax">Vat Tax</label>
             </div>
