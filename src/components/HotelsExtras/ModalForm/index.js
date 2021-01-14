@@ -1,6 +1,6 @@
 import { useState } from "react";
-import ExtraServices from "../../../services/extras";
 import Inputs from "../Inputs";
+import Api from "../../../services/extras";
 
 const initialValue = {
   vietnamese: {
@@ -8,14 +8,14 @@ const initialValue = {
     language: "vietnamese",
     translation: "",
   },
-  espanhol: {
+  spanish: {
     img: "https://www.phptravels.net/uploads/images/language/es.png",
-    language: "espanhol",
+    language: "spanish",
     translation: "",
   },
-  alemao: {
+  german: {
     img: "https://www.phptravels.net/uploads/images/language/de.png",
-    language: "alemao",
+    language: "german",
     translation: "",
   },
 };
@@ -41,14 +41,7 @@ function ModalForm({ extra, label }) {
       ...extra,
       translations: translation,
     };
-
-    try {
-      const res = await ExtraServices.update(id, data);
-      if (res.status === 200) {
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    await Api.update(id, data);
   }
 
   function handleCloseModal() {
@@ -81,7 +74,7 @@ function ModalForm({ extra, label }) {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id={label}>
-              Traduções para "{name}"
+              Translate for "{name}"
             </h5>
             <button
               type="button"
@@ -106,7 +99,7 @@ function ModalForm({ extra, label }) {
               className="btn btn-primary"
               data-bs-dismiss="modal"
               onClick={handleUpdate}>
-              Atualizar
+              Update
             </button>
           </div>
         </div>

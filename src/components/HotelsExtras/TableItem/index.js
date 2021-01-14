@@ -46,7 +46,7 @@ function TableItem({ item, handleSingleDelete, isAllSelect, handleSelect }) {
             className="btn btn-link mt-0"
             data-bs-toggle="modal"
             data-bs-target={`#extra${id}`}>
-            Tradução
+            Translate
           </button>
         </td>
         <td className="modify-buttons">

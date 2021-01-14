@@ -1,13 +1,15 @@
+import { useSelector } from "react-redux";
 import Extras from "../TableItem";
 import "./styles.css";
 
 function Table({
-  extras,
   handleSingleDelete,
   isAllSelect,
   handleChangeSelectAll,
   handleSelect,
 }) {
+  const { extras } = useSelector(state => state.extraReducer);
+
   return (
     <>
       <table className="table table-striped table-hover">
@@ -30,10 +32,10 @@ function Table({
               #
             </th>
             <th scope="col">Thumb</th>
-            <th scope="col">Nome</th>
+            <th scope="col">Name</th>
             <th scope="col">Status</th>
-            <th scope="col">Preço</th>
-            <th scope="col">Tradução</th>
+            <th scope="col">Price</th>
+            <th scope="col">Translate</th>
             <th scope="col"></th>
           </tr>
         </thead>

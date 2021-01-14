@@ -8,7 +8,7 @@ function Inputs({ type, ...props }) {
     return (
       <div className="row form-group mt-2">
         <label className="col-md-3 text-left">
-          Em
+          Name in
           <img src={img} alt={`bandeira ${language}`} height="20" />
           &nbsp;<span className="extras-language">{language}</span>
         </label>
