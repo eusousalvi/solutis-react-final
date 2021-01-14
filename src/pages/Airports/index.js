@@ -24,8 +24,9 @@ function Airports() {
     const [itemsPerPage, setItemsPerPage] = useState(10)
     const [totalAiports, setTotalAirports] = useState(0)
 
-    function getAirportsPaginated() {
-        airportServices.getAirportsPaginated(searchFilter, query, currentPage, itemsPerPage, sortBy, order)
+    function getAirportsPaginated(emptyQuery) {
+        const searchTerm = emptyQuery ? "" : query;
+        airportServices.getAirportsPaginated(searchFilter, searchTerm, currentPage, itemsPerPage, sortBy, order)
             .then(res => dispatch(updateAirports(res.data)))
             .catch(err => console.error(err))
     }
@@ -41,14 +42,15 @@ function Airports() {
         setCurrentPage(1)
     }
 
-    function searchAirports() {
-        airportServices.searchAirports(searchFilter, query)
+    function searchAirports(emptyQuery) {
+        const searchTerm = emptyQuery ? "" : query;
+        airportServices.searchAirports(searchFilter, searchTerm)
             .then(res => {
                 setTotalAirports(res.data.length)
             })
             .catch(err => console.error(err))
-        getAirportsPaginated()
         setCurrentPage(1)
+        getAirportsPaginated(emptyQuery)
     }
 
     useEffect(() => {
@@ -74,7 +76,8 @@ function Airports() {
                         <AirportsDeleteSelectedButton />
                     </AirportsHeader>
                 </div>
-
+            </div>
+            <div className="container airports-table-container">
                 <AirportsTable
                     idxStart={currentPage * itemsPerPage - itemsPerPage}
                 />
