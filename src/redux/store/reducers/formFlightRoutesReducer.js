@@ -22,7 +22,7 @@ const INITIAL_STATE = {
       airline: "",
       flightNumber: "",
       date: "",
-      time: "",
+      checkin: "",
       checkout: "",
     },
     {
@@ -32,7 +32,7 @@ const INITIAL_STATE = {
       airline: "",
       flightNumber: "",
       date: "",
-      time: "",
+      checkin: "",
       checkout: "",
     },
   ],
