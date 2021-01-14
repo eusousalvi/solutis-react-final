@@ -2,18 +2,20 @@ import CreateFlightRoutesButton from "../../components/FlightRoutesComponents/Fl
 import FlightRoutesTable from "../../components/FlightRoutesComponents/FlightRoutesTable";
 import FlightsHeader from "../../components/FlightsHeader";
 import FlightRoutePagination from "../../components/FlightRoutesComponents/FlightRoutePagination";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import FlightRouteDeleteSelected from "../../components/FlightRoutesComponents/FlightRouteDeleteSelected";
 
 function FlightRoutes() {
-
   const [page, setPage] = useState(1);
   const [numberPerPage, setNumberPerPage] = useState(10);
   const [totalRoutes, setTotalRoutes] = useState();
+  const [refresh, setRefresh] = useState(0);
+
+  useEffect(() => {}, [refresh]);
 
   return (
     <>
-      <FlightsHeader/>
+      <FlightsHeader />
       <div className="container">
         <div className="row">
           <div className="col-md-12">
@@ -22,9 +24,22 @@ function FlightRoutes() {
         </div>
       </div>
       <div className="container">
-        <CreateFlightRoutesButton />
-        <FlightRoutesTable page={page} numberPerPage={numberPerPage} setTotalRoutes={setTotalRoutes}/>
-        <FlightRoutePagination numberPerPage={numberPerPage} totalRoutes={totalRoutes} setPage={setPage} setNumberPerPage={setNumberPerPage} page={page}/>
+        <div className={"d-flex justify-content-between"}>
+          <CreateFlightRoutesButton />
+          <FlightRouteDeleteSelected refresh={refresh} setRefresh={setRefresh}/>
+        </div>
+        <FlightRoutesTable
+          page={page}
+          numberPerPage={numberPerPage}
+          setTotalRoutes={setTotalRoutes}
+        />
+        <FlightRoutePagination
+          numberPerPage={numberPerPage}
+          totalRoutes={totalRoutes}
+          setPage={setPage}
+          setNumberPerPage={setNumberPerPage}
+          page={page}
+        />
       </div>
     </>
   );

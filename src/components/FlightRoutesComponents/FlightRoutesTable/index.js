@@ -5,6 +5,7 @@ import routes from "../../../services/routes";
 function FlightRoutesTable(props) {
   const [flights, setFlights] = useState([]);
   const [refresh, setRefresh] = useState(0);
+  const [selected, setSelected] = useState([]);
 
   useEffect(setFlightsList, [refresh, props]);
 
@@ -40,9 +41,10 @@ function FlightRoutesTable(props) {
   }
 
   return (
-    <table className="table table-striped table-bordered mt-2">
+    <table className="table table-striped mt-2">
       <thead>
         <tr>
+          <th><input type={"checkbox"}></input></th>
           <th scope="col">#</th>
           <th scope="col">From</th>
           <th scope="col">To</th>
@@ -60,7 +62,7 @@ function FlightRoutesTable(props) {
       </thead>
       <tbody>
         {flights.map((flight, index) => {
-          return <FlightRoutesRow refresh={refreshChange} key={index} flight={flight} />;
+          return <FlightRoutesRow selected={selected} setSelected={setSelected} refresh={refreshChange} key={index} flight={flight} />;
         })}
       </tbody>
     </table>
