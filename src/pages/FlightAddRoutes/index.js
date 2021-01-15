@@ -23,7 +23,10 @@ export default function AddFlightRoutes() {
   function handleFormSubmit(values) {
     routes
       .addRoute(values)
-      .then(() => history.push("/flights/routes"))
+      .then(() => {
+        history.push("/flights/routes");
+        setTimeout(() => alert("Sua rota aérea foi criada!"), 1000);
+      })
       .catch((error) => console.log(error));
   }
 
