@@ -47,17 +47,22 @@ function FlightEditForm() {
         return value.replace(/\D/g, '')
     }
     const textMask = (value) => {
-        return value.replace(/\w/g,  x => x.toUpperCase())
-        .replace(/[0-9]/g, '')
+        return value.replace(/\w/g, x => x.toUpperCase())
+            .replace(/[0-9]/g, '')
     }
     const latilong = (value) => {
-        return value.replace(/\D/g, '')
-        .replace(/(\d{1})(\d)/, '$1.$2')
+        return value
+            .replace(/\D/g, '')
+            .replace(/(\d{1})(\d)/, '$1.$2')
         //It is needes to set maxlenght on input to 8, because must have 7 decimal digits after number +"."
     }
     const gmtMask = (value) => {
-        return value.replace(/^[0-9+-]/g, '')
+        return value
+            // .replace(/(^0-9)(\d)/, '$1$2')
+            .replace(/[^0-9+-]/gi, '')
     }
+
+
 
     return (
         <div className="container">
@@ -130,12 +135,21 @@ function FlightEditForm() {
                             <label for="floatingInput">Código do País</label>
                         </div>
 
-                        <div className="form-floating">
-                            <input type="text" name="timezone" placeholder="Digite" maxLength="5" value={form.timezone} onChange={(e) => {
-                                setInput({ timezone: gmtMask(e.target.value) })
-                            }} className="form-control input-space" id="floatingInput" />
-                            <label for="floatingInput">Timezone</label>
-                        </div>
+
+                        
+
+                            <div className="form-floating input-width">
+                                <input type="text" name="timezone" placeholder="Digite" maxLength="3" value={form.timezone} onChange={(e) => {
+                                if(Number(e.target.value) > 12 || Number(e.target.value) < -12 ){
+                                    alert("Digite um valor entre -12 à +12!")
+                                }
+                                else {
+                                    setInput({ timezone: gmtMask(e.target.value) })
+                                   }
+                                }} className="form-control input-space input-correct" id="floatingInput" />
+                                <label for="floatingInput">Timezone</label>
+                            </div>
+                        
 
                         <div className="form-floating">
                             <input type="text" name="long" placeholder="Digite" maxLength="8" value={form.longitude} onChange={(e) => {
