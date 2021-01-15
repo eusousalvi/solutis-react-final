@@ -14,8 +14,8 @@ export default function reducer(state = INITIAL_STATE, action = null) {
     case DESELECT_ITEM:
       return {
           ...state,
-          selectedItems: state.selectedItems.filter((id) => id !== action.payload)
-      }
+          selectedItems: state.selectedItems.filter((id) => id !== action.payload),
+      };
 
     default:
       return state;

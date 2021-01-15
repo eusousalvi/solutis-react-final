@@ -15,10 +15,10 @@ export default function FlightRouteDeleteSelected(props) {
     if (confirmDelete) {
       selectedItems.forEach((id) => {
         routes
-          .deleteRoute(id)
-          .catch((erro) => console.log(erro));
+        .deleteRoute(id)
+        .catch((erro) => console.log(erro))
+        .finally(() => {props.setRefresh(props.refresh + 1);});
       });
-      props.setRefresh(props.refresh + 1);
     }
   }
 

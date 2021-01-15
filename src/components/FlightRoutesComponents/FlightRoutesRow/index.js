@@ -3,13 +3,21 @@ import { FiEdit } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
 import routes from "../../../services/routes";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { selectItem, deselectItem } from "../../../redux/actions/flightsRoutes";
 
 function FlightRoutesRow(props) {
   const dispatch = useDispatch();
   const [isChecked, setIsChecked] = useState(false);
+
+  useEffect(() => {
+    if (props.allChecked === true) {
+      setChecked(false);
+    } else {
+      setIsChecked(false)
+    }
+  }, [props]);
 
   function deleteRow() {
     routes
@@ -38,6 +46,7 @@ function FlightRoutesRow(props) {
       <td>
         <input
           type={"checkbox"}
+          checked={isChecked}
           onChange={() => {
             setChecked(isChecked);
           }}
