@@ -6,6 +6,7 @@ import rooms from "./reducers/rooms";
 import hotelsReducer from "./reducers/hotelsReducer";
 import airports from "./reducers/airports";
 import extraReducer from "./reducers/extraReducer";
+import flightsRoutes from "./reducers/flightsRoutes";
 
 const reducer = combineReducers({
   formFlightRoutesReducer,
@@ -14,6 +15,7 @@ const reducer = combineReducers({
   hotelsReducer,
   airports,
   extraReducer,
+  flightsRoutes,
 });
 
 const middleware = applyMiddleware(thunk);
