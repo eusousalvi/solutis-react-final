@@ -25,27 +25,27 @@ function Airports() {
     const [totalAiports, setTotalAirports] = useState(0)
 
     function getAirportsPaginated(emptyQuery) {
-        
+
         const searchTerm = emptyQuery ? "" : query;
 
         airportServices
             .getAirportsPaginated(
-                searchFilter, 
-                searchTerm, 
-                currentPage, 
-                itemsPerPage, 
-                sortBy, 
+                searchFilter,
+                searchTerm,
+                currentPage,
+                itemsPerPage,
+                sortBy,
                 order
             )
             .then(res => dispatch(updateAirports(res.data)))
-            .catch(err =>  console.error(err))
+            .catch(err => console.error(err))
     }
 
     function fetchAllAirports() {
         airportServices.getAirports()
             .then(res => setTotalAirports(res.data.length))
-            .catch(err =>  {
-                if(err.response.status === 429)
+            .catch(err => {
+                if (err.response.status === 429)
                     alert(err + " (Too many requests). Wait a few seconds and refresh the page.")
             })
     }
@@ -58,15 +58,15 @@ function Airports() {
     function searchAirports(emptyQuery) {
 
         const searchTerm = emptyQuery ? "" : query;
-        
+
         airportServices.searchAirports(searchFilter, searchTerm)
             .then(res => {
                 setTotalAirports(res.data.length)
             })
             .catch(err => console.error(err))
-        
+
         setCurrentPage(1)
-        
+
         getAirportsPaginated(emptyQuery)
     }
 
@@ -84,13 +84,13 @@ function Airports() {
         <>
             <FlightsHeader />
             <div className="container airports-table-container">
-                    <AirportsHeader>
-                        <Link to="airports/add">
-                            <button className="btn btn-success airport-button">ADD</button>
-                        </Link>
-                        <AirportsDeleteSelectedButton />
-                    </AirportsHeader>
-                    {loading > 0  ? <AirportsLoadingBar /> : <></>}
+                <AirportsHeader>
+                    <Link to="airports/add">
+                        <button className="btn btn-success airport-button">ADD</button>
+                    </Link>
+                    <AirportsDeleteSelectedButton />
+                </AirportsHeader>
+                {loading > 0 ? <AirportsLoadingBar /> : <></>}
                 <AirportsTable
                     idxStart={currentPage * itemsPerPage - itemsPerPage}
                 />
