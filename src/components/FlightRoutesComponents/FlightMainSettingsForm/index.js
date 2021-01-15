@@ -35,7 +35,9 @@ export default function MainSettingsForm() {
 
   React.useEffect(() => {
     const flightTime = getNodeDifference(route[0], route[route.length - 1]);
-    dispatch(update("totalHours", minutesToString(flightTime)));
+    if (!isNaN(flightTime))
+      dispatch(update("totalHours", minutesToString(flightTime)));
+
     return () => {};
   }, [route, dispatch]);
 
