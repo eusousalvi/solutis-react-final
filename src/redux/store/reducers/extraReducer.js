@@ -52,7 +52,6 @@ export default function reducer(state = INITIAL_STATE, action = null) {
       const newSelecteds = state.selecteds.filter(
         item => item !== action.payload
       );
-      console.log(newSelecteds);
       return { ...state, selecteds: newSelecteds };
 
     case SET_IS_ALL_SELECTED:
