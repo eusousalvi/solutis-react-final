@@ -62,7 +62,7 @@ function FlightRoutesRow(props) {
       <td className="text-center">{props.flight.totalHours}</td>
       <td className="text-center">{props.flight.route[0].date}</td>
       <td className="text-center">{props.flight.route[findSize()].date}</td>
-      <td className="text-center">{props.flight.route[0].checkout}</td>
+      <td className="text-center">{props.flight.route[0].checkin}</td>
       <td className="text-center">{props.flight.route[findSize()].checkout}</td>
       <td className="d-flex justify-content-center">
         <Link

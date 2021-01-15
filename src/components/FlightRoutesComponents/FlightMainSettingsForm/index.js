@@ -3,14 +3,25 @@ import "./styles.css";
 
 import { useDispatch, useSelector } from "react-redux";
 
+import parseFlightNodeDate from "../../../helpers/parseFlightNodeDate";
+import minutesToString from "../../../helpers/minutesToString";
+
 import { update } from "../../../redux/actions/formFlightRoutes";
+
+function getNodeDifference(initial, final) {
+  return (
+    (parseFlightNodeDate(final) - parseFlightNodeDate(initial, true)) /
+    (1000 * 60)
+  );
+}
 
 export default function MainSettingsForm() {
   const {
+    route,
     status,
-    totalHours,
     vatTax,
     deposite,
+    totalHours,
     flightType,
     refundable,
     direction,
@@ -21,6 +32,12 @@ export default function MainSettingsForm() {
     const { name, value } = e.target;
     dispatch(update(name, value));
   }
+
+  React.useEffect(() => {
+    const flightTime = getNodeDifference(route[0], route[route.length - 1]);
+    dispatch(update("totalHours", minutesToString(flightTime)));
+    return () => {};
+  }, [route, dispatch]);
 
   return (
     <div id="main-settings-form-wrapper" className="col-4">
@@ -51,13 +68,12 @@ export default function MainSettingsForm() {
           </div>
           <div className="form-floating main-settings-item">
             <input
-              required
-              type="time"
               className="form-control"
               id="totalHours"
               name="totalHours"
               onChange={onChange}
               value={totalHours}
+              readOnly
             />
             <label htmlFor="totalHours">Total Hours</label>
           </div>
@@ -72,10 +88,12 @@ export default function MainSettingsForm() {
                 type="text"
                 id="vatTax"
                 name="vatTax"
-                pattern="[\d]{1,3}(,\d{2})?" //TODO: Validar este campo (100 <= % <= 999)
+                pattern="100|\d{1,2}(,\d{2})?"
                 placeholder="vatTax"
+                title="Seu percentual deve ser maior que 0 e menor ou igual a 100."
                 onChange={onChange}
                 value={vatTax}
+                required
               />
               <label htmlFor="vatTax">Vat Tax</label>
             </div>

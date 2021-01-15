@@ -13,6 +13,19 @@ export default function EditFlightForm({ onSubmit: customOnSubmit }) {
     e.preventDefault();
 
     const { formFlightRoutesReducer } = store.getState();
+    const { route } = formFlightRoutesReducer;
+
+    console.log(formFlightRoutesReducer);
+
+    // console.log();
+    // const flightDays = getDateDifference(
+    //   route[0].date,
+    //   route[route.length - 1].date
+    // );
+    // const flightTime = getNodeDifference(route[0], route[route.length - 1]);
+    // console.log(flightTime);
+    // console.log(minutesToString(flightTime));
+
     customOnSubmit(formFlightRoutesReducer);
   }
 
@@ -34,10 +47,7 @@ export default function EditFlightForm({ onSubmit: customOnSubmit }) {
           >
             Submit
           </button>
-          <Link 
-            to="/flights/routes/"
-            className="btn btn-danger w-100 m-1"
-          >
+          <Link to="/flights/routes/" className="btn btn-danger w-100 m-1">
             Return
           </Link>
         </div>
