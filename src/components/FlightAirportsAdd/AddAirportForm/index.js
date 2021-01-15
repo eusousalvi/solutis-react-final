@@ -36,7 +36,8 @@ export default function AddAirportForm() {
                 <div className="row">
                     <div className="form-group col-md-2">
                         <label for="code">Aeroporto ID</label>
-                        <input 
+                        <input
+                        required 
                         value={form.code} 
                         onChange={(e)=>{
                             setInput({code: e.target.value})
@@ -47,7 +48,8 @@ export default function AddAirportForm() {
                     </div>
                     <div className="form-group col-md-8">
                         <label for="name">Nome</label>
-                        <input 
+                        <input
+                        required 
                         value={form.name} 
                         onChange={(e)=>{
                             setInput({name: e.target.value})
@@ -58,7 +60,8 @@ export default function AddAirportForm() {
                 <div className="row">
                     <div className="form-group col-md-2">
                         <label for="citycode">Cidade ID</label>
-                        <input 
+                        <input
+                        required 
                         value={form.citycode} 
                         onChange={(e)=>{
                             setInput({citycode: e.target.value})
@@ -67,7 +70,8 @@ export default function AddAirportForm() {
                     </div>
                     <div className="form-group col-md-8">
                         <label for="cityname">Nome</label>
-                        <input 
+                        <input
+                        required 
                         value={form.cityname} 
                         onChange={(e)=>{
                             setInput({cityname: e.target.value})
@@ -78,7 +82,8 @@ export default function AddAirportForm() {
                 <div className="row">
                     <div className="form-group col-md-2">
                         <label for="countrycode">Pais ID</label>
-                        <input 
+                        <input
+                        required 
                         value={form.countrycode} 
                         onChange={(e)=>{
                             setInput({countrycode: e.target.value})
@@ -87,7 +92,8 @@ export default function AddAirportForm() {
                     </div>
                     <div className="form-group col-md-4">
                         <label for="countryname">Nome</label>
-                        <input 
+                        <input
+                        required 
                         value={form.countryname} 
                         onChange={(e)=>{
                             setInput({countryname: e.target.value})
@@ -96,7 +102,8 @@ export default function AddAirportForm() {
                     </div>
                     <div className="form-group col-md-4">
                         <label for="continentId">Continente</label>
-                        <input 
+                        <input
+                        required 
                         value={form.continentId} 
                         onChange={(e)=>{
                             setInput({continentId: e.target.value})
@@ -106,7 +113,8 @@ export default function AddAirportForm() {
                     <div className="row">
                         <div className="form-group col-md-2">
                             <label for="Latitude">Latitude</label>
-                            <input 
+                            <input
+                            required 
                             value={form.latitude} 
                             onChange={(e)=>{
                                 setInput({latitude: e.target.value})
@@ -115,7 +123,8 @@ export default function AddAirportForm() {
                         </div>
                         <div className="form-group col-md-2">
                             <label for="Longitude">Longitude</label>
-                            <input 
+                            <input
+                            required 
                             value={form.longitude} 
                             onChange={(e)=>{
                                 setInput({longitude: e.target.value})
@@ -124,7 +133,8 @@ export default function AddAirportForm() {
                         </div>
                         <div className="form-group col-md-4">
                             <label for="Timezone">Timezone</label>
-                            <input 
+                            <input
+                            required 
                             value={form.timezone} 
                             onChange={(e)=>{
                                 setInput({timezone: e.target.value})
