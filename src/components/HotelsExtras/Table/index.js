@@ -1,14 +1,15 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import extrasAction from "../../../redux/actions/extras";
 import Extras from "../TableItem";
 import "./styles.css";
 
-function Table({
-  handleSingleDelete,
-  isAllSelect,
-  handleChangeSelectAll,
-  handleSelect,
-}) {
-  const { extras } = useSelector(state => state.extraReducer);
+function Table() {
+  const dispatch = useDispatch();
+  const { extras, isAllSelected } = useSelector(state => state.extraReducer);
+
+  function handleChangeSelectAll() {
+    dispatch(extrasAction.setIsAllSelected());
+  }
 
   return (
     <>
@@ -24,7 +25,7 @@ function Table({
                   name="selectAll"
                   id="selectAll"
                   onChange={handleChangeSelectAll}
-                  checked={isAllSelect}
+                  checked={isAllSelected}
                 />
               </div>
             </th>
@@ -41,13 +42,7 @@ function Table({
         </thead>
         <tbody>
           {extras.map((item, idx) => (
-            <Extras
-              key={item.id}
-              item={{ ...item, tableId: idx + 1 }}
-              handleSingleDelete={handleSingleDelete}
-              isAllSelect={isAllSelect}
-              handleSelect={handleSelect}
-            />
+            <Extras key={item.id} item={{ ...item, tableId: idx + 1 }} />
           ))}
         </tbody>
       </table>

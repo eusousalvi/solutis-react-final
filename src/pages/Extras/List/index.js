@@ -1,5 +1,5 @@
 /*React and Redux */
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import extrasAction from "../../../redux/actions/extras";
 /*Icon and Components */
@@ -16,48 +16,24 @@ import Api from "../../../services/extras";
 
 function Extras() {
   const dispatch = useDispatch();
-  const [isAllSelect, setIsAllSelect] = useState(false);
-  const [selected, setSelected] = useState([]);
-  const [isRemovingItem, setIsRemovingItem] = useState(false);
-  const { extras, page, limit, totalPages, size } = useSelector(
-    state => state.extraReducer
-  );
+  const {
+    extras,
+    page,
+    limit,
+    totalPages,
+    size,
+    selecteds,
+    isDeleting,
+  } = useSelector(state => state.extraReducer);
 
   function handleChangePageOrLimit(field, data) {
     dispatch(extrasAction.setPageOrLimit(field, data));
   }
 
-  function handleChangeSelectAll() {
-    setIsAllSelect(oldState => {
-      !oldState ? setSelected(extras) : setSelected([]);
-      return !oldState;
-    });
-  }
-
-  function handleSelect(extra, option) {
-    if (option) {
-      setSelected([...selected, extra]);
-    } else {
-      const newSelected = selected.filter(item => item.id !== extra.id);
-      setSelected(newSelected);
-    }
-  }
-
-  async function handleSingleDelete(id) {
-    if (window.confirm("Do you really want to delete this item ?")) {
-      setIsRemovingItem(true);
-      const res = await Api.deleteExtra(id);
-      res && window.alert("Item removed with success");
-      setIsRemovingItem(false);
-    }
-  }
-
   function handleDeleteSelected() {
     if (window.confirm("Do you really want to delete all selected items ?")) {
-      selected.map(async item => {
-        setIsRemovingItem(true);
-        await Api.deleteExtra(item.id);
-        setIsRemovingItem(false);
+      selecteds.map(async item => {
+        await Api.deleteExtra(item, dispatch);
       });
     }
   }
@@ -77,8 +53,8 @@ function Extras() {
       }
     }
 
-    if (!isRemovingItem) fetchData();
-  }, [isRemovingItem, dispatch, limit, page, size]);
+    if (!isDeleting) fetchData();
+  }, [isDeleting, dispatch, limit, page, size]);
 
   const body = (
     <div className="row">
@@ -91,12 +67,9 @@ function Extras() {
             <FiX /> Delete Selected
           </button>
         </TopOptionsBar>
-        <Table
-          handleSingleDelete={handleSingleDelete}
-          handleChangeSelectAll={handleChangeSelectAll}
-          isAllSelect={isAllSelect}
-          handleSelect={handleSelect}
-        />
+
+        <Table />
+
         <Pagination
           page={page}
           limit={limit}

@@ -49,7 +49,7 @@ function Detail({ match, history }) {
         <input
           className="form-control my-3"
           type="text"
-          placeholder={`Status*:  ${item.status}`}
+          placeholder={`Status*:  ${item.status ? "Yes" : "No"}`}
           aria-label={`Status*:  ${item.status}`}
           disabled
         />

@@ -12,6 +12,7 @@ function Form({ children, handleSubmit, item, handleChange, refForm }) {
           id="img"
           pattern="^[^\s]+(\s+[^\s]+)*$"
           onChange={handleChange}
+          placeholder="https://picsum.photos/200"
           value={item.img}
           name="img"
           required
@@ -27,6 +28,8 @@ function Form({ children, handleSubmit, item, handleChange, refForm }) {
           className="form-control"
           id="name"
           pattern="^[^-\s][a-zA-Z0-9_\s-]+$"
+          maxLength={40}
+          placeholder="Champagne"
           onChange={handleChange}
           value={item.name}
           name="name"
@@ -45,8 +48,8 @@ function Form({ children, handleSubmit, item, handleChange, refForm }) {
           value={item.status}
           name="status"
           required>
-          <option value="true">Sim</option>
-          <option value="false">Não</option>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
         </select>
         <div className="invalid-feedback"></div>
       </div>
@@ -59,6 +62,9 @@ function Form({ children, handleSubmit, item, handleChange, refForm }) {
           className="form-control"
           id="price"
           onChange={handleChange}
+          placeholder="25"
+          min="0"
+          max="100000"
           value={item.price ? item.price : ""}
           name="price"
           required
