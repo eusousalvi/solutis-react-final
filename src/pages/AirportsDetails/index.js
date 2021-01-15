@@ -1,10 +1,23 @@
 import AirportView from "../../components/FlightsAirportsList/AirportView";
 import AirportsHeader from "../../components/FlightsAirportsList/AirportsHeader";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router";
+import { useState, useEffect } from "react";
 import FlightsHeader from "../../components/FlightsHeader";
+import airportsService from "../../services/airports";
 
-function AirportsDetails(props) {
+function AirportsDetails() {
     
+    const params = useParams();
+    const [airport, setAirport] = useState({})
+
+    useEffect(() => {
+        airportsService.getAirportById(params.id)
+        .then(res =>  setAirport(res.data))
+        .catch(err => console.log(err))
+    }, [])
+
+
     return (
         <>
             <FlightsHeader />
@@ -16,7 +29,7 @@ function AirportsDetails(props) {
                         </Link>
                     </div>
                 </AirportsHeader>
-                <AirportView airport={props.location.airport} />
+                <AirportView airport={airport} />
             </div>
         </>
     )

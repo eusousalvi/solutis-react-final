@@ -5,7 +5,8 @@ import {
     REMOVE_FROM_REMOVAL_LIST,
     REFRESH_PAGE,
     UPDATE_QUERY,
-    UPDATE_SEARCH_FILTER
+    UPDATE_SEARCH_FILTER,
+    UPDATE_LOADING
 } from "../constants/airports" 
 
 export const selectForRemoval = (id) => {
@@ -22,10 +23,9 @@ export const removeFromRemovalList = (id) => {
     }
 }
 
-export const refreshPage = (shouldRefresh) => {
+export const refreshPage = () => {
     return {
-        type: REFRESH_PAGE,
-        payload: shouldRefresh
+        type: REFRESH_PAGE
     }
 }
 
@@ -54,5 +54,12 @@ export const sortAirports = (field) => {
     return {
         type: SORT_AIRPORTS,
         payload: field
+    }
+}
+
+export const updateLoading = (value) => {
+    return {
+        type: UPDATE_LOADING,
+        payload: value
     }
 }

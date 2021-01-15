@@ -4,19 +4,19 @@ import AirportsPagination from "../../components/FlightsAirportsList/AirportsPag
 import AirportsSearchBar from "../../components/FlightsAirportsList/AirportsSearchBar";
 import AirportsFooter from "../../components/FlightsAirportsList/AirportsFooter";
 import AirportsDeleteSelectedButton from "../../components/FlightsAirportsList/AirportsDeleteSelectedButton";
+import AirportsLoadingBar from "../../components/FlightsAirportsList/AirportsLoadingBar";
 import FlightsHeader from "../../components/FlightsHeader";
-
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { refreshPage, updateAirports } from "../../redux/actions/airports";
+import { updateAirports } from "../../redux/actions/airports";
 import airportServices from "../../services/airports";
 
 import "./styles.css";
 
 function Airports() {
 
-    const { refresh, query, searchFilter, order, sortBy } = useSelector(state => state.airports)
+    const { refresh, query, searchFilter, order, sortBy, loading } = useSelector(state => state.airports)
     const dispatch = useDispatch()
 
     const [currentPage, setCurrentPage] = useState(1)
@@ -25,16 +25,21 @@ function Airports() {
     const [totalAiports, setTotalAirports] = useState(0)
 
     function getAirportsPaginated(emptyQuery) {
+        
         const searchTerm = emptyQuery ? "" : query;
+
         airportServices.getAirportsPaginated(searchFilter, searchTerm, currentPage, itemsPerPage, sortBy, order)
             .then(res => dispatch(updateAirports(res.data)))
-            .catch(err => console.error(err))
+            .catch(err =>  console.error(err))
     }
 
     function fetchAllAirports() {
         airportServices.getAirports()
             .then(res => setTotalAirports(res.data.length))
-            .catch(err => console.error(err))
+            .catch(err =>  {
+                if(err.response.status === 429)
+                    alert(err + " (Too many requests). Wait a few seconds and refresh the page.")
+            })
     }
 
     function updateItemsPerPage(quantity) {
@@ -43,20 +48,23 @@ function Airports() {
     }
 
     function searchAirports(emptyQuery) {
+
         const searchTerm = emptyQuery ? "" : query;
+        
         airportServices.searchAirports(searchFilter, searchTerm)
             .then(res => {
                 setTotalAirports(res.data.length)
             })
             .catch(err => console.error(err))
+        
         setCurrentPage(1)
+        
         getAirportsPaginated(emptyQuery)
     }
 
     useEffect(() => {
         fetchAllAirports()
         getAirportsPaginated()
-        dispatch(refreshPage(false))
     }, [refresh])
 
     useEffect(() => {
@@ -67,7 +75,7 @@ function Airports() {
     return (
         <>
             <FlightsHeader />
-            <div className="container">
+            <div className="container airports-table-container">
                 <div className="row">
                     <AirportsHeader>
                         <Link to="airports/add">
@@ -75,9 +83,8 @@ function Airports() {
                         </Link>
                         <AirportsDeleteSelectedButton />
                     </AirportsHeader>
+                    {loading > 0  ? <AirportsLoadingBar /> : <></>}
                 </div>
-            </div>
-            <div className="container airports-table-container">
                 <AirportsTable
                     idxStart={currentPage * itemsPerPage - itemsPerPage}
                 />
