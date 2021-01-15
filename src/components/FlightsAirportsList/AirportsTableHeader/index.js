@@ -37,7 +37,7 @@ function AirportsTableHeader({ fields, prefix, toggleCheck }) {
                         return (
                             <th scope="col" 
                                 className={`airports-table-title ${prefix+field} ${isActive ? "d-flex" : ""}`} 
-                                key={prefix+field}
+                                key={field}
                                 onClick={() => handleChangeOrder(field)}
                             >
                                 {isActive && (

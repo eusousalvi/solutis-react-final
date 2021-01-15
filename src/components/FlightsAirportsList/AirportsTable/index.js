@@ -28,7 +28,7 @@ function AirportsTable({ idxStart }) {
 
     return (
         <div className="table-responsive">
-            <table className="table table-striped table-bordered" id="airportsTable">
+            <table className="table table-striped" id="airportsTable">
                 <AirportsTableHeader fields={tableFields} prefix="airports" toggleCheck={toggleCheck} />
                 <tbody>
                     {airports.map((airport, idx) =>

@@ -5,7 +5,8 @@ import {
     UPDATE_QUERY,
     UPDATE_SEARCH_FILTER,
     SORT_AIRPORTS,
-    UPDATE_AIRPORTS
+    UPDATE_AIRPORTS,
+    UPDATE_LOADING
 } from "../../constants/airports"
 
 const INITIAL_STATE = {
@@ -15,7 +16,8 @@ const INITIAL_STATE = {
     query: "",
     searchFilter: "code",
     sortBy: "", 
-    order: true
+    order: true,
+    loading: 0
 }
 
 export default function reducer(state = INITIAL_STATE, action = null) {
@@ -42,7 +44,7 @@ export default function reducer(state = INITIAL_STATE, action = null) {
         case REFRESH_PAGE:
             return (
                 {...state,
-                    refresh: action.payload
+                    refresh: !state.refresh
                 }
             )
         case UPDATE_QUERY:
@@ -68,6 +70,12 @@ export default function reducer(state = INITIAL_STATE, action = null) {
                 {...state,
                     sortBy: action.payload,
                     order: !state.order
+                }
+            )
+        case UPDATE_LOADING:
+            return (
+                {...state,
+                    loading: action.payload === 0 ? 0 : state.loading + action.payload
                 }
             )
         default:
