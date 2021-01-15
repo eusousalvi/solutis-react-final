@@ -8,3 +8,7 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+.room-container {
+  margin-bottom: 10vh;
+}

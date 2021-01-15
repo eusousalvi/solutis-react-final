@@ -19,7 +19,7 @@ function RoomsTable({
   }
 
   return (
-    <table className="table table-striped table-hover">
+    <table className="table table-striped table-hover room-container">
       <RoomsTableHeader
         fields={fields}
         order={order}
