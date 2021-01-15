@@ -1,5 +1,4 @@
-import React from "react";
-import InputMask from "react-input-mask";
+import React, { Fragment } from "react";
 
 import airportsService from "../../../services/airports";
 
@@ -9,119 +8,136 @@ export default function FlightNode({
   onClickDelete,
   onChange,
 }) {
-  const [airports, setAirports] = React.useState([]);
+  const [airlines, setAirlines] = React.useState(["GOL", "Azul", "Passaredo"]);
   const [loadingAirports, setLoadingAirports] = React.useState(true);
+  const [airports, setAirports] = React.useState([]);
 
-  const airlineList = ["GOL", "Azul", "Passaredo"];
-
+  const { type, city, airline, flightNumber, date, checkin, checkout } = node;
   React.useEffect(() => {
     airportsService.getAirports().then((response) => {
-      setAirports(response);
+      setAirports(response.data);
       setLoadingAirports(false);
 
-      onChange({ target: { name: "city", value: response[0].id } });
+      if (response.data.length > 0 && city === undefined) {
+        onChange({
+          city: response.data[0].id,
+          airline: airlines[0],
+        });
+      }
     });
 
-    onChange({ target: { name: "airline", value: airlineList[0] } });
     return () => {};
   }, []);
 
-  const { type, airport, airline, flightNumber, date, time, checkout } = node;
+  function handleChange(e) {
+    const { name, value } = e.target;
+    onChange({
+      [name]: value,
+    });
+  }
 
   return (
-    <tr>
-      <td>
-        <input
-          className="form-control text-center"
-          type="text"
-          name="type"
-          placeholder={type}
-          readOnly
-        />
-      </td>
+    <Fragment>
       {!loadingAirports && (
-        <td>
-          <select
-            className="form-control"
-            id={`${type.toLowerCase()}Airport`}
-            name="city"
-            defaultValue={airport}
-            onChange={onChange}
-          >
-            {airports.map((airport) => (
-              <option key={airport.id} value={airport.id}>
-                {airport.citycode}
-              </option>
-            ))}
-          </select>
-        </td>
+        <tr>
+          <td>
+            <input
+              className="form-control text-center"
+              type="text"
+              name="type"
+              placeholder={type}
+              readOnly
+            />
+          </td>
+
+          <td>
+            <select
+              className="form-control"
+              id={`${type.toLowerCase()}Airport`}
+              name="city"
+              value={city}
+              onChange={handleChange}
+            >
+              {airports.map((airport) => (
+                <option key={airport.id}>
+                  {airport.citycode}
+                </option>
+              ))}
+            </select>
+          </td>
+
+          <td>
+            <select
+              className="form-control"
+              id={`${type.toLowerCase()}Airline`}
+              name="airline"
+              value={airline}
+              onChange={handleChange}
+              required
+            >
+              {airlines.map((airline) => (
+                <option key={airline}>{airline}</option>
+              ))}
+            </select>
+          </td>
+          <td>
+            <input
+              className="form-control"
+              name="flightNumber"
+              type="text"
+              onChange={handleChange}
+              value={flightNumber}
+              pattern="[\d]{4}"
+              title="O número do voo deve conter 4 dígitos numéricos."
+              required
+            />
+          </td>
+          <td>
+            <input
+              className="form-control"
+              id="flight-date"
+              type="date"
+              name="date"
+              onChange={handleChange}
+              value={date}
+              required
+            />
+          </td>
+          <td>
+            <input
+              className="form-control"
+              type="time"
+              id="flight-checkin"
+              name="checkin"
+              onChange={handleChange}
+              value={checkin}
+              required
+            />
+          </td>
+          <td>
+            <input
+              className="form-control"
+              type="time"
+              id="flight-checkout"
+              name="checkout"
+              onChange={handleChange}
+              value={checkout}
+              required
+            />
+          </td>
+          {removable && (
+            <td>
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={onClickDelete}
+              >
+                x
+              </button>
+            </td>
+          )}
+        </tr>
       )}
-      <td>
-        <select
-          className="form-control"
-          id={`${type.toLowerCase()}Airline`}
-          name="airline"
-          defaultValue={airline}
-          onChange={onChange}
-          required
-        >
-          {airlineList.map((airline) => (
-            <option key={airline}>{airline}</option>
-          ))}
-        </select>
-      </td>
-      <td>
-        <InputMask
-          className="form-control"
-          type="text"
-          name="flightNumber"
-          defaultValue={flightNumber}
-          onChange={onChange}
-          required
-          mask="999999"
-          maskPlaceholder={null}
-        />
-      </td>
-      <td>
-        <input
-          className="form-control"
-          id="flight-date"
-          type="date"
-          name="date"
-          onChange={onChange}
-          defaultValue={date}
-          required
-        />
-      </td>
-      <td>
-        <input
-          className="form-control"
-          type="time"
-          id="flight-time"
-          name="time"
-          onChange={onChange}
-          defaultValue={time}
-          required
-        />
-      </td>
-      <td>
-        <input
-          className="form-control"
-          type="time"
-          id="flight-checkout"
-          name="checkout"
-          onChange={onChange}
-          defaultValue={checkout}
-          required
-        />
-      </td>
-      {removable && (
-        <td>
-          <button className="btn btn-danger" onClick={onClickDelete}>
-            x
-          </button>
-        </td>
-      )}
-    </tr>
+    </Fragment>
   );
 }

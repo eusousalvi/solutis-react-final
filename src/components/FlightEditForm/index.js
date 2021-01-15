@@ -42,6 +42,27 @@ function FlightEditForm() {
         e.preventDefault()
         airportsService.updateAirport(id, form)
     }
+    //--------Masks-----------//
+    const numberMask = (value) => {
+        return value.replace(/\D/g, '')
+    }
+    const textMask = (value) => {
+        return value.replace(/\w/g, x => x.toUpperCase())
+            .replace(/[0-9]/g, '')
+    }
+    const latilong = (value) => {
+        return value
+            .replace(/\D/g, '')
+            .replace(/(\d{1})(\d)/, '$1.$2')
+        //It is needes to set maxlenght on input to 8, because must have 7 decimal digits after number +"."
+    }
+    const gmtMask = (value) => {
+        return value
+            // .replace(/(^0-9)(\d)/, '$1$2')
+            .replace(/[^0-9+-]/gi, '')
+    }
+
+
 
     return (
         <div className="container">
@@ -56,19 +77,18 @@ function FlightEditForm() {
                     <div className="col-xs-12 col-md-6">
 
                         <div className="form-floating">
-                            <input type="text" name="code" placeholder="Digite" value={form.code} onChange={(e) => {
-                                setInput({ code: e.target.value })
+                            <input type="text" name="code" maxLength="3" placeholder="Digite" value={form.code} onChange={(e) => {
+                                setInput({ code: textMask(e.target.value) })
                             }} className="form-control input-space code" id="floatingInput" />
                             <label for="floatingInput">Código</label>
                         </div>
-                        {/* {console.log(code)} */}
                         <div className="form-floating">
                             <input type="text" name="cityCode" placeholder="Digite" maxLength="3" value={form.citycode} onChange={(e) => {
-                                setInput({ citycode: e.target.value })
+                                setInput({ citycode: textMask(e.target.value) })
                             }} className="form-control input-space" id="floatingInput" />
                             <label for="floatingInput">Código da Cidade</label>
                         </div>
-                        {/* {console.log(cityCode)} */}
+
 
                         <div className="form-floating">
                             <input type="text" name="country" placeholder="Digite" value={form.countryname} onChange={(e) => {
@@ -76,60 +96,68 @@ function FlightEditForm() {
                             }} className="form-control input-space" id="floatingInput" />
                             <label for="floatingInput">País</label>
                         </div>
-                        {/* {console.log(country)} */}
+
                         <div className="form-floating">
-                            <input type="number" name="continent" placeholder="Digite" maxLength="3" value={form.continentId} onChange={(e) => {
-                                setInput({ continentId: e.target.value })
+                            <input type="text" name="continent" placeholder="Digite" maxLength="3" value={form.continentId} onChange={(e) => {
+                                setInput({ continentId: numberMask(e.target.value) })
                             }} className="form-control input-space" id="floatingInput" />
                             <label for="floatingInput">Id do Continente</label>
                         </div>
-                        {/* {console.log(continent)} */}
+
                         <div className="form-floating">
-                            <input type="number" name="lat" placeholder="Digite" value={form.latitude} onChange={(e) => {
-                                setInput({ latitude: e.target.value })
+                            <input type="text" name="lat" placeholder="Digite" maxLength="8" value={form.latitude} onChange={(e) => {
+                                setInput({ latitude: latilong(e.target.value) })
                             }} className="form-control input-space" id="floatingInput" />
                             <label for="floatingInput">Latitude</label>
                         </div>
-                        {/* {console.log(lat)} */}
-                        {/* </form> */}
+
                     </div>
                     <div className="col-xs-12 col-md-6">
-                        {/* <form action="" className="form-space"> */}
+
                         <div className="form-floating">
                             <input type="text" name="name" placeholder="Digite" value={form.name} onChange={(e) => {
                                 setInput({ name: e.target.value })
                             }} className="form-control input-space" id="floatingInput" />
                             <label for="floatingInput">Nome</label>
                         </div>
-                        {/* {console.log(name)} */}
+
                         <div className="form-floating">
                             <input type="text" name="city" placeholder="Digite" value={form.cityname} onChange={(e) => {
                                 setInput({ cityname: e.target.value })
                             }} className="form-control input-space" id="floatingInput" />
                             <label for="floatingInput">Cidade</label>
                         </div>
-                        {/* {console.log(city)} */}
+
                         <div className="form-floating">
                             <input type="text" name="countryCode" placeholder="Digite" maxLength="4" value={form.countrycode} onChange={(e) => {
-                                setInput({ countrycode: e.target.value })
+                                setInput({ countrycode: textMask(e.target.value) })
                             }} className="form-control input-space" id="floatingInput" />
                             <label for="floatingInput">Código do País</label>
                         </div>
-                        {/* {console.log(countryCode)} */}
+
+
+                        
+
+                            <div className="form-floating input-width">
+                                <input type="text" name="timezone" placeholder="Digite" maxLength="3" value={form.timezone} onChange={(e) => {
+                                if(Number(e.target.value) > 12 || Number(e.target.value) < -12 ){
+                                    alert("Digite um valor entre -12 à +12!")
+                                }
+                                else {
+                                    setInput({ timezone: gmtMask(e.target.value) })
+                                   }
+                                }} className="form-control input-space input-correct" id="floatingInput" />
+                                <label for="floatingInput">Timezone</label>
+                            </div>
+                        
+
                         <div className="form-floating">
-                            <input type="number" name="timezone" placeholder="Digite" maxLength="5" value={form.timezone} onChange={(e) => {
-                                setInput({ timezone: e.target.value })
-                            }} className="form-control input-space" id="floatingInput" />
-                            <label for="floatingInput">Timezone</label>
-                        </div>
-                        {/* {console.log(timezone)} */}
-                        <div className="form-floating">
-                            <input type="number" name="long" placeholder="Digite" value={form.longitude} onChange={(e) => {
-                                setInput({ long: e.target.value })
+                            <input type="text" name="long" placeholder="Digite" maxLength="8" value={form.longitude} onChange={(e) => {
+                                setInput({ longitude: latilong(e.target.value) })
                             }} className="form-control input-space" id="floatingInput" />
                             <label for="floatingInput">Longitude</label>
                         </div>
-                        {/* {console.log(long)} */}
+
                     </div>
                 </div>
             </form>

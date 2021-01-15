@@ -2,11 +2,14 @@ import { Link } from 'react-router-dom';
 import { BiSearch } from "react-icons/bi";
 import { FiEdit } from "react-icons/fi";
 import { useState, useEffect } from 'react';
+import { useDispatch } from "react-redux";
+import {selectForRemoval, removeFromRemovalList} from "../../../redux/actions/airports";
 import AirportsDeleteButton from "../AirportsDeleteButton";
 import "./styles.css";
 
-const AirportsTableEntry = ({ airport, checked, num, setSelectedForRemoval, setDeleted }) => {
+const AirportsTableEntry = ({ airport, checked, num }) => {
     
+    const dispatch = useDispatch()
     const [isChecked, setIsChecked] = useState(checked)
     
     useEffect(() => {
@@ -15,9 +18,9 @@ const AirportsTableEntry = ({ airport, checked, num, setSelectedForRemoval, setD
 
     useEffect(() => {
         if(isChecked)
-            setSelectedForRemoval(state => [...state, airport.id])
+            dispatch(selectForRemoval(airport.id))
         else
-            setSelectedForRemoval(state => state.filter(id => id !== airport.id))
+            dispatch(removeFromRemovalList(airport.id))
     }, [isChecked])
 
     return (
@@ -32,16 +35,36 @@ const AirportsTableEntry = ({ airport, checked, num, setSelectedForRemoval, setD
             </td>
 
             <td>{num}</td>
-            <td id={`airportCode-${airport.id}`}>{airport.code}</td>
-            <td id={`airportName-${airport.id}`}>{airport.name}</td>
-            <td id={`airportCitycode-${airport.id}`}>{airport.citycode}</td>
-            <td id={`airportCityname-${airport.id}`}>{airport.cityname}</td>
-            <td id={`airportCountryname-${airport.id}`}>{airport.countryname}</td>
-            <td id={`airportCountrycode-${airport.id}`}>{airport.countrycode}</td>
-            <td id={`airportContinentname-${airport.id}`}>{airport.continentId}</td>
-            <td id={`airportTimezone-${airport.id}`}>{airport.timezone}</td>
-            <td id={`airportLatitude-${airport.id}`}>{airport.latitude}</td>
-            <td id={`airportLongitude-${airport.id}`}>{airport.longitude}</td>
+            <td id={`airportCode-${airport.id}`}>
+                {airport.code}
+            </td>
+            <td id={`airportName-${airport.id}`}>
+                {airport.name}
+            </td>
+            <td id={`airportCitycode-${airport.id}`}>
+                {airport.citycode}
+            </td>
+            <td id={`airportCityname-${airport.id}`}>
+                {airport.cityname}
+            </td>
+            <td id={`airportCountryname-${airport.id}`}>
+                {airport.countryname}
+            </td>
+            <td id={`airportCountrycode-${airport.id}`}>
+                {airport.countrycode}
+            </td>
+            <td id={`airportContinentname-${airport.id}`}>
+                {airport.continentId}
+            </td>
+            <td id={`airportTimezone-${airport.id}`}>
+                {airport.timezone}
+            </td>
+            <td id={`airportLatitude-${airport.id}`}>
+                {airport.latitude}
+            </td>
+            <td id={`airportLongitude-${airport.id}`}>
+                {airport.longitude}
+            </td>
 
             <td id={`airportActions-${airport.id}`}>
                 <span className="airportSpan">
@@ -58,7 +81,7 @@ const AirportsTableEntry = ({ airport, checked, num, setSelectedForRemoval, setD
                         </button>
                     </Link>
 
-                    <AirportsDeleteButton id={airport.id} setDeleted={setDeleted}/>
+                    <AirportsDeleteButton id={airport.id} />
                 </span>
             </td>
         </tr>

@@ -5,7 +5,7 @@ import AirportEdit from "./pages/AirportEdit";
 import RoomsAvailability from "./pages/RoomsAvailability";
 import Landing from "./pages/Landing";
 import Hotels from "./pages/Hotels";
-import Reviews from './pages/Reviews';
+import Reviews from "./pages/Reviews";
 import EditFlightRoutes from "./pages/FlightEditRoutes";
 import AddFlightRoutes from "./pages/FlightAddRoutes";
 import Rooms from "./pages/Rooms";
@@ -20,6 +20,7 @@ import Extras from "./pages/Extras/List";
 import ModifyExtras from "./pages/Extras/Modify";
 import DetailExtra from "./pages/Extras/Detail";
 import AddHotel from "./pages/AddHotel";
+import EditHotel from "./pages/EditHotel";
 
 function Routes() {
   return (
@@ -35,6 +36,7 @@ function Routes() {
         <Route path="/hotels" exact component={Hotels} />~
         <Route path="/hotels/reviews" exact component={Reviews} />
         <Route path="/hotels/create" exact component={AddHotel} />
+        <Route path="/hotels/edit/:id" exact component={EditHotel} />
         <Route
           path="/hotels/rooms/availability/:id"
           exact

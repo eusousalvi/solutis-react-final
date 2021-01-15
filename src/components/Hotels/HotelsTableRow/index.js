@@ -4,16 +4,31 @@ import { BiWorld } from "react-icons/bi";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-function HotelsTableRow({ index, hotel, handleDelete, selectAll }) {
+function HotelsTableRow({
+  index,
+  hotel,
+  handleDelete,
+  selectAll,
+  setSelectedToDelete,
+}) {
   const [select, setSelect] = useState(selectAll);
 
   useEffect(() => {
     setSelect(selectAll);
   }, [selectAll]);
 
+  useEffect(() => {
+    if (select) {
+      setSelectedToDelete((prev) => [...prev, id]);
+    } else {
+      setSelectedToDelete((prev) => [...prev].filter((item) => item !== id));
+    }
+  }, [select]);
+
   const {
-    // id,
+    id,
     image,
     name,
     location,
@@ -49,7 +64,7 @@ function HotelsTableRow({ index, hotel, handleDelete, selectAll }) {
         />
       </td>
       <td>{name}</td>
-      <td>{star}</td>
+      <td>{star > 5 ? 5 : star}</td>
       <td>{owned_by}</td>
       <td>{location}</td>
       <td>
@@ -76,9 +91,9 @@ function HotelsTableRow({ index, hotel, handleDelete, selectAll }) {
         <button className="btn btn-primary">
           <BiWorld />
         </button>
-        <button className="btn btn-warning mx-2">
+        <Link className="btn btn-warning" to={`/hotels/edit/${id}`}>
           <FiEdit />
-        </button>
+        </Link>
         <button className="btn btn-danger" onClick={handleDelete}>
           <AiOutlineDelete />
         </button>

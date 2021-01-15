@@ -1,0 +1,15 @@
+.airportsActions {
+    min-width: 150px;
+}
+
+.airportsContinent {
+    min-width: 112px;
+}
+
+.airports-table-title {
+    cursor: pointer
+}
+
+.airports-table-title:hover {
+    text-decoration: underline;
+}
