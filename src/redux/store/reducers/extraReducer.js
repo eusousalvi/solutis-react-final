@@ -4,11 +4,18 @@ import {
   SET_EXTRAS_PAGE_OR_LIMIT,
   GET_EXTRAS_SIZE,
   SET_EXTRAS_TOTAL_PAGES,
+  SET_IS_DELETING,
+  SET_SELECTEDS,
+  REMOVE_SELECTED,
+  SET_IS_ALL_SELECTED,
 } from "../../constants/extras";
 
 const INITIAL_STATE = {
   extras: [],
   totalPages: [],
+  selecteds: [],
+  isDeleting: false,
+  isAllSelected: false,
   size: 0,
   page: 1,
   limit: 25,
@@ -34,6 +41,28 @@ export default function reducer(state = INITIAL_STATE, action = null) {
 
     case GET_EXTRAS_SIZE:
       return { ...state, size: action.payload };
+
+    case SET_IS_DELETING:
+      return { ...state, isDeleting: !state.isDeleting };
+
+    case SET_SELECTEDS:
+      return { ...state, selecteds: [...state.selecteds, ...action.payload] };
+
+    case REMOVE_SELECTED:
+      const newSelecteds = state.selecteds.filter(
+        item => item !== action.payload
+      );
+      return { ...state, selecteds: newSelecteds };
+
+    case SET_IS_ALL_SELECTED:
+      const selecteds = !state.isAllSelected
+        ? state.extras.map(item => item.id)
+        : [];
+      return {
+        ...state,
+        isAllSelected: !state.isAllSelected,
+        selecteds: selecteds,
+      };
 
     default:
       return state;

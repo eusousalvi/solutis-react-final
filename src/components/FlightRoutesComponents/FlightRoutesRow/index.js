@@ -11,11 +11,13 @@ function FlightRoutesRow(props) {
   const dispatch = useDispatch();
   const [isChecked, setIsChecked] = useState(false);
 
+  console.log(props.flight);
+
   useEffect(() => {
     if (props.allChecked === true) {
       setChecked(false);
     } else {
-      setIsChecked(false)
+      setIsChecked(false);
     }
   }, [props]);
 
@@ -60,25 +62,23 @@ function FlightRoutesRow(props) {
       <td className="text-center">{props.flight.totalHours}</td>
       <td className="text-center">{props.flight.route[0].date}</td>
       <td className="text-center">{props.flight.route[findSize()].date}</td>
-      <td className="text-center">{props.flight.route[0].time}</td>
+      <td className="text-center">{props.flight.route[0].checkin}</td>
       <td className="text-center">{props.flight.route[findSize()].checkout}</td>
       <td className="d-flex justify-content-center">
-        <button className="btn btn-info mx-1">
-          <Link
-            className={"text-dark"}
-            to={`/flights/routes/details/${props.flight.id}`}
-          >
-            <BiWorld />
-          </Link>
-        </button>
-        <button className="btn btn-warning mx-1">
-          <Link
-            className={"text-dark"}
-            to={`/flights/routes/manage/${props.flight.id}`}
-          >
-            <FiEdit />
-          </Link>
-        </button>
+        <Link
+          className={"text-dark btn btn-info mx-1"}
+          to={`/flights/routes/details/${props.flight.id}`}
+        >
+          <BiWorld />
+        </Link>
+
+        <Link
+          className={"text-dark btn btn-warning mx-1"}
+          to={`/flights/routes/manage/${props.flight.id}`}
+        >
+          <FiEdit />
+        </Link>
+
         <button
           type={"button"}
           onClick={deleteRow}

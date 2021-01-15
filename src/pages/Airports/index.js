@@ -84,7 +84,6 @@ function Airports() {
         <>
             <FlightsHeader />
             <div className="container airports-table-container">
-                <div className="row">
                     <AirportsHeader>
                         <Link to="airports/add">
                             <button className="btn btn-success airport-button">ADD</button>
@@ -92,7 +91,6 @@ function Airports() {
                         <AirportsDeleteSelectedButton />
                     </AirportsHeader>
                     {loading > 0  ? <AirportsLoadingBar /> : <></>}
-                </div>
                 <AirportsTable
                     idxStart={currentPage * itemsPerPage - itemsPerPage}
                 />

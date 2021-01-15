@@ -16,8 +16,10 @@ import { useDispatch, useSelector } from "react-redux";
 function Hotels() {
   const [deleted, setDeleted] = useState(false);
   const [selectAll, setSelectAll] = useState(false);
-  const dispatch = useDispatch();
+  const [selectedToDelete, setSelectedToDelete] = useState([]);
 
+  const dispatch = useDispatch();
+  console.log(selectedToDelete);
   const tableHeader = [
     "#",
     "Image",
@@ -52,7 +54,7 @@ function Hotels() {
       }
     }
     fetchData();
-  }, [dispatch, deleted, page, limit]);
+  }, [dispatch, deleted, page, limit, size]);
 
   function handleChangePageOrLimit(field, data) {
     dispatch(hotelsAction.setPageOrLimit(field, data));
@@ -81,7 +83,7 @@ function Hotels() {
       <div className="container">
         <div className="row">
           <div className="col-md-12 mt-5">
-            <HotelsTopBar />
+            <HotelsTopBar selectedToDelete={selectedToDelete} />
             <table className="table">
               <HotelsTableHeader
                 columnTitle={tableHeader}
@@ -93,6 +95,7 @@ function Hotels() {
                 {hotels.map((hotel, index) => {
                   return (
                     <HotelsTableRow
+                      setSelectedToDelete={setSelectedToDelete}
                       selectAll={selectAll}
                       handleDelete={() => {
                         handleDelete(hotel.id);
