@@ -1,6 +1,5 @@
 import "./styles.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { updateQuery, updateSearchFilter } from "../../../redux/actions/airports";
 
@@ -22,20 +21,22 @@ function AirportsSearchBar({ searchAirports }) {
         if (!isClicked)
             setClicked(true)
         else {
-            searchAirports()
+            searchAirports(false)
         }
     }
 
     function refreshPage() {
         dispatch(updateQuery(""))
-        window.location.reload()
+        dispatch(updateSearchFilter("code"))
+        searchAirports(true)
+        setClicked(false)
     }
 
     return (
         <form className={"airports-form form float-right " + (isClicked ? "form-complete" : "form-solo")}>
             {   isClicked ?
                 <>
-                    <input className="form-control" type="text" name="query"
+                    <input className="form-control" type="text"
                         placeholder="Search by: "
                         onChange={onChangeQuery}
                     />
@@ -56,16 +57,14 @@ function AirportsSearchBar({ searchAirports }) {
                 null
             }
 
-            <button className="btn btn-primary airport-button" id="btnSearch" type="submit" onClick={onSubmit}>
+            <button className="btn btn-primary airport-button" id="btnSearch" type="button" onClick={onSubmit}>
                 {isClicked ? "Go" : "Search"}
             </button>
 
             { isClicked ?
-                <Link to="/flights/airports">
-                    <button className="btn btn-warning airport-button" onClick={refreshPage}>
-                        Reset
-                    </button>
-                </Link>
+                <button className="btn btn-warning airport-button" type="button" onClick={refreshPage}>
+                    Reset
+                </button>
                 :
                 null
             }
