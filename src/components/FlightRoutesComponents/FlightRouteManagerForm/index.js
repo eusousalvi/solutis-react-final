@@ -23,12 +23,12 @@ function evaluateRoute(route) {
     if (i > 0 && currentNodeCheckIn - parseFlightNodeDate(route[i - 1]) < 0) {
       return {
         hasError: true,
-        message: `O checkout do nó ${i - 1} ocorre após o checkin do nó ${i}`,
+        message: `O Check In de uma conexão deve ocorrer após o Check Out da conexão anterior!`,
       };
     } else if (currentNodeCheckOut - currentNodeCheckIn < 0) {
       return {
         hasError: true,
-        message: `O checkin do nó ${i} ocorre após o seu checkout.`,
+        message: `Verifique se o horário do checkin antecede o horário do checkout!`,
       };
     }
   }
@@ -69,8 +69,8 @@ export default function FlightRouteManagerForm() {
 
       if (!hasError) dispatch(updateNode(id, data));
       else {
-        // TODO: Display error message!
-        console.log(message);
+        alert(message);
+        // console.log(message);
       }
     };
   }
