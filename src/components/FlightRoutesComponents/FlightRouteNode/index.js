@@ -13,7 +13,6 @@ export default function FlightNode({
   const [airports, setAirports] = React.useState([]);
 
   const { type, city, airline, flightNumber, date, checkin, checkout } = node;
-
   React.useEffect(() => {
     airportsService.getAirports().then((response) => {
       setAirports(response.data);
@@ -56,11 +55,11 @@ export default function FlightNode({
               className="form-control"
               id={`${type.toLowerCase()}Airport`}
               name="city"
-              defaultValue={city}
+              value={city}
               onChange={handleChange}
             >
               {airports.map((airport) => (
-                <option key={airport.id} value={airport.id}>
+                <option key={airport.id}>
                   {airport.citycode}
                 </option>
               ))}
@@ -72,7 +71,7 @@ export default function FlightNode({
               className="form-control"
               id={`${type.toLowerCase()}Airline`}
               name="airline"
-              defaultValue={airline}
+              value={airline}
               onChange={handleChange}
               required
             >
@@ -87,7 +86,7 @@ export default function FlightNode({
               name="flightNumber"
               type="text"
               onChange={handleChange}
-              defaultValue={flightNumber}
+              value={flightNumber}
               pattern="[\d]{4}"
               title="O número do voo deve conter 4 dígitos numéricos."
               required
@@ -100,7 +99,7 @@ export default function FlightNode({
               type="date"
               name="date"
               onChange={handleChange}
-              defaultValue={date}
+              value={date}
               required
             />
           </td>
@@ -111,7 +110,7 @@ export default function FlightNode({
               id="flight-checkin"
               name="checkin"
               onChange={handleChange}
-              defaultValue={checkin}
+              value={checkin}
               required
             />
           </td>
@@ -122,7 +121,7 @@ export default function FlightNode({
               id="flight-checkout"
               name="checkout"
               onChange={handleChange}
-              defaultValue={checkout}
+              value={checkout}
               required
             />
           </td>

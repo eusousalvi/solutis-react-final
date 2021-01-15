@@ -3,22 +3,16 @@ import "./styles.css";
 
 import { useDispatch, useSelector } from "react-redux";
 
+import parseFlightNodeDate from "../../../helpers/parseFlightNodeDate";
+import minutesToString from "../../../helpers/minutesToString";
+
 import { update } from "../../../redux/actions/formFlightRoutes";
 
-function parseNodeDate(node, arrival = false) {
-  const date = node.date.split("-");
-  const time = arrival ? node.checkin.split(":") : node.checkout.split(":");
-  return new Date(date[0], date[1] - 1, date[2], time[0], time[1]);
-}
-
-function minutesToString(minutes) {
-  return `${Math.floor(minutes / 60)}:${minutes % 60 <= 9 ? "0" : ""}${
-    minutes % 60
-  }`;
-}
-
 function getNodeDifference(initial, final) {
-  return (parseNodeDate(final) - parseNodeDate(initial, true)) / (1000 * 60);
+  return (
+    (parseFlightNodeDate(final) - parseFlightNodeDate(initial, true)) /
+    (1000 * 60)
+  );
 }
 
 export default function MainSettingsForm() {

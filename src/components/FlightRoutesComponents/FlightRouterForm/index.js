@@ -26,7 +26,7 @@ export default function EditFlightForm({ onSubmit: customOnSubmit }) {
     // console.log(flightTime);
     // console.log(minutesToString(flightTime));
 
-    // customOnSubmit(formFlightRoutesReducer);
+    customOnSubmit(formFlightRoutesReducer);
   }
 
   return (

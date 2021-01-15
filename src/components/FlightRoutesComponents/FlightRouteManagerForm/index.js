@@ -2,30 +2,60 @@ import React from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { update, updateNode } from "../../../redux/actions/formFlightRoutes";
-
+import parseFlightNodeDate from "../../../helpers/parseFlightNodeDate";
 import FlightRouteNode from "../FlightRouteNode";
 
 const DEFAULT_NODE = {
   flightNumber: "",
-  city: undefined,
+  city: "citycode 0",
   checkout: "",
   checkin: "",
   airline: "",
   date: "",
 };
 
+function evaluateRoute(route) {
+  let i;
+  for (i = 0; i < route.length; i++) {
+    const currentNodeCheckOut = parseFlightNodeDate(route[i], false);
+    const currentNodeCheckIn = parseFlightNodeDate(route[i], true);
+
+    if (i > 0 && currentNodeCheckIn - parseFlightNodeDate(route[i - 1]) < 0) {
+      return {
+        hasError: true,
+        message: `O checkout do nó ${i - 1} ocorre após o checkin do nó ${i}`,
+      };
+    } else if (currentNodeCheckOut - currentNodeCheckIn < 0) {
+      return {
+        hasError: true,
+        message: `O checkin do nó ${i} ocorre após o seu checkout.`,
+      };
+    }
+  }
+  return { hasError: false };
+}
+
+function applyChange(route, { id, data }) {
+  return route.map((node) => (node.id === id ? { ...node, ...data } : node));
+}
+
 export default function FlightRouteManagerForm() {
   const { route } = useSelector((state) => state.formFlightRoutesReducer);
   const dispatch = useDispatch();
 
   function handleAddTransitClick() {
+    const { checkout, date, flightNumber } = route[route.length - 2];
     dispatch(
       update("route", [
         ...route.slice(0, route.length - 1),
         {
-          id: route.length,
-          type: "Transit",
           ...DEFAULT_NODE,
+          date,
+          checkout,
+          flightNumber,
+          type: "Transit",
+          id: route.length,
+          checkin: checkout,
         },
         ...route.slice(route.length - 1),
       ])
@@ -34,7 +64,14 @@ export default function FlightRouteManagerForm() {
 
   function onChange(id) {
     return (data) => {
-      dispatch(updateNode(id, data));
+      const routeAfterChange = applyChange(route, { id, data });
+      const { hasError, message } = evaluateRoute(routeAfterChange);
+
+      if (!hasError) dispatch(updateNode(id, data));
+      else {
+        // TODO: Display error message!
+        console.log(message);
+      }
     };
   }
 
