@@ -18,7 +18,7 @@ const INITIAL_STATE = {
     {
       id: 0,
       type: "Departure",
-      city: undefined,
+      city: "citycode 0",
       airline: "",
       flightNumber: "",
       date: "",
@@ -28,7 +28,7 @@ const INITIAL_STATE = {
     {
       id: 1,
       type: "Arrival",
-      city: undefined,
+      city: "citycode 0",
       airline: "",
       flightNumber: "",
       date: "",
