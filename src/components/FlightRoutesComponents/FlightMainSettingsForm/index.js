@@ -116,6 +116,8 @@ export default function MainSettingsForm() {
                 type="text"
                 id="deposite"
                 name="deposite"
+                title="Informe um valor numérico. Ex: 150,00 ou 1500,00"
+                pattern="[\d]+(,\d{2})?"
                 placeholder="deposite"
                 onChange={onChange}
                 value={deposite}
