@@ -6,12 +6,26 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function HotelsTableRow({ index, hotel, handleDelete, selectAll }) {
+function HotelsTableRow({
+  index,
+  hotel,
+  handleDelete,
+  selectAll,
+  setSelectedToDelete,
+}) {
   const [select, setSelect] = useState(selectAll);
 
   useEffect(() => {
     setSelect(selectAll);
   }, [selectAll]);
+
+  useEffect(() => {
+    if (select) {
+      setSelectedToDelete((prev) => [...prev, id]);
+    } else {
+      setSelectedToDelete((prev) => [...prev].filter((item) => item !== id));
+    }
+  }, [select]);
 
   const {
     id,
@@ -50,7 +64,7 @@ function HotelsTableRow({ index, hotel, handleDelete, selectAll }) {
         />
       </td>
       <td>{name}</td>
-      <td>{star}</td>
+      <td>{star > 5 ? 5 : star}</td>
       <td>{owned_by}</td>
       <td>{location}</td>
       <td>
