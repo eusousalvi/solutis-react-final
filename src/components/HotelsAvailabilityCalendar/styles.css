@@ -116,6 +116,7 @@ td.availabilityCalendar__empty {
   opacity: 0;
   z-index: -1;
   transition: all ease-in-out 2s;
+  padding: 0 15px;
 }
 
 .availabilityMsg > h5 {

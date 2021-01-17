@@ -6,21 +6,9 @@ import { editRoomAvailability } from '../../services/roomsAvailability';
 import { BsFillInfoCircleFill } from 'react-icons/bs';
 import './styles.css';
 import { AvailabilityContext } from './AvailabilityContext';
+import getMonths from '../../helpers/getMonths';
 
-const months = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
+const months = getMonths();
 
 function HotelAvailabilityCalendar() {
   const { setCurrentYear } = useContext(AvailabilityContext);
@@ -31,7 +19,7 @@ function HotelAvailabilityCalendar() {
     e.preventDefault();
     const data = {
       availability: months.map((month) => {
-        return { name: month, availabilityDays: getDaysInMonth(month) };
+        return { name: month.name, availabilityDays: getDaysInMonth(month.name) };
       }),
     };
     editRoomAvailability(roomId, data);
