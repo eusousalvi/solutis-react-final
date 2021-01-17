@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import AvailabilityCalendarRows from './AvailabilityCalendarRows';
 import getDaysInMonth from '../../helpers/getDaysInMonth';
 import { editRoomAvailability } from '../../services/roomsAvailability';
 import { BsFillInfoCircleFill } from 'react-icons/bs';
 import './styles.css';
+import { AvailabilityContext } from './AvailabilityContext';
 
 const months = [
   'January',
@@ -22,10 +23,9 @@ const months = [
 ];
 
 function HotelAvailabilityCalendar() {
-  const [currentYear, setCurrentYear] = useState('2021');
+  const { setCurrentYear } = useContext(AvailabilityContext);
   const [submit, setSubmit] = useState(false);
-
-  const { id } = useParams();
+  const { roomId } = useParams();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -34,7 +34,7 @@ function HotelAvailabilityCalendar() {
         return { name: month, availabilityDays: getDaysInMonth(month) };
       }),
     };
-    editRoomAvailability(id, data);
+    editRoomAvailability(roomId, data);
     setSubmit(true);
     setTimeout(() => {
       setSubmit(false);
@@ -43,20 +43,20 @@ function HotelAvailabilityCalendar() {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="container pt-3 availabilityForm">
-        <div>
-          <h1 className="mt-5 fs-2"> ROOM AVAILABILITY</h1>
-          <p className="fs-7">
-            Define a maximum number of rooms available for booking for a
-            specified day or date range (maximum availability 10 rooms) To edit
-            room availability simply change the value in a day cell and then
-            click 'Submit' button
+      <form onSubmit={handleSubmit} className="availabilityForm">
+        <header>
+          <h1 className="availabilityCalendar__title"> ROOM AVAILABILITY</h1>
+          <p className="availabilityCalendar__subtitle">
+            Define a maximum number of rooms available for booking for a specified day or date range
+            (maximum availability 10 rooms)
+            <br /> To edit room availability simply change the value in a day cell and then click
+            'Submit' button
           </p>
-        </div>
-        <table className="table availabilityTable table-hover table-borderless">
+        </header>
+        <table className="table availabilityTable table-borderless">
           <tbody>
             <tr className="d-flex flex-row">
-              <td className="d-flex text-center monthName">
+              <td className="d-flex text-center monthName availabilityCalendar__empty">
                 <select onChange={(e) => setCurrentYear(e.target.value)}>
                   <option value="2021">2021</option>
                   <option value="2022">2022</option>
@@ -103,38 +103,38 @@ function HotelAvailabilityCalendar() {
               <td className="availabilityCalendar__weekend">Su</td>
               <td>Mo</td>
             </tr>
-            <AvailabilityCalendarRows currentYear={currentYear} roomId={id} />
-            <tr>
+            <AvailabilityCalendarRows />
+            <tr className="availabilityCalendar__legend">
               <td>
                 <div className="legend">
-                  <div className="legend__available"></div>
+                  <div className="legend--available"></div>
                   <div> - Available</div>
                 </div>
               </td>
             </tr>
-            <tr>
+            <tr className="availabilityCalendar__legend">
               <td>
                 <div className="legend">
-                  <div className="legend__partial"></div> - Partially Available
+                  <div className="legend--partial"></div> - Partially Available
                 </div>
               </td>
             </tr>
-            <tr>
+            <tr className="availabilityCalendar__legend">
               <td>
                 <div className="legend">
-                  <div className="legend__not"></div> - Not Available
+                  <div className="legend--not"></div> - Not Available
                 </div>
               </td>
             </tr>
           </tbody>
         </table>
-        <button type="submit" className="btn btn-primary">
-          SUBMIT
-        </button>
+        <footer className="availabilityCalendar__footer">
+          <button type="submit" className="btn availabilityCalendar__submit">
+            SUBMIT
+          </button>
+        </footer>
       </form>
-      <div
-        className={`availabilityMsg ${submit ? 'activeAvailabilityMsg' : ''}`}
-      >
+      <div className={`availabilityMsg ${submit ? 'activeAvailabilityMsg' : ''}`}>
         <BsFillInfoCircleFill color="#fff" />
         <h5>CHANGED SAVED!</h5>
       </div>

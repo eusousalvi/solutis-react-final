@@ -1,0 +1,11 @@
+.availabilityContainer {
+  background-color: #efefef;
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+  width: 100vw;
+}
+
+.availabilityContainer__calendar {
+  background-color: #fff;
+}
