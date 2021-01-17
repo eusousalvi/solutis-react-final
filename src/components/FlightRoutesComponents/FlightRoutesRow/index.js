@@ -11,8 +11,6 @@ function FlightRoutesRow(props) {
   const dispatch = useDispatch();
   const [isChecked, setIsChecked] = useState(false);
 
-  console.log(props.flight);
-
   useEffect(() => {
     if (props.allChecked === true) {
       setChecked(false);
