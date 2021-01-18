@@ -1,8 +1,11 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import routes from "../../../services/routes";
+import {clearSelectItem} from "../../../redux/actions/flightsRoutes"
 
 export default function FlightRouteDeleteSelected(props) {
   
+  const dispatch = useDispatch();
+
   const selectedItems = useSelector(
     (state) => state.flightsRoutes.selectedItems
   );
@@ -20,6 +23,8 @@ export default function FlightRouteDeleteSelected(props) {
         .finally(() => {props.setRefresh(props.refresh + 1);});
       });
     }
+    dispatch(clearSelectItem());
+
   }
 
   return (

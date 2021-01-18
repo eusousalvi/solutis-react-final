@@ -6,6 +6,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { selectItem, deselectItem } from "../../../redux/actions/flightsRoutes";
+import "./styles.css";
 
 function FlightRoutesRow(props) {
   const dispatch = useDispatch();
@@ -62,7 +63,7 @@ function FlightRoutesRow(props) {
       <td className="text-center">{props.flight.route[findSize()].date}</td>
       <td className="text-center">{props.flight.route[0].checkin}</td>
       <td className="text-center">{props.flight.route[findSize()].checkout}</td>
-      <td className="d-flex justify-content-center">
+      <td className={"routes-button-td"}>
         <Link
           className={"text-dark btn btn-info mx-1"}
           to={`/flights/routes/details/${props.flight.id}`}
