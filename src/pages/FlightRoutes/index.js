@@ -2,10 +2,11 @@ import FlightRoutesTable from "../../components/FlightRoutesComponents/FlightRou
 import FlightsHeader from "../../components/FlightsHeader";
 import FlightRoutePagination from "../../components/FlightRoutesComponents/FlightRoutePagination";
 import { useState } from "react";
-
+import FlightRoutesSearch from "../../components/FlightRoutesComponents/FlightRoutesSearch";
 
 function FlightRoutes() {
   const [page, setPage] = useState(1);
+  const [refresh, setRefresh] = useState(0);
   const [numberPerPage, setNumberPerPage] = useState(10);
   const [totalRoutes, setTotalRoutes] = useState();
 
@@ -24,14 +25,22 @@ function FlightRoutes() {
           page={page}
           numberPerPage={numberPerPage}
           setTotalRoutes={setTotalRoutes}
+          refresh={refresh}
+          setRefresh={setRefresh}
         />
-        <FlightRoutePagination
-          numberPerPage={numberPerPage}
-          totalRoutes={totalRoutes}
-          setPage={setPage}
-          setNumberPerPage={setNumberPerPage}
-          page={page}
-        />
+        <div className={"container d-flex"}>
+          <FlightRoutePagination
+            numberPerPage={numberPerPage}
+            totalRoutes={totalRoutes}
+            setPage={setPage}
+            setNumberPerPage={setNumberPerPage}
+            page={page}
+          />
+          <FlightRoutesSearch 
+            refresh={refresh}
+            setRefresh={setRefresh}
+          />
+        </div>
       </div>
     </>
   );

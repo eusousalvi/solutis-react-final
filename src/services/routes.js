@@ -12,6 +12,10 @@ function getRoute(id) {
   return api.get(`/routes/${id}`);
 }
 
+function searchRoutes(searchFilter, query) {
+  return api.get(`/routes/?${searchFilter}=${query}`);
+}
+
 function addRoute(params) {
   return api.post(`/routes/`, params);
 }
@@ -31,6 +35,7 @@ const exportData = {
   putRoute,
   getRoutes,
   deleteRoute,
+  searchRoutes,
 };
 
 export default exportData;

@@ -3,17 +3,22 @@ import FlightRoutesRow from "../FlightRoutesRow";
 import routes from "../../../services/routes";
 import CreateFlightRoutesButton from "../FlightRoutesCreateButton";
 import FlightRouteDeleteSelected from "../FlightRouteDeleteSelected";
+import { useDispatch, useSelector } from "react-redux";
+import {clearSelectItem} from "../../../redux/actions/flightsRoutes";
 
 function FlightRoutesTable(props) {
   const [flights, setFlights] = useState([]);
-  const [refresh, setRefresh] = useState(0);
   const [selected, setSelected] = useState([]);
   const [allChecked, setAllChecked] = useState(false);
 
-  useEffect(setFlightsList, [refresh, props]);
+  const search = useSelector((state) => state.flightsRoutes.search);
+  const dispatch = useDispatch();
+
+  useEffect(setFlightsList, [props]);
 
   function setFlightsList() {
-    routes
+    if (search === {}) {
+      routes
       .getRoutes()
       .then((res) => {
         props.setTotalRoutes(res.data.length);
@@ -21,6 +26,16 @@ function FlightRoutesTable(props) {
         setFlights(array);
       })
       .catch((erro) => console.log(erro));
+    } else {
+      routes
+      .searchRoutes(search.filter, search.word)
+      .then((res) => {
+        props.setTotalRoutes(res.data.length);
+        let array = pageExhibition(props.page, props.numberPerPage, res.data);
+        setFlights(array);
+      })
+      .catch((erro) => console.log(erro));
+    }
   }
 
   function pageExhibition(page, numberPerPage, array) {
@@ -39,15 +54,22 @@ function FlightRoutesTable(props) {
     return routesInPage;
   }
 
+  function handleAllCheck() {
+    if (allChecked) {
+      dispatch(clearSelectItem());
+    }
+    setAllChecked(!allChecked);
+  }
+
   function refreshChange() {
-    setRefresh(refresh + 1);
+    props.setRefresh(props.refresh + 1);
   }
 
   return (
     <>
       <div className={"d-flex justify-content-between"}>
         <CreateFlightRoutesButton />
-        <FlightRouteDeleteSelected refresh={refresh} setRefresh={setRefresh} />
+        <FlightRouteDeleteSelected refresh={props.refresh} setRefresh={props.setRefresh} />
       </div>
       <div className={"table-responsive"}>
         <table className="table table-striped mt-2">
@@ -57,9 +79,7 @@ function FlightRoutesTable(props) {
                 <input
                   type={"checkbox"}
                   checked={allChecked}
-                  onChange={() => {
-                    setAllChecked(!allChecked);
-                  }}
+                  onChange={handleAllCheck}
                 ></input>
               </th>
               <th scope="col">#</th>
