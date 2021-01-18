@@ -27,23 +27,22 @@ async function getAllReviews() {
   return data;
 }
 
-async function deteleReviews(id) {
+async function deleteReviews(id) {
   let data = false;
   try {
     const response = await api.delete(`/reviews/${id}`);
     data = response.data;
 
-    if(data) return true;
+    if (data) return true;
   } catch (error) {
     console.log("Ocorreu algum erro:", error);
     return false;
   }
-
 }
 
 const apiExport = {
-  getReviews: getPaginatedReviews,
-  deteleReviews,
+  getPaginatedReviews,
+  deleteReviews,
   getAllReviews,
 };
 
