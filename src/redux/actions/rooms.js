@@ -7,6 +7,8 @@ import {
   SET_ROOMS_PAGE_OR_LIMIT,
   SET_ROOMS_TOTAL_PAGES,
   GET_ROOMS_SIZE,
+  ADD_ROOMS_CHECKBOX,
+  REMOVE_ROOMS_CHECKBOX,
 } from "../constants/rooms";
 
 export const getAllRooms = (rooms) => (dispatch) => {
@@ -65,6 +67,20 @@ export const getRoomsSize = (size) => (dispatch) => {
   });
 };
 
+export const addRoomsSelecteds = (data) => (dispatch) => {
+  return dispatch({
+    type: ADD_ROOMS_CHECKBOX,
+    payload: data,
+  });
+};
+
+export const removeRoomsSelecteds = (data) => (dispatch) => {
+  dispatch({
+    type: REMOVE_ROOMS_CHECKBOX,
+    payload: data,
+  });
+};
+
 const exportData = {
   getAllRooms,
   getAllRoomsPaginate,
@@ -74,6 +90,8 @@ const exportData = {
   setPageOrLimit,
   setTotalPages,
   getRoomsSize,
+  addRoomsSelecteds,
+  removeRoomsSelecteds,
 };
 
 export default exportData;
