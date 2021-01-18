@@ -11,6 +11,8 @@ function RoomsTable({
   fields,
   order,
   handleChangeOrder,
+  handleSendSelectData,
+  handleRemoveSelectData,
 }) {
   const [selectAll, setSelectAll] = useState(false);
 
@@ -19,7 +21,7 @@ function RoomsTable({
   }
 
   return (
-    <table className="table table-striped table-hover">
+    <table className="table table-striped table-hover room-container">
       <RoomsTableHeader
         fields={fields}
         order={order}
@@ -35,6 +37,12 @@ function RoomsTable({
             key={room.id}
             onDelete={() => handleDeleteRoom(room.id)}
             selectAll={selectAll}
+            handleSendSelectData={() => {
+              handleSendSelectData(room.id);
+            }}
+            handleRemoveSelectData={() => {
+              handleRemoveSelectData(room.id);
+            }}
           />
         ))}
       </tbody>

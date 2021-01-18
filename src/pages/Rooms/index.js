@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import HotelsHeader from "../../components/HotelsHeader";
 import "./style.css";
 
@@ -24,10 +24,39 @@ function Rooms() {
     "Gallery",
   ];
 
-  const { rooms, filter, deleted, page, limit, totalPages, size } = useSelector(
-    (state) => state.rooms
-  );
+  const {
+    rooms,
+    filter,
+    deleted,
+    page,
+    limit,
+    totalPages,
+    size,
+    roomsSelected,
+  } = useSelector((state) => state.rooms);
+
   const dispatch = useDispatch();
+  const fetchData = useCallback(async () => {
+    if (limit !== "all") {
+      let pageNumber = page;
+
+      await RoomsService.getRoomsSize(dispatch);
+
+      if (limit === 100 && size <= 100) pageNumber = 1; // eslint-disable-line no-unused-vars
+
+      await RoomsService.getRoomsPaginate(page, limit, dispatch);
+      dispatch(roomsActions.setTotalPages(size));
+
+      if (filter.active) {
+        dispatch(roomsActions.filterRooms(filter.field));
+      }
+    } else {
+      await RoomsService.getRooms(dispatch);
+      if (filter.active) {
+        dispatch(roomsActions.filterRooms(filter.field));
+      }
+    }
+  }, [filter, dispatch, page, size, limit]);
 
   function handleToggleActive(field) {
     dispatch(roomsActions.changeRoomsFilterActive(field));
@@ -35,30 +64,16 @@ function Rooms() {
   }
 
   useEffect(() => {
-    async function fetchData() {
-      if (limit !== "all") {
-        let pageNumber = page;
-
-        await RoomsService.getRoomsSize(dispatch);
-
-        if (limit === 100 && size <= 100) pageNumber = 1; // eslint-disable-line no-unused-vars
-
-        await RoomsService.getRoomsPaginate(page, limit, dispatch);
-        dispatch(roomsActions.setTotalPages(size));
-
-        if (filter.active) {
-          dispatch(roomsActions.filterRooms(filter.field));
-        }
-      } else {
-        await RoomsService.getRooms(dispatch);
-        if (filter.active) {
-          dispatch(roomsActions.filterRooms(filter.field));
-        }
-      }
-    }
-
     fetchData();
-  }, [dispatch, deleted, filter, limit, page, size]);
+  }, [fetchData, deleted]);
+
+  function handleSendSelectData(data) {
+    dispatch(roomsActions.addRoomsSelecteds(data));
+  }
+
+  function handleRemoveSelectData(data) {
+    dispatch(roomsActions.removeRoomsSelecteds(data));
+  }
 
   async function handleDelete(id) {
     const confirmDelete = window.confirm("Are you sure?");
@@ -72,6 +87,12 @@ function Rooms() {
     dispatch(roomsActions.setPageOrLimit(field, data));
   }
 
+  async function handleDeleteSelected() {
+    roomsSelected.forEach(async (value) => {
+      await RoomsService.deleteRoom(value, dispatch, "selected");
+    });
+  }
+
   const cardBody = (
     <div className="row">
       <div className="col">
@@ -83,12 +104,17 @@ function Rooms() {
               title="PRINT"
               style={{ marginRight: 10 }}
             />
+
             <RoomsButton
               variant="export"
               title="EXPORT INTO CSV"
               style={{ marginRight: 10 }}
             />
-            <RoomsButton variant="delete" title="DELETE SELECTED" />
+            <RoomsButton
+              variant="delete"
+              title="DELETE SELECTED"
+              onClick={handleDeleteSelected}
+            />
           </div>
         </RoomsListTopToolBar>
         <RoomsTable
@@ -97,6 +123,8 @@ function Rooms() {
           fields={titleColumns}
           order={filter}
           handleChangeOrder={handleToggleActive}
+          handleSendSelectData={handleSendSelectData}
+          handleRemoveSelectData={handleRemoveSelectData}
         />
       </div>
     </div>
@@ -106,7 +134,7 @@ function Rooms() {
     <>
       <HotelsHeader />
       <br />
-      <div className="container ">
+      <div className="container-fluid ">
         <RoomsCard title="Rooms" content={cardBody} />
       </div>
       <RoomsFooter>
