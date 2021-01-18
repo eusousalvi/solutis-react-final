@@ -49,48 +49,50 @@ function FlightRoutesTable(props) {
         <CreateFlightRoutesButton />
         <FlightRouteDeleteSelected refresh={refresh} setRefresh={setRefresh} />
       </div>
-      <table className="table table-striped mt-2">
-        <thead>
-          <tr>
-            <th>
-              <input
-                type={"checkbox"}
-                checked={allChecked}
-                onChange={() => {
-                  setAllChecked(!allChecked);
+      <div className={"table-responsive"}>
+        <table className="table table-striped mt-2">
+          <thead>
+            <tr>
+              <th>
+                <input
+                  type={"checkbox"}
+                  checked={allChecked}
+                  onChange={() => {
+                    setAllChecked(!allChecked);
                   }}
-              ></input>
-            </th>
-            <th scope="col">#</th>
-            <th scope="col">From</th>
-            <th scope="col">To</th>
-            <th scope="col">Flight Status</th>
-            <th scope="col">Flight Mode</th>
-            <th scope="col">Total Hours</th>
-            <th scope="col">Departure Date</th>
-            <th scope="col">Date Arrival</th>
-            <th scope="col">Time Departure</th>
-            <th scope="col">Time Arrival</th>
-            <th scope="col" className="text-center">
-              Actions
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {flights.map((flight, index) => {
-            return (
-              <FlightRoutesRow
-                allChecked={allChecked}
-                selected={selected}
-                setSelected={setSelected}
-                refresh={refreshChange}
-                key={index}
-                flight={flight}
-              />
-            );
-          })}
-        </tbody>
-      </table>
+                ></input>
+              </th>
+              <th scope="col">#</th>
+              <th scope="col">From</th>
+              <th scope="col">To</th>
+              <th scope="col">Flight Status</th>
+              <th scope="col">Flight Mode</th>
+              <th scope="col">Total Hours</th>
+              <th scope="col">Departure Date</th>
+              <th scope="col">Date Arrival</th>
+              <th scope="col">Time Departure</th>
+              <th scope="col">Time Arrival</th>
+              <th scope="col" className="text-center">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {flights.map((flight, index) => {
+              return (
+                <FlightRoutesRow
+                  allChecked={allChecked}
+                  selected={selected}
+                  setSelected={setSelected}
+                  refresh={refreshChange}
+                  key={index}
+                  flight={flight}
+                />
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 }

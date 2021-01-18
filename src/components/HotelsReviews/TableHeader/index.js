@@ -11,8 +11,8 @@ function TableHeader({
 }) {
   return (
     <th
-      className={className}
-      scope={scope}
+      className={className || "menu-filter"}
+      scope={scope || "col"}
       colSpan={colSpan}
       id={id}
       onClick={onClick}

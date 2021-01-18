@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import AvailabilityCalendarDay from '../AvailabilityCalendarDay';
 import getTotalDaysInMonth from '../../../helpers/getTotalDaysInMonth';
 import './styles.css';
+import { AvailabilityContext } from '../AvailabilityContext';
+import getFirstDayMonth from '../../../helpers/getFirstDayMonth';
 
-function AvailabilityCalendarRow({ month, getDay, monthIndex, currentYear }) {
-  const [currentTotalAvailability, setCurrentTotalAvailability] = useState(0);
+function AvailabilityCalendarRow({ month, monthIndex }) {
+  const { currentYear, availabilityConstants } = useContext(AvailabilityContext);
+  const [currentTotalAvailability, setCurrentTotalAvailability] = useState(
+    availabilityConstants.minAvailability,
+  );
+  let getDay = getFirstDayMonth(currentYear);
 
   const days = [];
   for (let i = 0; i < getDay(monthIndex); i++) {
@@ -12,9 +18,7 @@ function AvailabilityCalendarRow({ month, getDay, monthIndex, currentYear }) {
   }
   for (
     let i = 1;
-    i <=
-    (month.availabilityDays.length ||
-      getTotalDaysInMonth(currentYear, monthIndex));
+    i <= (month.availabilityDays.length || getTotalDaysInMonth(currentYear, monthIndex));
     i++
   ) {
     days.push(
@@ -24,7 +28,6 @@ function AvailabilityCalendarRow({ month, getDay, monthIndex, currentYear }) {
         monthIndex={monthIndex}
         dayIndex={i}
         currentTotalAvailability={currentTotalAvailability}
-        currentYear={currentYear}
       />,
     );
   }
@@ -36,7 +39,11 @@ function AvailabilityCalendarRow({ month, getDay, monthIndex, currentYear }) {
         <button
           type="button"
           onClick={() =>
-            setCurrentTotalAvailability((total) => (total > 0 ? 0 : 10))
+            setCurrentTotalAvailability((total) =>
+              total > availabilityConstants.minAvailability
+                ? availabilityConstants.minAvailability
+                : availabilityConstants.maxAvailability,
+            )
           }
         >
           {'>>'}

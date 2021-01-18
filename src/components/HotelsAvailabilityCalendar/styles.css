@@ -1,17 +1,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 .availabilityForm {
-  padding-bottom: 70px;
+  padding: 15px;
 }
 
 .availabilityTable {
   font-family: 'Roboto', sans-serif;
+  color: #222222;
   font-size: 12px;
   width: 100%;
 }
 
 .availabilityTable td {
   min-width: 39px;
+  padding-top: 2px;
+  padding-bottom: 0;
+}
+
+.availabilityCalendar__subtitle {
+  color: #555;
+  font-size: 14px;
+}
+
+.availabilityCalendar__title {
+  color: #333;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  border-bottom: 1px solid #eee;
+  padding: 15px 0;
 }
 
 td.availabilityCalendar__weekend {
@@ -25,6 +42,12 @@ td.availabilityCalendar__empty {
 .availabilityTable tr:first-child {
   text-align: center;
   background-color: #ccc;
+  color: #222;
+  font-size: 10px;
+}
+
+.availabilityTable tr:first-child td {
+  padding: 0;
 }
 
 .availabilityTable tr:nth-child(2) {
@@ -48,28 +71,37 @@ td.availabilityCalendar__empty {
   border-radius: 3px;
 }
 
+.availabilityCalendar__legend td {
+  margin: 0;
+  padding: 1px;
+}
+
 .legend {
   display: flex;
   align-items: center;
+  letter-spacing: 0.3px;
 }
 
-.legend__available,
-.legend__partial,
-.legend__not {
-  width: 19px;
-  height: 19px;
+.legend--available,
+.legend--partial,
+.legend--not {
+  width: 15px;
+  height: 16px;
   margin-right: 5px;
 }
 
-.legend__available {
+.legend--available {
+  border: 1px solid #a6e8a6;
   background-color: #bbfdbb;
 }
 
-.legend__partial {
+.legend--partial {
+  border: 1px solid #d8d863;
   background-color: #efef76;
 }
 
-.legend__not {
+.legend--not {
+  border: 1px solid #df6666;
   background-color: #ef7676;
 }
 
@@ -77,12 +109,14 @@ td.availabilityCalendar__empty {
   display: flex;
   align-items: center;
   position: fixed;
+  width: 100%;
   bottom: 0;
   height: 50px;
   background-color: rgba(39, 160, 65, 0.89);
   opacity: 0;
   z-index: -1;
   transition: all ease-in-out 2s;
+  padding: 0 15px;
 }
 
 .availabilityMsg > h5 {
@@ -97,4 +131,17 @@ td.availabilityCalendar__empty {
 .activeAvailabilityMsg {
   opacity: 1;
   z-index: 10;
+}
+
+.availabilityCalendar__submit {
+  background-color: #466df1;
+  border-color: #2e5bef;
+  color: #fff;
+  font-size: 14px;
+}
+
+.availabilityCalendar__footer {
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  padding: 10px 0;
 }
