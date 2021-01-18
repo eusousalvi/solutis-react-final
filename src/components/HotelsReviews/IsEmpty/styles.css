@@ -1,0 +1,16 @@
+.figure {
+  width: 90%;
+  margin: 2% auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.figcaption {
+  font-size: 2rem;
+  max-width: 40%;
+  font-weight: 700;
+}
+.img {
+  min-width: 300px;
+  max-width: 40%;
+}
