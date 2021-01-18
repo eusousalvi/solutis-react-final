@@ -1,32 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { getRoomAvailability } from '../../../services/roomsAvailability';
-import getFirstDayMonth from '../../../helpers/getFirstDayMonth';
 import AvailabilityCalendarRow from '../AvailabilityCalendarRow';
+import { useParams } from 'react-router-dom';
+import { AvailabilityContext } from '../AvailabilityContext';
 
-function AvailabilityCalendarRows({ currentYear, roomId }) {
-  let getDay;
+function AvailabilityCalendarRows() {
   const [rows, setRows] = useState([]);
-
-  async function generateDayRows() {
-    const months = await getRoomAvailability(roomId);
-    const rows = months.map((month, index) => {
-      return (
-        <AvailabilityCalendarRow
-          key={index}
-          month={month}
-          getDay={getDay}
-          monthIndex={index}
-          currentYear={currentYear}
-        />
-      );
-    });
-    setRows(rows);
-  }
+  const { roomId } = useParams();
+  const { currentYear } = useContext(AvailabilityContext);
 
   useEffect(() => {
-    getDay = getFirstDayMonth(currentYear);
+    async function generateDayRows() {
+      const months = await getRoomAvailability(roomId);
+      const rows = months.map((month, index) => {
+        return <AvailabilityCalendarRow key={index} month={month} monthIndex={index} />;
+      });
+      setRows(rows);
+    }
     generateDayRows();
-  }, [currentYear]);
+  }, [currentYear, roomId]);
 
   return rows;
 }

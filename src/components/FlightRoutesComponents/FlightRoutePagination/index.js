@@ -7,17 +7,6 @@ function FlightRoutePagination(props) {
   const [thirdButton, setThirdButton] = useState(3);
   const [pagesLimit, setPagesLimit] = useState();
 
-  console.log(
-    "first: " +
-      firstButton +
-      " second: " +
-      secondButton +
-      " third: " +
-      thirdButton +
-      " pagesLimit" +
-      pagesLimit
-  );
-
   useEffect(() => {
     setPagesLimit(props.totalRoutes / props.numberPerPage);
   });
@@ -60,6 +49,12 @@ function FlightRoutePagination(props) {
     props.setPage(thirdButton);
   }
 
+  function resetButtons() {
+    setFirstButton(1);
+    setSecondButton(2);
+    setThirdButton(3);
+  }
+
   return (
     <nav aria-label="Navegação de página exemplo" className={"d-flex"}>
       <ul className="pagination">
@@ -80,7 +75,7 @@ function FlightRoutePagination(props) {
             {firstButton}
           </button>
         </li>
-        <li className="page-item">
+        {pagesLimit > 1 && <li className="page-item">
           <button
             className={
               secondButton === props.page
@@ -91,8 +86,8 @@ function FlightRoutePagination(props) {
           >
             {secondButton}
           </button>
-        </li>
-        <li className="page-item">
+        </li>}
+        {pagesLimit > 2 && <li className="page-item">
           <button
             className={
               thirdButton === props.page
@@ -103,7 +98,7 @@ function FlightRoutePagination(props) {
           >
             {thirdButton}
           </button>
-        </li>
+        </li>}
         <li className="page-item">
           <button className="page-link" onClick={next}>
             Next
@@ -114,7 +109,11 @@ function FlightRoutePagination(props) {
         <li className={"page-item"}>
           <button
             className={"page-link"}
-            onClick={() => props.setNumberPerPage(10)}
+            onClick={() => {
+              props.setNumberPerPage(10)
+              props.setPage(1);
+              resetButtons();
+              }}
           >
             10
           </button>
@@ -122,7 +121,11 @@ function FlightRoutePagination(props) {
         <li className={"page-item"}>
           <button
             className={"page-link"}
-            onClick={() => props.setNumberPerPage(25)}
+            onClick={() => {
+              props.setNumberPerPage(25);
+              props.setPage(1);
+              resetButtons();
+              }}
           >
             25
           </button>
@@ -130,7 +133,11 @@ function FlightRoutePagination(props) {
         <li className={"page-item"}>
           <button
             className={"page-link"}
-            onClick={() => props.setNumberPerPage(50)}
+            onClick={() => {
+              props.setNumberPerPage(50);
+              props.setPage(1);
+              resetButtons();
+              }}
           >
             50
           </button>

@@ -2,9 +2,11 @@ import AirportsTableEntry from '../AirportsTableEntry';
 import AirportsTableHeader from '../AirportsTableHeader';
 import "./styles.css";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
-function AirportsTable({ airports, idxStart, setSelectedForRemoval, setDeleted }) {
+function AirportsTable({ idxStart }) {
 
+    const airports = useSelector(state => state.airports.airports)
     const [checkAll, setCheckAll] = useState(false)
 
     function toggleCheck() {
@@ -12,12 +14,6 @@ function AirportsTable({ airports, idxStart, setSelectedForRemoval, setDeleted }
     }
 
     const tableFields = [
-        <input type="checkbox"
-            className="form-check-input"
-            id="selectAirports" 
-            onChange={toggleCheck}    
-        />,
-        "#",
         "Code",
         "Name",
         "Citycode",
@@ -27,24 +23,21 @@ function AirportsTable({ airports, idxStart, setSelectedForRemoval, setDeleted }
         "Continent Id",
         "Timezone",
         "Latitude",
-        "Longitude",
-        ""
+        "Longitude"
     ]
 
     return (
         <div className="table-responsive">
             <table className="table table-striped" id="airportsTable">
-                <AirportsTableHeader fields={tableFields} prefix="airports" />
+                <AirportsTableHeader fields={tableFields} prefix="airports" toggleCheck={toggleCheck} />
                 <tbody>
                     {airports.map((airport, idx) =>
-                            <AirportsTableEntry 
-                                checked={checkAll} 
-                                num={idxStart + idx +1} 
-                                key={airport.id} 
-                                airport={airport} 
-                                setSelectedForRemoval={setSelectedForRemoval}
-                                setDeleted={setDeleted}
-                            />)
+                        <AirportsTableEntry
+                            checked={checkAll}
+                            num={idxStart + idx + 1}
+                            key={airport.id}
+                            airport={airport}
+                        />)
                     }
                 </tbody>
             </table>

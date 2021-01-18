@@ -1,51 +1,88 @@
 import React from "react";
 
+import { useSelector, useDispatch } from "react-redux";
+import { update, updateNode } from "../../../redux/actions/formFlightRoutes";
+import parseFlightNodeDate from "../../../helpers/parseFlightNodeDate";
 import FlightRouteNode from "../FlightRouteNode";
 
 const DEFAULT_NODE = {
-  flightNumber: 0,
+  flightNumber: "",
+  city: "citycode 0",
   checkout: "",
+  checkin: "",
   airline: "",
-  city: "",
   date: "",
-  time: "",
 };
 
-export default function FlightRouteManagerForm({ handler }) {
-  const [connections, setConnections] = React.useState(handler.values.route);
+function evaluateRoute(route) {
+  let i;
+  for (i = 0; i < route.length; i++) {
+    const currentNodeCheckOut = parseFlightNodeDate(route[i], false);
+    const currentNodeCheckIn = parseFlightNodeDate(route[i], true);
+
+    if (i > 0 && currentNodeCheckIn - parseFlightNodeDate(route[i - 1]) < 0) {
+      return {
+        hasError: true,
+        message: `O Check In de uma conexão deve ocorrer após o Check Out da conexão anterior!`,
+      };
+    } else if (currentNodeCheckOut - currentNodeCheckIn < 0) {
+      return {
+        hasError: true,
+        message: `Verifique se o horário do checkin antecede o horário do checkout!`,
+      };
+    }
+  }
+  return { hasError: false };
+}
+
+function applyChange(route, { id, data }) {
+  return route.map((node) => (node.id === id ? { ...node, ...data } : node));
+}
+
+export default function FlightRouteManagerForm() {
+  const { route } = useSelector((state) => state.formFlightRoutesReducer);
+  const dispatch = useDispatch();
 
   function handleAddTransitClick() {
-    setConnections([
-      ...connections.slice(0, connections.length - 1),
-      {
-        id: connections.length,
-        type: "Transit",
-        ...DEFAULT_NODE,
-      },
-      ...connections.slice(connections.length - 1),
-    ]);
+    const { checkout, date, flightNumber } = route[route.length - 2];
+    dispatch(
+      update("route", [
+        ...route.slice(0, route.length - 1),
+        {
+          ...DEFAULT_NODE,
+          date,
+          checkout,
+          flightNumber,
+          type: "Transit",
+          id: route.length,
+          checkin: checkout,
+        },
+        ...route.slice(route.length - 1),
+      ])
+    );
   }
 
   function onChange(id) {
-    return (e) => {
-      const { name, value } = e.target;
+    return (data) => {
+      const routeAfterChange = applyChange(route, { id, data });
+      const { hasError, message } = evaluateRoute(routeAfterChange);
 
-      setConnections((connections) =>
-        connections.map((item, i) =>
-          i === id ? { ...item, [name]: value } : item
-        )
-      );
+      if (!hasError) dispatch(updateNode(id, data));
+      else {
+        alert(message);
+        // console.log(message);
+      }
     };
   }
 
-  React.useEffect(() => {
-    handler.onChange({ target: { name: "route", value: connections } });
-    return () => {};
-  }, [connections]);
-
   function handleDeleteNodeClick(id) {
     return () => {
-      setConnections(connections.filter((connection) => connection.id !== id));
+      dispatch(
+        update(
+          "route",
+          route.filter((node) => node.id !== id)
+        )
+      );
     };
   }
 
@@ -59,18 +96,18 @@ export default function FlightRouteManagerForm({ handler }) {
             <th className="col">Airline</th>
             <th className="col">Flight NO.</th>
             <th className="col">Date</th>
-            <th className="col">Time</th>
-            <th className="col">Checkout</th>
+            <th className="col">Check In</th>
+            <th className="col">Check Out</th>
           </tr>
         </thead>
         <tbody>
-          {connections.map((node, i) => (
+          {route.map((node, i) => (
             <FlightRouteNode
               key={node.id}
               node={node}
               onClickDelete={handleDeleteNodeClick(node.id)}
-              onChange={onChange(i)}
-              removable={i > 0 && i < connections.length - 1}
+              onChange={onChange(node.id)}
+              removable={i > 0 && i < route.length - 1}
             />
           ))}
         </tbody>

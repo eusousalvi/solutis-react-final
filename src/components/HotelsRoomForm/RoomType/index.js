@@ -5,6 +5,7 @@ function RoomType({ handleForm, ...data }) {
     <select
       className="form-select"
       aria-label="RoomType"
+      id="type"
       onChange={(e) => handleForm(e.target.id, e.target.value)}
     >
       {roomsList.map((e) => (

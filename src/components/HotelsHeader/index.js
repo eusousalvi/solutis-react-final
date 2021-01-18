@@ -38,9 +38,9 @@ function HotelsHeader() {
                 Rooms
               </Link>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <Link
-                class="nav-link active"
+                className="nav-link active"
                 aria-current="page"
                 to="/hotels/extras"
               >

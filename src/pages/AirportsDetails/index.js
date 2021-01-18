@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
 import AirportView from "../../components/FlightsAirportsList/AirportView";
 import AirportsHeader from "../../components/FlightsAirportsList/AirportsHeader";
-import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import airportsService from "../../services/airports";
+import { useParams } from "react-router";
+import { useState, useEffect } from "react";
 import FlightsHeader from "../../components/FlightsHeader";
+import airportsService from "../../services/airports";
 
 function AirportsDetails() {
     
@@ -16,6 +16,7 @@ function AirportsDetails() {
         .then(res =>  setAirport(res.data))
         .catch(err => console.log(err))
     }, [])
+
 
     return (
         <>
