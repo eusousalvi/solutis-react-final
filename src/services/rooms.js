@@ -29,13 +29,13 @@ function getRoomsPaginate(page, limit, dispatch) {
     .catch((error) => console.log(error));
 }
 
-function deleteRoom(id, dispatch) {
+function deleteRoom(id, dispatch, type) {
   return api
     .delete(`/rooms/${id}`)
     .then((response) => {
       if (response.status === 200 || response.status === 201) {
         dispatch(roomsAction.deleteRoom());
-        window.alert("Room successfully deleted");
+        if (!type) window.alert("Room successfully deleted");
       }
     })
     .catch((error) => console.log(error));

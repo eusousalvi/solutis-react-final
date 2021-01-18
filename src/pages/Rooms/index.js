@@ -24,9 +24,17 @@ function Rooms() {
     "Gallery",
   ];
 
-  const { rooms, filter, deleted, page, limit, totalPages, size } = useSelector(
-    (state) => state.rooms
-  );
+  const {
+    rooms,
+    filter,
+    deleted,
+    page,
+    limit,
+    totalPages,
+    size,
+    roomsSelected,
+  } = useSelector((state) => state.rooms);
+
   const dispatch = useDispatch();
   const fetchData = useCallback(async () => {
     if (limit !== "all") {
@@ -59,6 +67,14 @@ function Rooms() {
     fetchData();
   }, [fetchData, deleted]);
 
+  function handleSendSelectData(data) {
+    dispatch(roomsActions.addRoomsSelecteds(data));
+  }
+
+  function handleRemoveSelectData(data) {
+    dispatch(roomsActions.removeRoomsSelecteds(data));
+  }
+
   async function handleDelete(id) {
     const confirmDelete = window.confirm("Are you sure?");
 
@@ -69,6 +85,12 @@ function Rooms() {
 
   function handleChangePageOrLimit(field, data) {
     dispatch(roomsActions.setPageOrLimit(field, data));
+  }
+
+  async function handleDeleteSelected() {
+    roomsSelected.forEach(async (value) => {
+      await RoomsService.deleteRoom(value, dispatch, "selected");
+    });
   }
 
   const cardBody = (
@@ -88,7 +110,11 @@ function Rooms() {
               title="EXPORT INTO CSV"
               style={{ marginRight: 10 }}
             />
-            <RoomsButton variant="delete" title="DELETE SELECTED" />
+            <RoomsButton
+              variant="delete"
+              title="DELETE SELECTED"
+              onClick={handleDeleteSelected}
+            />
           </div>
         </RoomsListTopToolBar>
         <RoomsTable
@@ -97,6 +123,8 @@ function Rooms() {
           fields={titleColumns}
           order={filter}
           handleChangeOrder={handleToggleActive}
+          handleSendSelectData={handleSendSelectData}
+          handleRemoveSelectData={handleRemoveSelectData}
         />
       </div>
     </div>

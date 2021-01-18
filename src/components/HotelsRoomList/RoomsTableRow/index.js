@@ -1,18 +1,35 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaCheck } from "react-icons/fa";
+import roomsActions from "../../../redux/actions/rooms";
+import { useDispatch } from "react-redux";
 
 import RoomsButton from "../RoomsButton/index";
 import "./style.css";
 
 function RoomsTableRow({ room, index, onDelete, selectAll }) {
   const [selected, setSelected] = useState(selectAll);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setSelected(selectAll);
-  }, [selectAll]);
+
+    if (selectAll) {
+      dispatch(roomsActions.addRoomsSelecteds(room.id));
+    } else {
+      dispatch(roomsActions.removeRoomsSelecteds(room.id));
+    }
+  }, [selectAll, room, dispatch]);
 
   function handleChange() {
+    if (selected) {
+      console.log("REMOVE");
+      dispatch(roomsActions.removeRoomsSelecteds(room.id));
+    } else {
+      console.log("ADICIONA");
+      dispatch(roomsActions.addRoomsSelecteds(room.id));
+    }
+
     setSelected(!selected);
   }
   return (
