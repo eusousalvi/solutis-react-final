@@ -41,10 +41,12 @@ export const getAllHotelsPaginate = (hotels) => (dispatch) => {
   });
 };
 
-export default {
+const exportActions = {
   getAllHotels,
   setTotalPages,
   setPageOrLimit,
   getHotelsSize,
   getAllHotelsPaginate,
 };
+
+export default exportActions;

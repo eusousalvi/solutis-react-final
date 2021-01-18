@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom';
 import { BiSearch } from "react-icons/bi";
 import { FiEdit } from "react-icons/fi";
 import { useState, useEffect } from 'react';
-import AirportsDeleteButton from "../AirportsDeleteButton";
-import "./styles.css";
 import { useDispatch } from "react-redux";
 import {selectForRemoval, removeFromRemovalList} from "../../../redux/actions/airports";
+import AirportsDeleteButton from "../AirportsDeleteButton";
+import "./styles.css";
 
 const AirportsTableEntry = ({ airport, checked, num }) => {
     
@@ -35,23 +35,40 @@ const AirportsTableEntry = ({ airport, checked, num }) => {
             </td>
 
             <td>{num}</td>
-            <td id={`airportCode-${airport.id}`}>{airport.code}</td>
-            <td id={`airportName-${airport.id}`}>{airport.name}</td>
-            <td id={`airportCitycode-${airport.id}`}>{airport.citycode}</td>
-            <td id={`airportCityname-${airport.id}`}>{airport.cityname}</td>
-            <td id={`airportCountryname-${airport.id}`}>{airport.countryname}</td>
-            <td id={`airportCountrycode-${airport.id}`}>{airport.countrycode}</td>
-            <td id={`airportContinentname-${airport.id}`}>{airport.continentId}</td>
-            <td id={`airportTimezone-${airport.id}`}>{airport.timezone}</td>
-            <td id={`airportLatitude-${airport.id}`}>{airport.latitude}</td>
-            <td id={`airportLongitude-${airport.id}`}>{airport.longitude}</td>
+            <td id={`airportCode-${airport.id}`}>
+                {airport.code}
+            </td>
+            <td id={`airportName-${airport.id}`}>
+                {airport.name}
+            </td>
+            <td id={`airportCitycode-${airport.id}`}>
+                {airport.citycode}
+            </td>
+            <td id={`airportCityname-${airport.id}`}>
+                {airport.cityname}
+            </td>
+            <td id={`airportCountryname-${airport.id}`}>
+                {airport.countryname}
+            </td>
+            <td id={`airportCountrycode-${airport.id}`}>
+                {airport.countrycode}
+            </td>
+            <td id={`airportContinentname-${airport.id}`}>
+                {airport.continentId}
+            </td>
+            <td id={`airportTimezone-${airport.id}`}>
+                {airport.timezone}
+            </td>
+            <td id={`airportLatitude-${airport.id}`}>
+                {airport.latitude}
+            </td>
+            <td id={`airportLongitude-${airport.id}`}>
+                {airport.longitude}
+            </td>
 
             <td id={`airportActions-${airport.id}`}>
                 <span className="airportSpan">
-                    <Link to={{
-                        pathname:`airports/details/${airport.id}`,
-                        airport: airport
-                    }}
+                    <Link to={`airports/details/${airport.id}`}
                     >
                         <button id={`airportButtonView-${airport.id}`} className="btn btn-info airport-button">
                             <BiSearch />

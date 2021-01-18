@@ -39,7 +39,7 @@ function Visualization() {
                 <th scope="col">Airline</th>
                 <th scope="col">Flight Number</th>
                 <th scope="col">Date</th>
-                <th scope="col">Time</th>
+                <th scope="col">Check-in</th>
                 <th scope="col">Checkout</th>
               </tr>
             </thead>

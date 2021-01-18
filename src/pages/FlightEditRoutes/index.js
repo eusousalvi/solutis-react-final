@@ -20,6 +20,10 @@ export default function EditFlightRoutes() {
     routes
       .putRoute(id, values)
       .then(() => {
+        setTimeout(
+          () => alert(`Suas edições na rota ${id} foram salvas.`),
+          1000
+        );
         history.push("/flights/routes");
       })
       .catch((error) => console.log(error));

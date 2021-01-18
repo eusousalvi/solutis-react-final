@@ -1,21 +1,44 @@
+/*React and Redux */
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import extrasAction from "../../../redux/actions/extras";
+/*Icon and Components */
 import { Link } from "react-router-dom";
 import { BiSearch } from "react-icons/bi";
 import { FiEdit, FiX } from "react-icons/fi";
 import "./styles.css";
+/*Api and Styles*/
+import Api from "../../../services/extras";
 
-function TableItem({ item, handleSingleDelete, isAllSelect, handleSelect }) {
+function TableItem({ item }) {
+  const dispatch = useDispatch();
   const { id, tableId, img, name, status, price } = item;
   const [isSelected, setIsSelected] = useState(false);
+  const { isAllSelected, selecteds } = useSelector(state => state.extraReducer);
 
+  function handleSelect(id, option) {
+    if (option) {
+      const isSelected = selecteds.indexOf(id);
+      if (isSelected === -1) dispatch(extrasAction.setSelecteds(id));
+    } else {
+      dispatch(extrasAction.removeSelected(id));
+    }
+  }
+
+  async function handleSingleDelete(id) {
+    if (window.confirm("Do you really want to delete this item ?")) {
+      const res = await Api.deleteExtra(id, dispatch);
+      res && window.alert("Item removed with success");
+    }
+  }
   function handleChange() {
-    isSelected ? handleSelect(item, false) : handleSelect(item, true);
+    isSelected ? handleSelect(id, false) : handleSelect(id, true);
     setIsSelected(!isSelected);
   }
 
   useEffect(() => {
-    setIsSelected(isAllSelect);
-  }, [isAllSelect]);
+    setIsSelected(isAllSelected);
+  }, [isAllSelected]);
 
   return (
     <>
@@ -38,7 +61,7 @@ function TableItem({ item, handleSingleDelete, isAllSelect, handleSelect }) {
           <img src={img} alt={name} />
         </td>
         <td>{name}</td>
-        <td>{status === "true" ? "Sim" : "Não"}</td>
+        <td>{status === "true" ? "Yes" : "No"}</td>
         <td>{price}</td>
         <td>
           <button

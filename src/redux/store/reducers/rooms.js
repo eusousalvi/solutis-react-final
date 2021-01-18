@@ -7,10 +7,13 @@ import {
   DELETE_ROOM,
   SET_ROOMS_PAGE_OR_LIMIT,
   SET_ROOMS_TOTAL_PAGES,
+  ADD_ROOMS_CHECKBOX,
+  REMOVE_ROOMS_CHECKBOX,
 } from "../../constants/rooms";
 
 const INITIAL_STATE = {
   rooms: [],
+  roomsSelected: [],
   size: 0,
   filter: {
     field: "",
@@ -114,6 +117,17 @@ export default function reducer(state = INITIAL_STATE, action = null) {
 
           break;
 
+        case "Hotel":
+          rooms = state.rooms.sort((room1, room2) => {
+            if (state.filter.order) {
+              return room1.hotel - room2.hotel;
+            } else {
+              return room2.hotel - room1.hotel;
+            }
+          });
+
+          break;
+
         default:
           rooms = [];
       }
@@ -136,6 +150,28 @@ export default function reducer(state = INITIAL_STATE, action = null) {
 
     case GET_ROOMS_SIZE:
       return { ...state, size: action.payload };
+
+    case ADD_ROOMS_CHECKBOX:
+      const data = action.payload.toString();
+      const roomsSelected = [...state.roomsSelected];
+      roomsSelected.push(data);
+      console.log("teste", roomsSelected);
+      return {
+        ...state,
+        roomsSelected,
+      };
+
+    case REMOVE_ROOMS_CHECKBOX:
+      let newData = state.roomsSelected.splice("");
+      const dataID = action.payload.toString();
+
+      console.log(state.roomsSelected.includes(dataID));
+
+      newData = state.roomsSelected.filter((value) => {
+        return value !== dataID;
+      });
+
+      return { ...state, roomsSelected: newData };
 
     default:
       return state;

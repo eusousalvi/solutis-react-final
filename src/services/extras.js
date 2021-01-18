@@ -59,11 +59,15 @@ async function update(id, data) {
     });
 }
 
-async function deleteExtra(id) {
+async function deleteExtra(id, dispatch) {
+  dispatch(extrasAction.setIsDeleting());
   return api
     .delete(`/extras/${id}`)
     .then(res => {
-      if (res.status === 200 || res.status === 201) return true;
+      if (res.status === 200 || res.status === 201) {
+        dispatch(extrasAction.setIsDeleting());
+        return true;
+      }
     })
     .catch(error => {
       console.log("An error has occurred:", error);

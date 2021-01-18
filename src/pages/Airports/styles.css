@@ -12,3 +12,9 @@
     margin-left: 10px;
     margin-top: 20px;
 }
+
+@media(max-width: 1440px) {
+    .airports-table-container {
+        max-width: 95vw;
+    }
+}
