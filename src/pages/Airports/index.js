@@ -6,10 +6,11 @@ import AirportsFooter from "../../components/FlightsAirportsList/AirportsFooter"
 import AirportsDeleteSelectedButton from "../../components/FlightsAirportsList/AirportsDeleteSelectedButton";
 import AirportsLoadingBar from "../../components/FlightsAirportsList/AirportsLoadingBar";
 import FlightsHeader from "../../components/FlightsHeader";
+import handleErrors from "../../helpers/handleAirportsErrors";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { updateAirports } from "../../redux/actions/airports";
+import { updateAirports, deselectAirport } from "../../redux/actions/airports";
 import airportServices from "../../services/airports";
 
 import "./styles.css";
@@ -38,16 +39,15 @@ function Airports() {
                 order
             )
             .then(res => dispatch(updateAirports(res.data)))
-            .catch(err => console.error(err))
+            .catch(err => {
+                handleErrors(err)
+            })
     }
 
     function fetchAllAirports() {
         airportServices.getAirports()
             .then(res => setTotalAirports(res.data.length))
-            .catch(err => {
-                if (err.response.status === 429)
-                    alert(err + " (Too many requests). Wait a few seconds and refresh the page.")
-            })
+            .catch(err => console.error(err))
     }
 
     function updateItemsPerPage(quantity) {
@@ -76,6 +76,7 @@ function Airports() {
     }, [refresh])
 
     useEffect(() => {
+        dispatch(deselectAirport("all"))
         getAirportsPaginated()
     }, [currentPage, itemsPerPage, sortBy, order])
 

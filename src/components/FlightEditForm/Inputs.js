@@ -28,7 +28,7 @@ function Inputs() {
         <>
             <div className="row">
                 <div className="col row-style">
-                    <a className="btn btn-warning button-space" href="/flights/"> Sair</a>
+                    <a className="btn btn-warning button-space" href="/flights/airports"> Sair</a>
                     <a className="btn btn-success button-space" data-bs-toggle="modal" data-bs-target="#confirmModal" >Salvar</a>
                 </div>
             </div>

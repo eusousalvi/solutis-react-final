@@ -1,6 +1,6 @@
 import { 
-    SELECT_FOR_REMOVAL,
-    REMOVE_FROM_REMOVAL_LIST,
+    SELECT_AIRPORT,
+    DESELECT_AIRPORT,
     REFRESH_PAGE,
     UPDATE_QUERY,
     UPDATE_SEARCH_FILTER,
@@ -22,7 +22,7 @@ const INITIAL_STATE = {
 
 export default function reducer(state = INITIAL_STATE, action = null) {
     switch(action.type) {
-        case SELECT_FOR_REMOVAL:
+        case SELECT_AIRPORT:
             return (
                 {...state, 
                     selectedForRemoval: [
@@ -31,7 +31,7 @@ export default function reducer(state = INITIAL_STATE, action = null) {
                     ]
                 }
             )
-        case REMOVE_FROM_REMOVAL_LIST:
+        case DESELECT_AIRPORT:
             return (
                 {...state,
                     selectedForRemoval: 

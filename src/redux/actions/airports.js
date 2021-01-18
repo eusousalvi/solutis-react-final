@@ -1,24 +1,24 @@
 import { 
     UPDATE_AIRPORTS,
     SORT_AIRPORTS,
-    SELECT_FOR_REMOVAL,
-    REMOVE_FROM_REMOVAL_LIST,
+    SELECT_AIRPORT,
+    DESELECT_AIRPORT,
     REFRESH_PAGE,
     UPDATE_QUERY,
     UPDATE_SEARCH_FILTER,
     UPDATE_LOADING
 } from "../constants/airports" 
 
-export const selectForRemoval = (id) => {
+export const selectAirport = (id) => {
     return {
-        type: SELECT_FOR_REMOVAL,
+        type: SELECT_AIRPORT,
         payload: id
     }
 }
 
-export const removeFromRemovalList = (id) => {
+export const deselectAirport = (id) => {
     return {
-        type: REMOVE_FROM_REMOVAL_LIST,
+        type: DESELECT_AIRPORT,
         payload: id
     }
 }

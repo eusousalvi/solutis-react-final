@@ -3,7 +3,7 @@ import { BiSearch } from "react-icons/bi";
 import { FiEdit } from "react-icons/fi";
 import { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
-import {selectForRemoval, removeFromRemovalList} from "../../../redux/actions/airports";
+import {selectAirport, deselectAirport} from "../../../redux/actions/airports";
 import AirportsDeleteButton from "../AirportsDeleteButton";
 import "./styles.css";
 
@@ -18,9 +18,9 @@ const AirportsTableEntry = ({ airport, checked, num }) => {
 
     useEffect(() => {
         if(isChecked)
-            dispatch(selectForRemoval(airport.id))
+            dispatch(selectAirport(airport.id))
         else
-            dispatch(removeFromRemovalList(airport.id))
+            dispatch(deselectAirport(airport.id))
     }, [isChecked])
 
     return (

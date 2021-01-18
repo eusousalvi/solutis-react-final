@@ -1,6 +1,7 @@
 import { FiX } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { refreshPage, removeFromRemovalList, updateLoading } from "../../../redux/actions/airports";
+import handleErrors from "../../../helpers/handleAirportsErrors";
+import { refreshPage, deselectAirport, updateLoading } from "../../../redux/actions/airports";
 import airportServices from "../../../services/airports";
 
 function AirportsDeleteSelectedButton() {
@@ -20,11 +21,9 @@ function AirportsDeleteSelectedButton() {
                     await airportServices.deleteAirport(i)
                     dispatch(updateLoading(loadingIncrementAmount))
                 } catch (err) {
-                    if(err.response.status === 429){
-                        errorThrown = true
-                        alert(err + " (Too many requests). Wait a few seconds and try again")
-                        break;
-                    }
+                    errorThrown = true
+                    handleErrors(err)                    
+                    break;
                 };
             }
         }
@@ -32,7 +31,7 @@ function AirportsDeleteSelectedButton() {
         if (!errorThrown)
             dispatch(refreshPage())
 
-        dispatch(removeFromRemovalList("all"))
+        dispatch(deselectAirport("all"))
         dispatch(updateLoading(0))
     }
 
