@@ -1,0 +1,13 @@
+.form-complete {
+    margin: 3px 0px 4px 20px;
+    display: grid;
+    grid-template-columns: 40% 30% 15% 15%;
+    grid-gap: 6px;
+    align-items: center;
+}
+
+.form-solo {
+    display: grid;
+    align-items: center;
+    margin: 3px 0px 4px 20px;
+}

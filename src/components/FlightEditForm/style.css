@@ -1,0 +1,39 @@
+.fundo-vermelho {
+    background: tomato;
+}
+
+.fundo-azul {
+    background: aqua;
+}
+
+.input-space {
+    margin: 5px 0;
+}
+
+.button-space {
+    margin: 0 5px 5px;
+}
+
+.row-style {
+    display: flex;
+    justify-content: flex-end;
+    background: rgb(240, 239, 239);
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 5px;
+    margin: 12px;
+    padding: 10px;
+}
+
+.borda {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(221, 221, 221) ;
+    padding-bottom: 15px;
+    margin-top: 10px;
+}
+
+.centered-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

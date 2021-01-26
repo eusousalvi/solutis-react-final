@@ -1,0 +1,8 @@
+.rooms-footer {
+  width: 100%;
+  background: #f8f8f8;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  height: 10vh;
+}

@@ -1,0 +1,20 @@
+.button-container {
+    background-color: #f8f8f8;
+    padding: 10px;
+    justify-self: center;
+    border: 1px solid #E3E3E3;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.header-title {
+    font-weight: 600;
+    margin-left: 10px;
+    margin-top: 20px;
+}
+
+@media(max-width: 1440px) {
+    .airports-table-container {
+        max-width: 95vw;
+    }
+}

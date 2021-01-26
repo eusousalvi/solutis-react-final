@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.availabilityForm {
+  padding: 15px;
+}
+
+.availabilityTable {
+  font-family: 'Roboto', sans-serif;
+  color: #222222;
+  font-size: 12px;
+  width: 100%;
+}
+
+.availabilityTable td {
+  min-width: 39px;
+  padding-top: 2px;
+  padding-bottom: 0;
+}
+
+.availabilityCalendar__subtitle {
+  color: #555;
+  font-size: 14px;
+}
+
+.availabilityCalendar__title {
+  color: #333;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  border-bottom: 1px solid #eee;
+  padding: 15px 0;
+}
+
+td.availabilityCalendar__weekend {
+  background-color: #ffbe5c;
+}
+
+td.availabilityCalendar__empty {
+  background-color: #fff;
+}
+
+.availabilityTable tr:first-child {
+  text-align: center;
+  background-color: #ccc;
+  color: #222;
+  font-size: 10px;
+}
+
+.availabilityTable tr:first-child td {
+  padding: 0;
+}
+
+.availabilityTable tr:nth-child(2) {
+  text-align: center;
+  background-color: #ffdf7f;
+}
+
+.availabilityTable tr:not(:first-child) {
+  font-size: 10px;
+  line-height: 10px;
+  color: #555555;
+}
+
+.availabilityTable button {
+  height: 25px;
+  width: 20px;
+  text-align: center;
+  border: none;
+  background-color: #fff;
+  border: 0.5px solid #ccc;
+  border-radius: 3px;
+}
+
+.availabilityCalendar__legend td {
+  margin: 0;
+  padding: 1px;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.3px;
+}
+
+.legend--available,
+.legend--partial,
+.legend--not {
+  width: 15px;
+  height: 16px;
+  margin-right: 5px;
+}
+
+.legend--available {
+  border: 1px solid #a6e8a6;
+  background-color: #bbfdbb;
+}
+
+.legend--partial {
+  border: 1px solid #d8d863;
+  background-color: #efef76;
+}
+
+.legend--not {
+  border: 1px solid #df6666;
+  background-color: #ef7676;
+}
+
+.availabilityMsg {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  height: 50px;
+  background-color: rgba(39, 160, 65, 0.89);
+  opacity: 0;
+  z-index: -1;
+  transition: all ease-in-out 2s;
+  padding: 0 15px;
+}
+
+.availabilityMsg > h5 {
+  padding: 0;
+  margin: 0;
+  padding-left: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.activeAvailabilityMsg {
+  opacity: 1;
+  z-index: 10;
+}
+
+.availabilityCalendar__submit {
+  background-color: #466df1;
+  border-color: #2e5bef;
+  color: #fff;
+  font-size: 14px;
+}
+
+.availabilityCalendar__footer {
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  padding: 10px 0;
+}
